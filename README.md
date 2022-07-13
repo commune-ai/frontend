@@ -82,7 +82,7 @@ print(roots)
                   }
 ```
 ### Visual Example 
-![alt text](https://github.com/LVivona/TreeBuilder/blob/dc33393960b78355657d781890089b1da1b685a9/example.png)
+![alt text](https://github.com/commune-ai/Tree-Bulder/blob/b68e8998ed608adb5bb07d57c1f806925d65ced0/example.png)
 
 ## Converted Data
 
