@@ -1,4 +1,4 @@
-import '../../css/dist/output.css'
+tybtbimport '../../css/dist/output.css'
 
 export let root = {
     value: "A",

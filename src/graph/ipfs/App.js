@@ -1,11 +1,11 @@
 import './App.css'
 
 import { TreeRender, root } from "./tools/build/tree";
-import { types } from './tools/customNode';
-import { x } from './data/dataflow' //--Tester--
+import { types } from './customNode';
+import { x } from '../../data/dataflow' //--Tester--
 import ReactFlow, {Background, ReactFlowProvider, useNodesState, useEdgesState } from 'react-flow-renderer'
 import React, { useState, useEffect } from 'react';
-import CustomLine, { edgeTypes } from './tools/CustomLine';
+import CustomLine, { edgeTypes } from './CustomLine';
 import children_id from './tools/helpers';
 
 function Flow() {
