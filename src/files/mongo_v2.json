@@ -1,0 +1,75 @@
+{
+  "load_binance":
+              {"module": "pipeline.regression.crypto.base.LoadCryptoDataFrame",
+                          "params":
+                                  {"token": "ETHUSDT",
+                                    "date_start": "2019-01-01",
+                                    "refresh": false
+                                  },
+                "write": {"raw_df": "copy(data.store_map.raw_data)"},
+                "inference_step": true,
+                "run": false,
+                "load_outputs": false}
+              ,
+  "process_data":
+              {"module": "pipeline.regression.crypto.base.ProcessData",
+                  "params": {"processed_data_tag": "copy(data.tag.processed_data)",
+                  "gt_keys": "null",
+                  "periods": "copy(data.generated_sample_periods)",
+                  "timestamp_column": "Open Timestamp",
+                  "dag_key": "transformation.complete.regression.data.base.DataTransformManager",
+                  "refresh": false},
+                  "load": {"raw_df": "copy(data.store_map.raw_data)"},
+                  "write":
+                  {"df": "copy(data.store_map.processed_data)",
+                    "processed_data_pipeline_map": "copy(data.store_map.processed_data_pipeline_map)",
+                    "categorical_feature_info": "copy(data.store_map.processed_data_categorical_feature_info)"},
+                   "inference_step": true, "run": false, "load_outputs": false},
+
+  "process_samples": {"module": "pipeline.regression.crypto.base.ProcessSamplesMongoV2",
+    "params": {"processed_data_tag": "copy(data.tag.processed_data)",
+      "processed_samples_tag": "copy(data.tag.processed_samples)",
+      "periods": "copy(data.generated_sample_periods)",
+      "known_future_features": "copy(data.known_future_features)",
+      "skip_step": 32, "refresh": true, "num_sample_writers": 2,
+      "num_sample_generators": 1, "gt_keys": "null",
+      "meta_keys": ["timestamp", "meta"], "dag_key": "transformation.complete.regression.crypto.sample.base.SampleTransformManager"},
+    "load": {"df": "copy(data.store_map.processed_data)"},
+    "write":
+    {"processed_samples_pipeline_map": "copy(data.store_map.processed_samples_pipeline_map)",
+      "processed_samples": "copy(data.store_map.processed_samples)"}, "inference_step": true, "run": false, "load_outputs": false},
+
+  "process_samples_minio_cache": {
+    "module": "pipeline.regression.crypto.base.ProcessSamplesMinioCache",
+    "params": {"generated_samples_tag": "copy(data.tag.generated_samples)",
+      "processed_samples_tag": "copy(data.tag.processed_samples)",
+      "meta_keys": ["timestamp", "meta"], "periods": "copy(data.generated_sample_periods)", "refresh": true},
+    "load": {"processed_samples": "copy(data.store_map.processed_samples)"},
+    "write": {"processed_samples": "copy(data.store_map.processed_samples_minio)"},
+    "inference_step": false, "run": false, "load_outputs": false},
+
+  "final": {"module": "pipeline.regression.crypto..FinalProcess",
+    "params": {"processed_data_tag": "copy(data.tag.processed_data)",
+      "processed_samples_tag": "copy(data.tag.processed_samples)",
+      "split_samples_tag": "copy(data.tag.split_samples)",
+      "refresh": false, "splits": "copy(data.splits)",
+      "gt_keys": "null",
+      "periods": "eval(self.object_dict[\"periods\"])",
+      "multiscale_steps": [2, 4, 8, 16],
+      "generated_periods": "copy(data.generated_sample_periods)",
+      "limit_fraction": 1.0},
+    "write": {"processed_split_pipeline_map": "copy(data.store_map.processed_split_pipeline_map)"},
+    "load": {
+      "processed_samples": "copy(data.store_map.processed_samples_minio)",
+      "processed_samples_collection": "copy(data.store_map.processed_samples)",
+      "processed_samples_pipeline_map": "copy(data.store_map.processed_samples_pipeline_map)",
+      "processed_data_pipeline_map": "copy(data.store_map.processed_data_pipeline_map)",
+      "processed_split_pipeline_map": "copy(data.store_map.processed_split_pipeline_map)",
+      "categorical_feature_info": "copy(data.store_map.processed_data_categorical_feature_info)"},
+      "run": true, "inference_step": true, "load_outputs": false},
+
+  "post_sample": {"module": "pipeline.regression.crypto.base.GaussianSampleFlipNoise",
+    "params": {"scale": 1, "no_noise_keys": ["timestamps", "token_hash", "id"]},
+    "inference_step": false, "run": false, "load_outputs": false}
+
+}

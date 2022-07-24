@@ -1,0 +1,137 @@
+
+/* .process{
+
+    border-radius: 20px;
+    background-color : #dde025;
+    border: 10px solid rgba(27, 214, 198, 0);
+    overflow : hidden;
+    margin: auto;
+} */
+.process{
+    border-radius: 20px;
+    background-color : #00a573;
+    border: 10px solid rgba(27, 214, 198, 0);
+    overflow : hidden;
+    margin: auto ;
+}
+
+.subprocess{
+    border-radius: 20px;
+    text-align: center;
+
+    line-height: 1.0;
+    background-color : #b39409;
+    border: 10px solid rgba(27, 214, 198, 0);
+    overflow : hidden;
+    margin: auto;
+    /* transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out; */
+}
+.subprocess0{
+    border-radius: 20px;
+    text-align: center;
+
+    line-height: 1.0;
+    background-color : #b39409;
+    border: 10px solid rgba(27, 214, 198, 0);
+    overflow : hidden;
+    margin: auto;
+    /* transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out; */
+}
+
+
+.subprocess0 subprocess {
+    background-color : #e7ab06;
+}
+
+.subprocess1 subprocess {
+    background-color : #0483aa;
+}
+
+.subprocess2 subprocess {
+    background-color : #f31515;
+}
+
+.subprocess3 subprocess {
+    background-color : #0aec95;
+}
+
+.subprocess4 subprocess {
+    background-color : #0e0aec;
+}
+
+.subprocess1 subprocess {
+    background-color : #1daa04;
+}
+
+
+.subsubprocess{
+    border-radius: 20px;
+    background-color : #14c248;
+    border: 10px solid rgba(27, 214, 198, 0);
+    overflow : hidden;
+    margin: auto;
+    transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+}
+
+
+
+.process-header{
+    white-space: normal;
+    position: absolute;
+    width :100%;
+    left: 0%;
+    top: 0%;
+    font-size: 40px;
+    color: orange;
+    font-weight: bold;
+    margin:  auto;
+    padding: 1px 0;
+
+    background-color : rgba(7, 2, 14, 0.3);
+    border: 30px solid rgba(27, 214, 198, 0);
+    transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+}
+
+.handle-read{
+    background-color: rgb(8, 219, 89);
+    width : 40px;
+
+    height : 40px;
+    border-radius: 10px;
+
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 0;
+    margin: auto;
+    text-align: center;
+    visibility: visible;  
+}
+
+.handle-write{
+    background-color: rgb(219, 138, 8);
+    border-radius: 10px;
+    width : 100px;
+    height : 50px;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 12px;
+    margin: auto;
+    text-align: center;
+    visibility: visible;  
+}
+
+
+
+

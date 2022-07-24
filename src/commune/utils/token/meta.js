@@ -1,0 +1,173 @@
+exports.tokens = [
+    {
+      "tokenID":"ETHUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/ethereum-eth-logo.png?v=014",
+      "name":"Ethereum",
+      "call":"buy",
+    },
+    // {
+    //   "tokenID":"BTCUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/bittoken-btc-logo.png?v=014",
+    //   "name":"Bittoken",
+    //   "call":"buy",
+    // },
+    // {
+    //   "tokenID":"BNBUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/binance-token-bnb-logo.png?v=014",
+    //   "name":"Binance Coin",
+    //   "call":"buy",
+    // },
+    // {
+    //   "tokenID":"ADAUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/cardano-ada-logo.png?v=014",
+    //   "name":"Cardano",
+    //   "call":"sell",
+    // },
+    // {
+    //   "tokenID":"DOTUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/polkadot-new-dot-logo.png?v=014",
+    //   "name":"Polkadot",
+    //   "call":"hodl",
+    // },
+    {
+      "tokenID":"LINKUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/chainlink-link-logo.png?v=014",
+      "name":"Chainlink",
+      "call":"sell",
+    },
+    {
+      "tokenID":"SHIBUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/shiba-inu-shib-logo.png?v=014",
+      "name":"Shiba Inu",
+      "call":"buy",
+    },
+    // {
+    //   "tokenID":"DOGEUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/dogetoken-doge-logo.png?v=014",
+    //   "name":"Dogetoken",
+    //   "call":"sell",
+    // },
+    // {
+    //   "tokenID":"SOLUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/solana-sol-logo.png?v=014",
+    //   "name":"Solana",
+    //   "call":"hodl",
+    // },
+    // {
+    //   "tokenID":"LTCUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/litetoken-ltc-logo.png?v=014",
+    //   "name":"Litetoken",
+    //   "call":"hodl",
+    // },
+    {
+      "tokenID":"UNIUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/uniswap-uni-logo.png?v=014",
+      "name":"Uniswap",
+      "call":"buy",
+    },
+    // {
+    //   "tokenID":"CAKEUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/pancakeswap-cake-logo.png?v=014",
+    //   "name":"PancakeSwap",
+    //   "call":"buy",
+    // },
+    {
+      "tokenID":"SUSHIUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/sushiswap-sushi-logo.png?v=014",
+      "name":"Sushi",
+      "call":"buy",
+    },
+    {
+      "tokenID":"AAVEUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/aave-aave-logo.png?v=014",
+      "name":"Aave",
+      "call":"buy",
+    },
+    // {
+    //   "tokenID":"SNXUSDT",
+    //   "imageUrl":"https://cryptologos.cc/logos/synthetix-network-token-snx-logo.png?v=014",
+    //   "name":"Synthetix",
+    //   "call":"buy",
+    // },
+    {
+      "tokenID":"MATICUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/polygon-matic-logo.png?v=014",
+      "name":"Polygon",
+      "call":"buy",
+    },
+    
+    {
+      "tokenID":"LRCUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/loopring-lrc-logo.png?v=014",
+      "name":"Loopring",
+      "call":"buy",
+    },    
+    {
+      "tokenID":"MANAUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/decentraland-mana-logo.png?v=014",
+      "name":"Decentraland",
+      "call":"buy",
+    },
+    {
+      "tokenID":"GRTUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/the-graph-grt-logo.png?v=014",
+      "name":"The Graph",
+      "call":"buy",
+    },  
+    {
+      "tokenID":"BALUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/balancer-bal-logo.png?v=014",
+      "name":"Balancer",
+      "call":"buy",
+    },
+    {
+      "tokenID":"AXSUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/axie-infinity-axs-logo.png?v=014",
+      "name":"Axie Infinity Shard",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"UMAUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/uma-uma-logo.png?v=014",
+      "name":"UMA",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"ANKRUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/ankr-ankr-logo.png?v=014",
+      "name":"Ankr",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"GTCUSDT",
+      "imageUrl":"https://user-images.githubusercontent.com/23297747/40148910-112c56d4-5936-11e8-95df-aa9796b33bf3.png",
+      "name":"Gittoken",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"OXTUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/orchid-oxt-logo.png?v=014",
+      "name":"Orchid",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"SKLUSDT",
+      "imageUrl":"https://styles.redditmedia.com/t5_2winaj/styles/communityIcon_ofanflgzwvc51.png",
+      "name":"SKALE Network",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"SANDUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/the-sandbox-sand-logo.png?v=014",
+      "name":"The Sandbox",
+      "call":"buy",
+    }, 
+    {
+      "tokenID":"STORJUSDT",
+      "imageUrl":"https://cryptologos.cc/logos/storj-storj-logo.png?v=014",
+      "name":"Storj",
+      "call":"buy",
+    }, 
+  ]
+
+  

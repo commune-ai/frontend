@@ -1,0 +1,27 @@
+
+.block{
+    border-radius: 20px;
+    text-align: center;
+    line-height: 1.0;
+    color: white;
+    background-color : rgba(88, 12, 209, 0.5);
+    overflow : hidden;
+    margin: auto;
+    backdrop-filter: blur(10px);
+    
+}
+.centerText {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    }
+
+.text{
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transform: rotate(90deg);
+}

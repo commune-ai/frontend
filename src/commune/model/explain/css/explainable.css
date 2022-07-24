@@ -1,0 +1,79 @@
+
+
+
+
+.explainable {
+    position:fixed;
+    width: 50px;
+    height: 10px;
+    border-width:5px;
+    background-color: black;
+}
+
+
+.explainable-node {
+    
+    position : fixed;
+    top : 9%;
+    right: 18%;
+    width : 450px;
+    height : 650px;
+    border-radius: 20px;
+    background-color : #2bbde9;
+    border: 10px solid rgb(86, 76, 173);
+    overflow : hidden;
+    transition: width 600ms ease-out, height 600ms ease-out, backgorund-color 600ms ease;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+}
+
+.collapsed--node{
+    position : fixed;
+    top : 9%;
+    right: 18%;
+    width : 450px;
+    height : 300px;
+    border-radius: 20px;
+    background-color : #3f26cc;
+    border: 10px solid rgb(27, 214, 199);
+    overflow : hidden;
+    transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+}
+
+.color{
+    color: rgb(255, 239, 15);
+}
+
+.bt-explain-contain{
+    overflow:auto;
+    height: 1500vh;
+}
+
+#card-title{
+    text-align: center;
+    color: white;
+}
+
+.card{
+    text-align: center;
+    color: white;
+    width: 100px;
+    height: 50px;
+    border-color: violet;
+    border-style: solid;
+}
+
+.ui.two.cards{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    transition: width 600ms ease-out, height 600ms ease-out;
+    -webkit-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -moz-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+    -o-transition: width 600ms ease-out, height 600ms ease-out, background-color 600ms ease-out;
+}
+
