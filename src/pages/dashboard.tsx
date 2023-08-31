@@ -72,7 +72,7 @@ export default function Dashboard(){
                             </div>
                         </div>
                         <div  className={`text-left bg-zinc-900 rounded-b-lg text-xs shadow-md top-0`}  >
-                        <pre className=" bg-zinc-900 shadow-lg rounded-md "><span className=" text-orange-400">>>></span> c dashboard 
+                        <pre className=" bg-zinc-900 shadow-lg dark:shadow rounded-md "><span className=" text-orange-400">>>></span> c dashboard 
                                             <span className=" text-green-300">
                                             <br/>Running /.../commune/modules/subspace/subspace.py
                                             <br/>You can now view your Streamlit app in your browser.

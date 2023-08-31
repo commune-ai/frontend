@@ -2,9 +2,9 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import WelcomeSection from '@site/src/components/Frontpage/Welcome/index';
+import WelcomeSection from '@site/src/components/frontpage/Welcome/index';
 import {getHeaderClasses} from '@site/src/components/utils';
-import { Section } from '../components/Frontpage/Sections/index';
+import { Section } from '../components/frontpage/Sections/index';
 
 // static data
 const words : string[] = ["developers.", "designers.", "creators.", "everyone.", "<END>"];
@@ -17,7 +17,7 @@ const Sections  = [
     children : <div className=' text-black '>
                     <div className='pt-6 text-right w-full pb-10'>
                      
-                    <h1 className=" text-5xl pt-6 pb-6 text-center">Networking & Wrapping <br/>Over Everything 🌐</h1>
+                    <h1 className=" text-5xl pt-6 pb-6 text-center"><span className=' text-purple-400'>Networking</span> & Wrapping <br/>Over <span className=' text-yellow-400'>Everything</span> 🌐</h1>
                       <div className='flex flex-col space-y-10'>
                       
                           <div className=' flex md:flex-row sm:flex-col sm:space-y-4 text-center items-center justify-center '>
