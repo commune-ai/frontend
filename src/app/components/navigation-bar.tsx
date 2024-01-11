@@ -55,7 +55,7 @@ export default function NavigationBar() {
         <ActiveLink activeClassName={classes.active} className={classes.item} href="/exchanges">💱  Exchanges</ActiveLink>
     </div>
     <div className={classNames(classes.items, classes.itemsRight)}>
-        <Link className={classes.link} href="/docs/next/Introduction">🚀 v0.0.0</Link>
+        <Link className={classes.link} href="/docs/introduction">🚀 v0.0.0</Link>
         <div className={classes.dropdown}>
             <Link className={classes.link} href="#" aria-haspopup="true" aria-expanded="false" role="button" >🔗 Community</Link>
             <ul className={classes.dropdownMenu}>
