@@ -24,10 +24,10 @@ export default function Footer () {
               <div className={classes.title}>📚 Docs</div>
               <ul className={classes.list}>
                 <li className={classes.item}>
-                  <a className={classes.link} href="/docs/next/Introduction">Introduction</a>
+                  <a className={classes.link} href="/docs/introduction">Introduction</a>
                 </li>
                 <li className={classes.item}>
-                  <a className={classes.link} href="/docs/next/installation">Installation</a>
+                  <a className={classes.link} href="/docs/setup-commune">Installation</a>
                 </li>
               </ul>
             </div>
