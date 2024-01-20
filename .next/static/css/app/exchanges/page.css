@@ -1,0 +1,14 @@
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[7].use[3]!./src/app/exchanges/components/exchange-component.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+.exchange-component_table__fv_yh {
+    border-collapse: collapse;
+    display: block;
+    margin-bottom: 1rem;
+    overflow: auto;
+    border-color: rgb(128, 128, 128);
+}
+
+.exchange-component_table__fv_yh td, .exchange-component_table__fv_yh th {
+    border-width: 1px;
+}
