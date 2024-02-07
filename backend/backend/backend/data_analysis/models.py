@@ -2,12 +2,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from backend.users.models import User
-from django_cryptography.fields import encrypt
-from cryptography.fernet import Fernet
 from backend.data_analysis import utils
 from django.contrib.postgres.fields import ArrayField
 from django.db.models import JSONField
 from datetime import datetime
+
 
 class TransactionRecordModel(models.Model):
     transactionId = models.AutoField(primary_key=True)
