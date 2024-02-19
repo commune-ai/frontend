@@ -1,10 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { useConnect, useDisconnect, useAccount, useSignMessage } from "wagmi";
+import { signIn } from "next-auth/react";
+import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 
 import Image from "next/image";
 
 import GitHubLogin from "react-github-login";
 
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton, MetaMaskConnector } from "@rainbow-me/rainbowkit";
 
 import { ApiPromise, WsProvider } from "@polkadot/api";
 
