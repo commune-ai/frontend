@@ -5,12 +5,6 @@ import classes from './home.module.css';
 import BlueSmallGifImage from '../../public/gif/cubes/blue_small.gif'
 
 
-import classNames from "classnames";
-
-import HomepageHeader from "./components/homepage-header";
-import classes from "./home.module.css";
-
-
 function WelcomeSection() {
 	return (
 		<section id="welcome" className="h-full pt-20">
@@ -447,4 +441,3 @@ export default function Home() {
 
 }
 
-}
