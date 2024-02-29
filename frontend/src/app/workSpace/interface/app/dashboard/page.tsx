@@ -6,9 +6,9 @@ import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { EditOutlined, FontSizeOutlined, HomeOutlined } from "@ant-design/icons";
 import { modulesList } from "../../../../../services/modules-service";
-import { SchemasList } from "@/app/modules/components/module-tile/modal";
 import classes from "./modal.module.css";
 import Image from "next/image";
+import { SchemasList } from "@/app/workSpace/components/module-tile/modal";
 
 const ModulePage = () => {
 
