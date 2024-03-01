@@ -26,7 +26,6 @@ const ModulePage = () => {
         return null;
     }
 
-
     const AddressComponent = <>
         <div className={"flex dark:text-white justify-between"}>
             <div className="flex items-center justify-center">

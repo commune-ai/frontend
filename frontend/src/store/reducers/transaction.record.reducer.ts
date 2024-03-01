@@ -1,9 +1,10 @@
-import { SAVE_TRANSACTION_SUCCESS, SAVE_TRANSACTION_FAILED } from "../action/type";
+import { SAVE_TRANSACTION_SUCCESS, SAVE_TRANSACTION_FAILED, SAVE_METAMASK_SUCCESS } from "../action/type";
 
 const initialState = {
     records: {},
     loading: false,
-    error: ''
+    error: '',
+    address: ''
 }
 
 const transactionReducer = (state = initialState, action: any) => {
@@ -20,6 +21,11 @@ const transactionReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 records: payload
+            }
+        case SAVE_METAMASK_SUCCESS:
+            return {
+                ...state,
+                address: payload
             }
         default:
             return state

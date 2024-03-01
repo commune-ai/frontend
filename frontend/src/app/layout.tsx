@@ -37,6 +37,8 @@ import ThemeProvider from "./toggle-theme-provider";
 import Head from "./head";
 
 import './globals.css';
+import { Provider } from 'react-redux';
+import { store } from '@/store/index';
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
@@ -91,14 +93,14 @@ export default function RootLayout({
       <body>
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
-            {/* <Provider store={store}> */}
-            <ThemeProvider>
-              {/* <Banner /> */}
-              <NavigationBar />
-              {children}
-              <Footer />
-            </ThemeProvider>
-            {/* </Provider> */}
+            <Provider store={store}>
+              <ThemeProvider>
+                {/* <Banner /> */}
+                <NavigationBar />
+                {children}
+                <Footer />
+              </ThemeProvider>
+            </Provider>
           </RainbowKitProvider>
         </WagmiConfig>
       </body>

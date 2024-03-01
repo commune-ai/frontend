@@ -1,17 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-
 import Image from "next/image";
-
 import GitHubLogin from "react-github-login";
-
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-
 import { ApiPromise, WsProvider } from "@polkadot/api";
-
 import Modal from "antd/es/modal/Modal";
-
 import MetaMaskImage from "../../../public/svg/metamask.svg";
 import GithubImage from "../../../public/svg/github-mark.svg";
+import { saveMetaMaskAddress } from "@/store/action/transaction.record.action";
+import { useDispatch } from 'react-redux'
 
 const words: string[] = [
   "developers.",
@@ -44,6 +40,9 @@ export default function HomepageHeader() {
   //user login
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isShowSubstrateAuth, setIsShowSubstrateAuth] = useState(false)
+  const [metamaskAddress, setMetamaskAddress] = useState<string | undefined>('')
+
+  const dispatch = useDispatch<any>()
 
   // state of the scroll position and header height
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -239,6 +238,12 @@ export default function HomepageHeader() {
     setIsShowSubstrateAuth(true)
   }
 
+  useEffect(() => {
+    if (isLoggedIn && metamaskAddress) {
+      dispatch(saveMetaMaskAddress(metamaskAddress))
+    }
+  }, [isLoggedIn, metamaskAddress])
+
   return (
     <header ref={headerRef} className={` dark:bg-[#161616] p-[4rem] py-32 text-center overflow-hidden ${getHeaderClasses(scrollPosition, headerHeight)} duration-500`} >
 
@@ -287,7 +292,7 @@ export default function HomepageHeader() {
 
           <div className='flex items-center justify-evenly mt-14 mb-14 flex-col'>
 
-            <div className='flex w-full items-center justify-evenly cursor-pointer'>
+            <div className='flex w-full items-center justify-center cursor-pointer'>
 
               <ConnectButton.Custom>
                 {({
@@ -303,6 +308,7 @@ export default function HomepageHeader() {
                   // can remove all 'authenticationStatus' checks
                   const ready = mounted && authenticationStatus !== 'loading';
                   ready && account && chain && setIsLoggedIn(true);
+                  setMetamaskAddress(account?.address)
                   const connected =
                     ready &&
                     account &&
@@ -324,7 +330,7 @@ export default function HomepageHeader() {
                       {(() => {
                         if (!connected) {
                           return (
-                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[105.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
+                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[140.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
                               <Image src={MetaMaskImage} alt='login with Metamask' width={50} height={50} className='cursor-pointer mb-1' />
                               <button type="button">
                                 Metamask
@@ -390,7 +396,7 @@ export default function HomepageHeader() {
                 }}
               </ConnectButton.Custom>
 
-              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]' style={{ flexDirection: 'column', border: '1px solid gray' }}>
+              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[140.77px] h-[105.77px] ml-8' style={{ flexDirection: 'column', border: '1px solid gray' }}>
                 <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1' />
                 <GitHubLogin clientId='8386c0df1514607054e7'
                   buttonText="Github"
@@ -403,11 +409,11 @@ export default function HomepageHeader() {
 
             </div>
 
-            <div className="flex flex-col justify-center items-center mt-4 hover:bg-gray-300 p-2 rounded-md w-[290px]" style={{ flexDirection: 'column', border: '1px solid gray' }}>
+            <div className="flex flex-col justify-center items-center mt-8 hover:bg-gray-300 p-2 rounded-md w-[320px] h-[170px]" style={{ flexDirection: 'column', border: '1px solid gray' }}>
               {
                 isShowSubstrateAuth ?
                   <>
-                    <button onClick={connectToSubstrate} className="bg-blue-400 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-500 duration-200 text-white hover:text-white font-sans font-semibold justify-center px-2 py-2 hover:border-blue-300 hover:border-2 hover:border-solid cursor-pointer">Connect to Substrate</button>
+                    <button onClick={connectToSubstrate} className="bg-blue-400 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-500 duration-200 text-white hover:text-white font-sans font-semibold justify-center px-2 py-2 cursor-pointer">Connect to Substrate</button>
                     {
                       chainInfo && nodeName &&
                       <div className="flex items-center justify-evenly mt-4">
@@ -418,7 +424,7 @@ export default function HomepageHeader() {
                       <label>Enter Substrate Address:</label>
                       <input type="text" value={address} onChange={({ target: { value } }) => setAddress(value)} className="p-2" />
                     </div>
-                    <button onClick={handleLogin} className="bg-blue-400 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-500 duration-200 text-white hover:text-white font-sans font-semibold justify-center px-2 py-2 hover:border-blue-300 hover:border-2 hover:border-solid cursor-pointer mt-2">Login</button>
+                    <button onClick={handleLogin} className="bg-blue-400 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-500 duration-200 text-white hover:text-white font-sans font-semibold justify-center px-2 py-2 cursor-pointer mt-2">Login</button>
                     {balance !== null && <p>Account Balance: {balance}</p>}
                   </>
                   :
