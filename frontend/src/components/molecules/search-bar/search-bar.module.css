@@ -5,7 +5,6 @@
     border: none;
     font-size: 1.5rem;
     line-height: 3rem;
-    color: aliceblue;
 }
 .searchInput::placeholder {
     color: rgb(117, 117, 117);

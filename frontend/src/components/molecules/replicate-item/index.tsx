@@ -26,13 +26,7 @@ const ReplicateModuleItem = ({ data }: ModuleItemPropsType) => {
                             alt="Image"
                         />
                         :
-                        <Image
-                            className='hidden'
-                            src={''}
-                            layout="fill"
-                            objectFit="cover"
-                            alt="Image"
-                        />
+                        <p></p>
                     }
                 </div>
                 <div className="flex">
