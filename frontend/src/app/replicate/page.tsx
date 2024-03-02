@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import SearchBar from "./components/search-bar";
+import SearchBar from "@/components/molecules/search-bar/search-bar";
 import Modal from "antd/es/modal/Modal";
 import Pagination from "react-paginate";
-import ModuleItem from "./components/module-item";
+import ReplicateModuleItem from "@/components/molecules/replicate-item";
 import axios from "axios";
 
 const PolkadotWallet = dynamic(
@@ -96,7 +96,7 @@ export default function () {
 				{displayedModules && displayedModules.length > 0 ? (
 					<div className='mt-[40px] grid grid-cols-3 gap-[20px] w-[100%]'>
 						{displayedModules.map((item, idx) => (
-							<ModuleItem key={idx} data={item} />
+							<ReplicateModuleItem key={idx} data={item} />
 
 						))}
 					</div>

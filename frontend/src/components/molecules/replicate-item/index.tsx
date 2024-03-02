@@ -7,7 +7,7 @@ type ModuleItemPropsType = {
 }
 
 
-const ModuleItem = ({ data }: ModuleItemPropsType) => {
+const ReplicateModuleItem = ({ data }: ModuleItemPropsType) => {
     const router = useRouter();
 
     const onClickItemHandle = () => {
@@ -60,4 +60,5 @@ const ModuleItem = ({ data }: ModuleItemPropsType) => {
 }
 
 
-export default ModuleItem;
+export default ReplicateModuleItem;
+
