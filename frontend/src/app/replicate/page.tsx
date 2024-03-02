@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import SearchBar from "@/components/molecules/search-bar/search-bar";
+import SearchBar from "./components/search-bar";
 import Modal from "antd/es/modal/Modal";
 import Pagination from "react-paginate";
-import ModuleItem from "@/components/molecules/cog-modules";
+import ModuleItem from "./components/module-item";
+import axios from "axios";
 
 const PolkadotWallet = dynamic(
 	() => import("@/app/api/polkadot/PolkadotWallet"),
@@ -20,12 +21,11 @@ export default function () {
 	const [displayedModules, setDisplayedModules] = useState<any[]>([]);
 	const [filteredModules, setFilteredModules] = useState<any[]>([]);
 	const [isShowPolkadotWalletModalOpen, setIsShowPolkadotWalletModalOpen] = useState(false);
-	const [replicateData, setData] = useState<any[]>([]);
-	
+
 	useEffect(() => {
 		const filtered = searchString
 			? loadedModules.filter((module) =>
-			    module?.description ? module.description.toLowerCase().includes(searchString.toLowerCase()) : false			
+				 module.description?.toLowerCase().includes(searchString.toLowerCase()) ||  module.url.toLowerCase().includes(searchString.toLowerCase())
 			)
 			: loadedModules;
 		setFilteredModules(filtered);
@@ -38,31 +38,18 @@ export default function () {
 	}, [searchString, loadedModules]);
 
 	const pageCount = Math.ceil(filteredModules.length / itemsPerPage);
-    
-	var  count = 0;
-	async function fetchModules(val: string) {
-		const response = await fetch(`/api/replicate?cursor=${val}`, { method: "GET" });
-		const data = await response.json();
-		const next = data.modules.next;
-		if (count < 6) {
-			const dataArray: any[] = data.modules.results;
-			dataArray.forEach(element => {
-				replicateData.push(element)
-			});
-			fetchModules(next);
-		}
 
-		else {
-			setLoadedModules(replicateData);
-			updateDisplayedModules(replicateData, currentPage);
-			return;
-		}
-		count++
-
+	async function getData() {
+		const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
+		setLoadedModules(response.data);
+	 	updateDisplayedModules(response.data, currentPage);
+	
 	}
 
-	useEffect(() => {
-		fetchModules('');
+	useEffect(() => {	
+
+		getData()
+
 	}, []);
 
 
