@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # backend/
 APPS_DIR = BASE_DIR / "backend"
 env = environ.Env()
+environ.Env.read_env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
@@ -46,7 +47,18 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "commune",
+        "USER": "postgres",
+        "PASSWORD": "123",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
+    }
+}
+
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -69,6 +81,8 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
+    "replicate.apps.ReplicateConfig",
+    
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -145,6 +159,10 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
