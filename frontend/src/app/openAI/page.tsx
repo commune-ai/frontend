@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import SearchBar from "@/components/molecules/search-bar/search-bar";
 import Modal from "antd/es/modal/Modal";
-import ReplicateModuleItem from "@/components/molecules/replicate-item";
+import OpenAIModuleItem from "@/components/molecules/openAI-item";
 import axios from "axios";
 import { Pagination } from 'antd';
 
@@ -71,7 +71,7 @@ export default function () {
 				{displayedModules && displayedModules.length > 0 ? (
 					<div className='mt-[40px] grid grid-cols-4 grid-rows-4 gap-[20px] w-[100%]'>
 						{displayedModules.map((item, idx) => (
-							<ReplicateModuleItem key={idx} data={item} />
+							<OpenAIModuleItem key={idx} data={item} />
 
 						))}
 					</div>

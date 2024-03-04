@@ -10,7 +10,7 @@ type ModuleItemPropsType = {
 }
 
 
-const ReplicateModuleItem = ({ data }: ModuleItemPropsType) => {
+const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
     const router = useRouter();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const onClickItemHandle = () => {
@@ -69,5 +69,5 @@ const ReplicateModuleItem = ({ data }: ModuleItemPropsType) => {
 }
 
 
-export default ReplicateModuleItem;
+export default OpenAIModuleItem;
 
