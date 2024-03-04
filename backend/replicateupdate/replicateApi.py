@@ -1,15 +1,16 @@
 import requests
 from django.http import HttpResponse
 from replicate.models import ReplicateData
+from requests.exceptions import ConnectTimeout
+import time
 # Create your views here.
 global count
 count=1
 
 def make_api_requests():
      get_data('https://api.replicate.com/v1/models')
+     get_face_data()
     
-  
-     
 def get_data(str):
     global count
     headers = {   
@@ -18,17 +19,31 @@ def get_data(str):
         "Access-Control-Allow-Headers": "Content-Type",
         "Access-Control-Allow-Origin": '**',
         "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH"}
-    response = requests.get(str, headers=headers)  
+    max_retries = 3
+    retry_delay = 2
+
+    for retry in range(max_retries):
+       try:
+          response = requests.get(str,  headers=headers, timeout=10)
+        # Process the response
+          break  # Break out of the loop if the request is successful
+       except ConnectTimeout:
+        if retry < max_retries - 1:
+            print(f"Connection timed out. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+        else:
+            print("Max retries exceeded. Unable to establish connection.")
     if response.status_code == 200:
         data = response.json()
         next = data.get('next')
         if next is None:
-            get_face_data() 
+            
             return
         else :    
             dataArray = data.get('results')
            
-            for item in dataArray:             
+            for item in dataArray:  
+                  print(item.get('cover_image_url', ''))           
                   ReplicateData.objects.update_or_create(
                         key=count, defaults={ 
                             'image_url':item.get('cover_image_url', ''),
@@ -43,7 +58,20 @@ def get_data(str):
    
 def get_face_data(): 
      global count
-     response = requests.get('https://huggingface.co/api/spaces?full=full&direction=-1&sort=likes&limit=5000&query=asdf')  
+     max_retries = 3
+     retry_delay = 2
+     for retry in range(max_retries):
+       try:
+           response = requests.get('https://huggingface.co/api/spaces?full=full&direction=-1&sort=likes&limit=5000&query=asdf') 
+        # Process the response
+           break  # Break out of the loop if the request is successful
+       except ConnectTimeout:
+        if retry < max_retries - 1:
+            print(f"Connection timed out. Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+        else:
+            print("Max retries exceeded. Unable to establish connection.")
+ 
      if response.status_code == 200:
            dataArray = response.json()
            for item in dataArray: 

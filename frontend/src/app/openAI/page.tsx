@@ -7,6 +7,7 @@ import Modal from "antd/es/modal/Modal";
 import OpenAIModuleItem from "@/components/molecules/openAI-item";
 import axios from "axios";
 import { Pagination } from 'antd';
+import data from './data.json'
 
 const PolkadotWalletButton = dynamic(
 	() => import("@/components/atoms/polkadot-wallet-button"),
@@ -37,9 +38,10 @@ export default function () {
 	}, [searchString, loadedModules]);
 
 	async function getData() {
-		const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
-		setLoadedModules(response.data);
-	 	updateDisplayedModules(response.data, currentPage);
+		// const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
+		
+		setLoadedModules(data);
+	 	updateDisplayedModules(data, currentPage);
 	
 	}
 

@@ -305,7 +305,7 @@ export default function NavigationBar() {
                     <b className="dark:text-white dark:hover:text-[#25c2a0]">commune</b>
                 </Link>
 
-                <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/replicate">
+                <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/openAI">
                     <div className="flex items-center gap-x-[5px]">
                         < RiOpenaiFill className="text-cyan-400 w-[22px] h-[22px]" />
                         OpenAI
