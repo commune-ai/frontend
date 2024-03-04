@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='replicatedata',
-            name='run_count',
+            name='category',
             field=models.CharField(max_length=10, null=True),
         ),
         migrations.AddField(

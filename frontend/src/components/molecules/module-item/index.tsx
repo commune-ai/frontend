@@ -24,11 +24,11 @@ const ModuleItem = ( { id, cardData } : ModuleItemPropsType ) => {
 
 	const onClickItemHandle = () => {
 		setOpenModal(true);
-        console.log(id)
         const prepared = id.toLowerCase().replaceAll('_', '-');
-        setSubdomain(prepared.split('/')[0] + '-' + prepared.split('/')[1] )
+        setSubdomain(prepared.split('/')[0] + '-' + prepared.split('/')[1] );
+       
 	};
-
+    console.log(`https://${subdomain}.hf.space`);
     return (
         <>
             <Modal open={openModal} onCancel={() => setOpenModal(false) } width={840} footer={null} >
