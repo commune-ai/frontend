@@ -7,6 +7,7 @@ import { Modal, Upload } from 'antd';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -29,8 +30,12 @@ const ProfileEditPage: React.FC = () => {
     const [previewTitle, setPreviewTitle] = useState('');
 
     const address = useSelector(({ transactionRecord: { address } }) => address)
+    const router = useRouter()
+    const currentLocation = usePathname()
 
-    console.log('-------------This is the address------', address)
+    const parts: string[] = currentLocation.split('/');
+    // Get the last non-empty part
+    const selectedItem: string = parts.filter(part => part !== '').pop() || '';
 
     const handleCancel = () => setPreviewOpen(false);
 
@@ -55,6 +60,7 @@ const ProfileEditPage: React.FC = () => {
     );
 
     const Items = [
+        'Profile',
         'Account',
         'Authentication',
         'Organizations',
@@ -88,6 +94,10 @@ const ProfileEditPage: React.FC = () => {
             });
     }
 
+    const handleRouters = (item: string) => {
+        router.push(`/settings/${item.toLowerCase()}`)
+    }
+
     return (
         <div className='flex h-[70vh]'>
             <div className='w-[40%]  dark:bg-[#212324] dark:text-white flex flex-col items-center justify-start'>
@@ -103,14 +113,12 @@ const ProfileEditPage: React.FC = () => {
 
                     </div>
 
-                    <div style={{ backgroundImage: 'linear-gradient(to right,rgb(190 191 195), rgb(101 101 101))' }} className="p-2 w-full mt-4 cursor-pointer hover:text-black">
-                        <span style={{ fontWeight: '500' }}>Profile</span>
-                    </div>
-
                     {
                         Items.map((item, index) => {
                             return <div key={index}>
-                                <div className="p-2 w-full cursor-pointer hover:bg-slate-400 hover:text-black">
+                                <div className="p-2 w-full cursor-pointer hover:bg-slate-400 hover:text-black" style={{
+                                    backgroundImage: item.toLowerCase() === selectedItem ? 'linear-gradient(to right,rgb(190 191 195), rgb(101 101 101))' : 'none'
+                                }} onClick={() => handleRouters(item)}>
                                     <span >{item}</span>
                                 </div>
                             </div>
@@ -127,10 +135,10 @@ const ProfileEditPage: React.FC = () => {
                         Profile Settings
                     </span>
                     <label className="mt-[5rem]">Full name</label>
-                    <input value={fullName} onChange={({ target: { value } }) => setFullName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-4 w-full rounded-md" />
+                    <input value={fullName} onChange={({ target: { value } }) => setFullName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
 
                     <label className="mt-[4rem]">Username</label>
-                    <input value={username} onChange={({ target: { value } }) => setUserName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-4 w-full rounded-md" />
+                    <input value={username} onChange={({ target: { value } }) => setUserName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
 
                     <label className="mt-[4rem]">Avatar <span className="dark:text-gray-500">(Optional)</span></label>
                     <Upload

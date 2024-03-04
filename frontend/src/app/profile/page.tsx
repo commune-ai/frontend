@@ -3,10 +3,13 @@ import React from 'react';
 import LogoImage from '../../../public/gif/logo/CubesShufflingGIF.gif'
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 const ProfilePage = () => {
 
     const router = useRouter()
+
+    const address = useSelector(({ transactionRecord: { address } }) => address)
 
     const handleUserProfile = () => {
         router.push('/settings/profile');
@@ -17,9 +20,9 @@ const ProfilePage = () => {
             <div className='w-[40%] bg-gray-400 dark:bg-[#212324] dark:text-white flex flex-col items-center justify-start'>
                 <Image src={LogoImage} alt="image" width={400} height={400}
                     className="cursor-pointer mt-5" />
-                <h1 className='mt-4'>
-                    Alan Guerrero
-                </h1>
+                <h3 className='mt-4'>
+                    {address}
+                </h3>
                 <div className='flex mt-4'>
                     <button className='gap-2 border-[rgb(229 231 235)] inline-flex cursor-pointer items-center justify-center rounded-[0.5rem] border-[1px] p-2 hover:scale-105' onClick={handleUserProfile}>
                         Edit profile

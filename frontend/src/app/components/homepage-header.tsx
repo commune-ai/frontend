@@ -8,6 +8,7 @@ import MetaMaskImage from "../../../public/svg/metamask.svg";
 import GithubImage from "../../../public/svg/github-mark.svg";
 import { saveMetaMaskAddress } from "@/store/action/transaction.record.action";
 import { useDispatch } from 'react-redux'
+import { LOGIN_FAILED, LOGIN_SUCCESS } from "@/store/action/type";
 
 const words: string[] = [
   "developers.",
@@ -202,7 +203,6 @@ export default function HomepageHeader() {
     try {
       const accountInfo = await api?.query.system.account(address);
 
-      console.log('------------------where is the account Info---------', accountInfo)
       setIsLoggedIn(true)
 
       // if (accountInfo?.isSome) {
@@ -219,6 +219,14 @@ export default function HomepageHeader() {
       console.error('Error getting account balance:', error);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch({ type: LOGIN_SUCCESS })
+    } else {
+      dispatch({ type: LOGIN_FAILED })
+    }
+  }, [isLoggedIn])
 
   const handleLogin = async () => {
     // Perform login logic here
@@ -315,7 +323,6 @@ export default function HomepageHeader() {
                     chain &&
                     (!authenticationStatus ||
                       authenticationStatus === 'authenticated');
-
                   return (
                     <div
                       {...(!ready && {

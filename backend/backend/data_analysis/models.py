@@ -1,12 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from backend.users.models import User
-from backend.data_analysis import utils
-from django.contrib.postgres.fields import ArrayField
-from django.db.models import JSONField
-from datetime import datetime
-
 class TransactionRecordModel(models.Model):
     transactionId = models.AutoField(primary_key=True)
     payType = models.CharField(max_length=255)
@@ -20,3 +14,11 @@ class TransactionRecordModel(models.Model):
 
     def __str__(self):
         return str(self.transactionId)
+
+
+class LoginUserWalletAddress(models.Model):
+    walletId = models.AutoField(primary_key=True)
+    walletAddress = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.walletId)

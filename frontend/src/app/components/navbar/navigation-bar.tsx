@@ -20,8 +20,8 @@ import { parseEther } from 'viem'
 import axios from "axios";
 import * as  erc20ContractABI from '../../../services/token_abi.json';
 import { saveTransaction } from "@/store/action/transaction.record.action";
-import LogoImage from '../../../../public/img/frontpage/stripe.png'
 import ProfileDropDownComponent from "./profile.dropdown";
+import { useSelector } from "react-redux";
 
 const items: MenuProps['items'] = [
     {
@@ -84,9 +84,9 @@ export default function NavigationBar() {
     const [selectedChain, setSelectedChain] = React.useState('')
     const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = React.useState(false)
 
-    //user profile
-    const [isShowUserProfileAvatar, setIsShowUserProfileAvatar] = React.useState(false)
+    const loginStatus = useSelector(({ transactionRecord: { loginStatus } }) => loginStatus)
 
+    //user profile
     const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
     const { abi: erc20ABI } = erc20ContractABI
 
@@ -419,9 +419,12 @@ export default function NavigationBar() {
 
                 <ActiveLink activeClassName={classes.activeDocs} className={classNames(classes.item, classes.docs)} href="/docs/introduction">📚 Docs</ActiveLink>
 
-                <div className="ml-2 mr-2">
-                    <ProfileDropDownComponent />
-                </div>
+                {
+                    loginStatus &&
+                    <div className="ml-2 mr-2">
+                        <ProfileDropDownComponent />
+                    </div>
+                }
 
                 <div className={classes.themeTogglerWrapper}>
                     <ThemeToggler />
