@@ -22,9 +22,11 @@ import * as  erc20ContractABI from '../../../services/token_abi.json';
 import { saveTransaction } from "@/store/action/transaction.record.action";
 import LogoImage from '../../../../public/img/frontpage/stripe.png'
 import ProfileDropDownComponent from "./profile.dropdown";
+import { TbBrandRedux } from "react-icons/tb";
 import TwitterIcon from "@/components/atoms/twitter-icon";
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
+import { RiOpenaiFill } from "react-icons/ri";
 
 const items: MenuProps['items'] = [
     {
@@ -302,7 +304,13 @@ export default function NavigationBar() {
                     </div>
                     <b className="dark:text-white dark:hover:text-[#25c2a0]">commune</b>
                 </Link>
-                <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/modules">🚀 Modules</ActiveLink>
+
+                <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/openAI">
+                    <div className="flex items-center gap-x-[5px]">
+                        < RiOpenaiFill className="text-cyan-400 w-[22px] h-[22px]" />
+                        OpenAI
+                    </div>
+                </ActiveLink>
                 <ActiveLink activeClassName={classes.active} className={classes.item} href="/telemetry"><Image src={'http://telemetry.communeai.net/favicon.svg'} alt="image" width={20} height={20}></Image> &nbsp;Telemetry</ActiveLink>
                 <ActiveLink activeClassName={classes.active} className={classes.item} href="https://comchat.io/">🥂 ComChat</ActiveLink>
                 <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/workSpace">🚀 Workspace</ActiveLink>

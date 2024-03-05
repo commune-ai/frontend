@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import SearchBar from "@/components/molecules/search-bar/search-bar";
-import { Pagination } from 'antd';
 import Modal from "antd/es/modal/Modal";
-import ModuleItem from "@/components/molecules/module-item";
+import OpenAIModuleItem from "@/components/molecules/openAI-item";
 import axios from "axios";
+import { Pagination } from 'antd';
+import data from './data.json'
 
 const PolkadotWalletButton = dynamic(
 	() => import("@/components/atoms/polkadot-wallet-button"),
@@ -16,7 +17,7 @@ const PolkadotWalletButton = dynamic(
 export default function () {
 	const [searchString, setSearchString] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 16;
+	const itemsPerPage = 9;
 	const [loadedModules, setLoadedModules] = useState<any[]>([]);
 	const [displayedModules, setDisplayedModules] = useState<any[]>([]);
 	const [filteredModules, setFilteredModules] = useState<any[]>([]);
@@ -24,7 +25,7 @@ export default function () {
 	useEffect(() => {
 		const filtered = searchString
 			? loadedModules.filter((module) =>
-				module.id.toLowerCase().includes(searchString.toLowerCase())
+				 module.description?.toLowerCase().includes(searchString.toLowerCase()) ||  module.url.toLowerCase().includes(searchString.toLowerCase())
 			)
 			: loadedModules;
 		setFilteredModules(filtered);
@@ -36,14 +37,18 @@ export default function () {
 		}
 	}, [searchString, loadedModules]);
 
-	useEffect(() => {
-		async function fetchModules() {
-			const response = await axios.get('https://huggingface.co/api/spaces?full=full&direction=-1&sort=likes&limit=5000')
-			setLoadedModules(response.data);
-			updateDisplayedModules(response.data, currentPage);
-		}
+	async function getData() {
+		// const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
+		
+		setLoadedModules(data);
+	 	updateDisplayedModules(data, currentPage);
+	
+	}
 
-		fetchModules();
+	useEffect(() => {	
+
+		getData()
+
 	}, []);
 
 	const handlePageChange = (page: any) => {
@@ -57,23 +62,23 @@ export default function () {
 		setDisplayedModules(modules.slice(startIndex, endIndex));
 	};
 
-
 	return (
 		<>
-			<main className="mt-[30px] flex flex-col items-center justify-center my-auto mx-auto xl:w-[1400px] px-[20px] ">
-				<PolkadotWalletButton/>
+			<main className="mt-[30px] mb-[10px] flex flex-col items-center justify-center my-auto mx-auto xl:w-[1400px] px-[20px] ">
+			   <PolkadotWalletButton/>
 				<SearchBar
 					setSearchString={setSearchString}
 					searchString={searchString}
 				/>
 				{displayedModules && displayedModules.length > 0 ? (
-					<ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
+					<div className='mt-[40px] grid grid-cols-3 grid-rows-3 gap-[20px] w-[100%]'>
 						{displayedModules.map((item, idx) => (
-							<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
+							<OpenAIModuleItem key={idx} data={item} />
+
 						))}
-					</ul>
+					</div>
 				) : (
-					<span style={{height: "1000px"}}>Loading modules...</span>
+					<span style={{ height: "800px" }}>Loading modules...</span>
 				)}
 			</main>
 			<Pagination current={currentPage} total={filteredModules.length} defaultPageSize={16} showSizeChanger={false} onChange={handlePageChange} className="dark:text-white mx-auto" />;
