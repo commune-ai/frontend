@@ -5,6 +5,7 @@ import { useState } from "react";
 
 type ModuleItemPropsType = {
     id: string;
+    subDomain: string;
     cardData: {
         title: string;
         emoji: string;
@@ -17,22 +18,18 @@ type ModuleItemPropsType = {
 }
 
 
-const ModuleItem = ( { id, cardData } : ModuleItemPropsType ) => {
+const ModuleItem = ( { id, subDomain, cardData } : ModuleItemPropsType ) => {
 	const router = useRouter();
     const [openModal, setOpenModal] = useState<boolean>(false);
-    const [subdomain, setSubdomain] = useState<string>('');
 
 	const onClickItemHandle = () => {
 		setOpenModal(true);
-        console.log(id)
-        const prepared = id.toLowerCase().replaceAll('_', '-');
-        setSubdomain(prepared.split('/')[0] + '-' + prepared.split('/')[1] )
 	};
 
     return (
         <>
-            <Modal open={openModal} onCancel={() => setOpenModal(false) } width={840} footer={null} >
-                <iframe className="w-[800px] h-[480px] p-[20px]" src={`https://${subdomain}.hf.space`} ></iframe>
+            <Modal open={openModal} onCancel={() => setOpenModal(false) } width={"100%"} footer={null} >
+                <iframe className="w-full h-[100vh] p-[10px] md:p-[20px]" src={`https://${subDomain}.hf.space`} ></iframe>
             </Modal>
             <Card className="p-[20px] cursor-pointer">
                 <div onClick={() => onClickItemHandle()}>

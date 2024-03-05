@@ -172,7 +172,6 @@ a {
 }
 
 
-
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -192,4 +191,8 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #1d1c1c90;
+}
+
+.ant-modal-root .ant-modal-wrap .ant-modal {
+  top: 0px;
 }

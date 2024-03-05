@@ -69,7 +69,7 @@ export default function () {
 				{displayedModules && displayedModules.length > 0 ? (
 					<ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
 						{displayedModules.map((item, idx) => (
-							<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
+							<ModuleItem key={idx} id={item.id} subDomain={item.subdomain} cardData={item.cardData} />
 						))}
 					</ul>
 				) : (
