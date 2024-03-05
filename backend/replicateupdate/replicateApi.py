@@ -51,7 +51,9 @@ def get_data(str):
                             'name':item.get('name', ''),
                             'description':item.get('description', ''),
                             'category':'replicate',
-                            'url':item.get('url', '')}     
+                            'url':item.get('url', ''),
+                            'likes':item.get('run_count', ''),
+                            }     
                     )
                   count=count+1         
             get_data(next)  
@@ -79,6 +81,8 @@ def get_face_data():
                   if isinstance(cardData, dict):  # Check if cardData is a dictionary
                       image_url = cardData.get('emoji', '')
                       name = cardData.get('title', '')
+                      colorfrom=cardData.get('colorFrom', '')
+                      colorto=cardData.get('colorTo', '')
                   else:
                       image_url = ''
                       name = ''          
@@ -89,7 +93,11 @@ def get_face_data():
                             'name': name,
                             'description': item.get('id', ''),
                             'category': 'face-hug',
-                            'url': item.get('subdomain', '')}     
+                            'url': item.get('subdomain', ''),
+                            'likes':item.get('likes', ''),
+                            'colorfrom':colorfrom,
+                            'colorto':colorto,
+                            }     
                     )
                   count=count+1 
      count=1 

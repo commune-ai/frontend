@@ -10,5 +10,9 @@ class ReplicateData(models.Model):
     category = models.CharField(max_length=30,null=True,blank=True)
     url = models.CharField(max_length=400,null=True,blank=True)
     key = models.IntegerField(null=False,default=1)
+    colorfrom = models.CharField(max_length=100,null=True,blank=True)
+    colorto = models.CharField(max_length=100,null=True,blank=True)
+    likes = models.CharField(max_length=100,null=True,blank=True)
+
     
     

@@ -17,7 +17,7 @@ const PolkadotWalletButton = dynamic(
 export default function () {
 	const [searchString, setSearchString] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 16;
+	const itemsPerPage = 9;
 	const [loadedModules, setLoadedModules] = useState<any[]>([]);
 	const [displayedModules, setDisplayedModules] = useState<any[]>([]);
 	const [filteredModules, setFilteredModules] = useState<any[]>([]);
@@ -71,14 +71,14 @@ export default function () {
 					searchString={searchString}
 				/>
 				{displayedModules && displayedModules.length > 0 ? (
-					<div className='mt-[40px] grid grid-cols-4 grid-rows-4 gap-[20px] w-[100%]'>
+					<div className='mt-[40px] grid grid-cols-3 grid-rows-3 gap-[20px] w-[100%]'>
 						{displayedModules.map((item, idx) => (
 							<OpenAIModuleItem key={idx} data={item} />
 
 						))}
 					</div>
 				) : (
-					<span style={{ height: "1000px" }}>Loading modules...</span>
+					<span style={{ height: "800px" }}>Loading modules...</span>
 				)}
 			</main>
 			<Pagination current={currentPage} total={filteredModules.length} defaultPageSize={16} showSizeChanger={false} onChange={handlePageChange} className="dark:text-white mx-auto" />;
