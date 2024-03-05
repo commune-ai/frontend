@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import SearchBar from "@/components/molecules/search-bar/search-bar";
 import { Pagination } from 'antd';
-import Modal from "antd/es/modal/Modal";
 import ModuleItem from "@/components/molecules/module-item";
 import axios from "axios";
 
@@ -69,7 +68,7 @@ export default function () {
 				{displayedModules && displayedModules.length > 0 ? (
 					<ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
 						{displayedModules.map((item, idx) => (
-							<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
+							<ModuleItem key={idx} id={item.id} subDomain={item.subdomain} cardData={item.cardData} />
 						))}
 					</ul>
 				) : (
