@@ -1,5 +1,6 @@
 "use client";
 import { useContext, createContext, useState, useCallback } from "react";
+import { useSelector } from "react-redux";
 
 type ThemeProviderProps = {
 	children: React.ReactNode | React.ReactNode[];
@@ -11,6 +12,7 @@ const ThemeContext = createContext<string>("dark");
 export { ToggleThemeContext, ThemeContext };
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
+
 	const [theme, setTheme] = useState("dark");
 
 	const toggleTheme = useCallback(

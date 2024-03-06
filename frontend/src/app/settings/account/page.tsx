@@ -57,7 +57,7 @@ const AccountPage: React.FC = () => {
     }
 
     const handleRouters = (item: string) => {
-        router.push(`/settings/${item.toLowerCase()}`)
+        router.push(`/settings/${item.replace(/\s/g, '').toLowerCase()}`)
     }
 
     const handleSaveNewWalletAddress = () => {

@@ -1,11 +1,12 @@
-import { SAVE_TRANSACTION_SUCCESS, SAVE_TRANSACTION_FAILED, SAVE_METAMASK_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILED } from "../action/type";
+import { SAVE_TRANSACTION_SUCCESS, SAVE_TRANSACTION_FAILED, SAVE_METAMASK_SUCCESS, LOGIN_SUCCESS, LOGIN_FAILED, DARKTHEME_PROVIDER, LIGHTTHEME_PROVIDER } from "../action/type";
 
 const initialState = {
     records: {},
     loading: false,
     error: '',
     address: '',
-    loginStatus: false
+    loginStatus: false,
+    currenttheme: ''
 }
 
 const transactionReducer = (state = initialState, action: any) => {
@@ -37,6 +38,16 @@ const transactionReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 loginStatus: false
+            }
+        case DARKTHEME_PROVIDER:
+            return {
+                ...state,
+                currenttheme: 'dark'
+            }
+        case LIGHTTHEME_PROVIDER:
+            return {
+                ...state,
+                currenttheme: 'light'
             }
         default:
             return state
