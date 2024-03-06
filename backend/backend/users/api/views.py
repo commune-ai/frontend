@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.shortcuts import get_object_or_404
 
 from .serializers import UserSerializer, LoginSerializer
 
@@ -268,27 +269,31 @@ class loginWithGoogle(APIView):
 
 
 class UpdateUserProfile(APIView):
-    parser_classes = (AllowAny,)
+    permission_classes = (AllowAny,)
     authentication_classes = ()
 
     def post(self, request):
+        user_id = request.user.id  # Assuming the user is authenticated
+
+        # Fetch the user instance
+        user = get_object_or_404(User, id=user_id)
+
         # Assuming you have the required fields in your user model
         full_name = request.data.get("full_name")
         username = request.data.get("username")
         avatar = request.data.get("avatar")
 
-        # Assuming you are using the default User model
-
+        # Update user fields if provided
         if full_name:
-            User.full_name = full_name
+            user.full_name = full_name
         if username:
-            User.username = username
+            user.username = username
 
         if avatar:
             # Handle avatar upload or save the file path to the user's profile
             # You may want to use a serializer to handle file upload and save logic
-            User.data_url = avatar
+            user.avatar = avatar
             # Save the user instance
-            User.save()
+            user.save()
 
         return Response({"message": "Profile updated successfully"})
