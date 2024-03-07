@@ -18,7 +18,7 @@ urlpatterns = [
     path("users/", include("backend.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
 
-    # path("replicate/", include ("replicate.urls")),
+   
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
@@ -29,6 +29,7 @@ if settings.DEBUG:
 urlpatterns += [
     # API base url
     path("api/", include("config.api_router")),
+    path("replicate/", include ("replicate.urls")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),

@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
 import Modal from "antd/es/modal/Modal";
@@ -5,6 +6,8 @@ import { useState } from "react";
 import Card from '@/components/atoms/card';
 import { GiMeshBall } from "react-icons/gi";
 import { FaRegHeart } from "react-icons/fa";
+import ItemDetail from './detail';
+import axios from 'axios';
 
 type ModuleItemPropsType = {
     data: any;
@@ -14,9 +17,24 @@ type ModuleItemPropsType = {
 const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
     const router = useRouter();
     const [openModal, setOpenModal] = useState<boolean>(false);
-    const onClickItemHandle = () => {
-        data.category != "replicate" ? setOpenModal(true) : window.open(data.url, "_blank");
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/replicate/data/', {
+                params: {
+                    owner: data.owner,
+                    name: data.name,
+                },
+            });
+            console.log(response,'---response---------')
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const onClickItemHandle = () => {
+        // setOpenModal(true);
+        fetchData();
         // window.open(data.url, "_blank");
     };
 
@@ -24,7 +42,10 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
 
         <>
             <Modal open={openModal} onCancel={() => setOpenModal(false)} width={840} footer={null} >
-                <iframe className="w-[800px] h-[480px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe>
+                {
+                    data.category != "replicate" ? <iframe className="w-[800px] h-[480px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe> :
+                        <ItemDetail model_owner={data.owner} model_name={data.name} />
+                }
             </Modal>
             {
                 data.category == "replicate" ?
@@ -54,7 +75,6 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
                                 <FaRegHeart className=" text-red-400 w-[20px] h-[20px]" />
                                 <span className=' text-red-400 '>{data.likes}</span>
                             </div>
-
                         </div>
                     </Card> :
                     <Card className={`p-[20px] cursor-pointer h-[250px] hover:brightness-110`} colorfrom={data.colorfrom} colorto={data.colorto}>

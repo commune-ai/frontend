@@ -4,5 +4,5 @@ from datetime import datetime
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(replicateApi.make_api_requests, 'interval', minutes=60, start_date=datetime.now())
+    scheduler.add_job(replicateApi.make_api_requests, 'interval', minutes=60) 
     scheduler.start()
