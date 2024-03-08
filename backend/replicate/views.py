@@ -17,21 +17,70 @@ def greet(name, intensity):
 def build_interface(data):
     inputs =[]
     schema =data.get("latest_version", {}).get("openapi_schema", {}).get("components", {}).get("schemas", {})
-    for property_name, property_info in schema.get("Input", {}).get("properties", {}).items():
+    ordered_properties = sorted(schema.get("Input", {}).get("properties", {}).items(), key=lambda x: x[1].get("x-order", 0))
+    for property_name, property_info in ordered_properties :
         print(property_name, property_info)
         if "x-order" in property_info:
             order = int(property_info.get('x-order',''))
-            print(order)
             if property_info.get("type", {}) == "integer":
-               inputs.insert(order, gr.Number(label=property_name, info=property_info.get('description', '')))
-              
+               value= data.get('default_example', '').get('input','').get(property_name,'')
+               if "minimum" and "maximum" in property_info:
+                    inputs.insert(order, gr.Slider(label=property_name, info=property_info.get('description',''), value=property_info.get('default', value), minimum=property_info.get('minimum', ''), maximum=property_info.get('maximum', ''), step=1))
+               else:
+                    inputs.insert(order, gr.Number(label=property_name, info=property_info.get('description',''), value=property_info.get('default', value)))
+                  
             elif property_info.get("type", {}) == "string":
-                inputs.insert(order, gr.Textbox(label=property_info.get('title', ''), info=property_info.get('description', '')))
+                value= data.get('default_example', '').get('input','').get(property_name,'')
+                if  property_info.get('format','') == 'uri':
+                    if 'image' in property_info.get('title', '').lower():
+                        if value :
+                             inputs.insert(order, gr.Image(label=property_info.get('title', ''), value=property_info.get('default', value)))
+                        else :
+                             inputs.insert(order, gr.Image(label=property_info.get('title', '')))
+                    # elif property_info.get('title','') == 'Image Path':
+                    #     inputs.insert(order, gr.Image(label=property_info.get('title', ''), value=property_info.get('default', value)))
+                    else:
+                        inputs.insert(order, gr.File(label=property_info.get('title', '')))
+                else:
+                    inputs.insert(order, gr.Textbox(label=property_info.get('title', ''), info=property_info.get('description', ''), value=property_info.get('default', value)))
+
+            elif property_info.get("type", {}) == "number":
+                value= data.get('default_example', '').get('input','').get(property_name,'')
+                if "minimum" and "maximum" in property_info:
+                    inputs.insert(order, gr.Slider(label=property_info.get('title', ''), info=property_info.get('description', ''), value=property_info.get('default', value), minimum=property_info.get('minimum', ''), maximum=property_info.get('maximum', '')))
+                else:
+                    inputs.insert(order, gr.Number(label=property_info.get('title', ''), info=property_info.get('description', ''), value=property_info.get('default', value)))
+            elif property_info.get("type", {}) == "boolean":
+                value= data.get('default_example', '').get('input','').get(property_name,'')
+                inputs.insert(order, gr.Checkbox(label=property_info.get('title', ''), info=property_info.get('description', ''), value=value))
+
             else:
+                value= data.get('default_example', '').get('input','').get(property_name,'')
                 options=schema.get(property_name,'').get('enum',[])
-                inputs.insert(order, gr.Dropdown(label=property_info.get('title', ''), choices=options, value=property_info.get("default", '')))
+                inputs.insert(order, gr.Dropdown(label=property_info.get('title', ''),  info=property_info.get('description', ''),choices=options, value=property_info.get("default", value)))
+
+    outputs = []
+    chain =''
+    if schema.get("Output",{}).get("type",'') == "array":
+        for item in data.get("default_example",'').get("output",[]):
+            if schema.get("Output",{}).get("items", '').get("type",'') == "string":
+                if  schema.get("Output",{}).get("items", '').get("format",'') == "uri":
+                    outputs.append(gr.Image(value=item))
+                else:
+                    if schema.get("Output",{}).get('x-cog-array-display','') == "concatenate":
+                        chain = chain + item
+                        outputs=gr.Textbox(value=chain)
+                    else:
+                        outputs.append(gr.Textbox(value=item))
+    else:
+          if schema.get("Output",{}).get("type",'') == "string":
+                if  schema.get("Output",{}).get("format",'') == "uri":
+                    outputs.append(gr.Image(value=data.get("default_example",'').get("output",'')))
+                else:
+                    outputs.append(gr.Textbox(value=data.get("default_example",'').get("output",'')))
+
     title=data.get('owner','')+'/'+data.get('name','')
-    interface = gr.Interface(greet,inputs,outputs=["text"],title=title, description=data.get('description',''))  # Outputs can be added if needed
+    interface = gr.Interface(greet,inputs,outputs,title=title, description=data.get('description',''))  # Outputs can be added if needed
     return interface
 
 def get_data(request):
