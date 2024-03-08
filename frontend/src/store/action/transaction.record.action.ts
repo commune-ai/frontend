@@ -43,6 +43,8 @@ export const saveMetaMaskAddress = (address: string) => async (dispatch: any) =>
 
     dispatch({ type: LOADING })
 
+    dispatch({ type: SAVE_METAMASK_SUCCESS, payload: address })
+
     try { // const token = window.localStorage.getItem('token');
 
         const res = await fetch(`${API_URL}/api/data-analysis/saveMetamask/`, {

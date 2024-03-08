@@ -13,7 +13,6 @@ const AuthenticationPage: React.FC = () => {
     const currentLocation = usePathname()
 
     const [tokenName, setTokenName] = useState('')
-
     const [isShowTokenGenModalOpen, setIsShowTokenGenModalOpen] = useState(false)
 
     const parts: string[] = currentLocation.split('/');

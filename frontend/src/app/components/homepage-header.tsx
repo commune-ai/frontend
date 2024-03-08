@@ -43,6 +43,8 @@ export default function HomepageHeader() {
   const [isShowSubstrateAuth, setIsShowSubstrateAuth] = useState(false)
   const [metamaskAddress, setMetamaskAddress] = useState<string | undefined>('')
 
+  console.log('----------------this is the wallet address when we login------', metamaskAddress)
+
   const dispatch = useDispatch<any>()
 
   // state of the scroll position and header height
@@ -337,7 +339,7 @@ export default function HomepageHeader() {
                       {(() => {
                         if (!connected) {
                           return (
-                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[140.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
+                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[180.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
                               <Image src={MetaMaskImage} alt='login with Metamask' width={50} height={50} className='cursor-pointer mb-1' />
                               <button type="button">
                                 Metamask
@@ -403,7 +405,7 @@ export default function HomepageHeader() {
                 }}
               </ConnectButton.Custom>
 
-              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[140.77px] h-[105.77px] ml-8' style={{ flexDirection: 'column', border: '1px solid gray' }}>
+              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[180.77px] h-[105.77px] ml-8' style={{ flexDirection: 'column', border: '1px solid gray' }}>
                 <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1' />
                 <GitHubLogin clientId='8386c0df1514607054e7'
                   buttonText="Github"
@@ -416,7 +418,7 @@ export default function HomepageHeader() {
 
             </div>
 
-            <div className="flex flex-col justify-center items-center mt-8 hover:bg-gray-300 p-2 rounded-md w-[320px] h-[170px]" style={{ flexDirection: 'column', border: '1px solid gray' }}>
+            <div className="flex flex-col justify-center items-center mt-8 hover:bg-gray-300 p-2 rounded-md w-[400px] h-[230px]" style={{ flexDirection: 'column', border: '1px solid gray' }}>
               {
                 isShowSubstrateAuth ?
                   <>
