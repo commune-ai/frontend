@@ -280,7 +280,7 @@ export default function HomepageHeader() {
           </div>
 
           <div className='hidden sm:block w-full lg:w-1/2 h-full lg:-mr-44 '>
-            <img src="gif/logo/commune.gif" alt="Commune Logo" className='' />
+            <img src="https://raw.githubusercontent.com/luxejs/comhub-app/main/public/images/comai-webp.webp" alt="Commune Logo" className='' />
           </div>
 
         </div>
