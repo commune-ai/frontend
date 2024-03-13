@@ -91,14 +91,14 @@ export default function RootLayout({
       <body>
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
-            {/* <Provider store={store}> */}
-            <ThemeProvider>
-              {/* <Banner /> */}
-              <NavigationBar />
-              {children}
-              <Footer />
-            </ThemeProvider>
-            {/* </Provider> */}
+          <Provider store={store}>
+              <ThemeProvider>
+                {/* <Banner /> */}
+                <NavigationBar />
+                {children}
+                <Footer />
+              </ThemeProvider>
+            </Provider>
           </RainbowKitProvider>
         </WagmiConfig>
       </body>
