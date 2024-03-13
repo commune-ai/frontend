@@ -1,4 +1,3 @@
-"use client"
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import GitHubLogin from "react-github-login";
@@ -9,6 +8,9 @@ import MetaMaskImage from "../../../public/svg/metamask.svg";
 import GithubImage from "../../../public/svg/github-mark.svg";
 import PolkadotImage from "../../../public/svg/polkadot.svg";
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import { saveMetaMaskAddress } from "@/store/action/transaction.record.action";
+import { useDispatch } from 'react-redux'
+import { LOGIN_FAILED, LOGIN_SUCCESS } from "@/store/action/type";
 
 
 const words: string[] = [
@@ -36,16 +38,22 @@ export default function HomepageHeader() {
   const [reverse, setReverse] = useState(false);
   const [isShowAuthModalOpen, setIsShowAuthModalOpen] = useState(false)
 
+
   //user login
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [metamaskAddress, setMetamaskAddress] = useState<string | undefined>('')
+
+  console.log('----------------this is the wallet address when we login------', metamaskAddress)
+
+  const dispatch = useDispatch<any>()
 
   // state of the scroll position and header height
   const [scrollPosition, setScrollPosition] = useState(0);
   const headerRef = useRef<any>(null);
   const [headerHeight, setHeaderHeight] = useState(20);
 
-  // typeWriter effect
-  // give me the context of this whole useEffect
+
+
   useEffect(() => {
     if (index === words.length) return; // if end of words, return
     // if subIndex is equal to the length of the word + 1 and index is not the last word and not reverse
@@ -143,22 +151,27 @@ export default function HomepageHeader() {
   }
 
   const connectWallet = async () => {
-      if (typeof window !== 'undefined') {
-          try {
-              await web3Enable('Commune AI');
-              const accounts = await web3Accounts();
-              const provider = new WsProvider('wss://rpc.polkadot.io');
-              const polkadotAPI = await ApiPromise.create({ provider });
-              const address = accounts[0].address;
-              const data = await polkadotAPI.query.system.account(address);
-          } catch (error) {
-              console.error('Error connecting to wallet:', error);
-          }
-          setIsShowAuthModalOpen(false);
-      } else {
-          console.error('Cannot connect wallet: Code is running on the server.');
-      }
-  };
+    if (typeof window !== 'undefined') {
+        try {
+            await web3Enable('Commune AI');
+            const accounts = await web3Accounts();
+            const provider = new WsProvider('wss://rpc.polkadot.io');
+            const polkadotAPI = await ApiPromise.create({ provider });
+            const address = accounts[0].address;
+            const data = await polkadotAPI.query.system.account(address);
+        } catch (error) {
+            console.error('Error connecting to wallet:', error);
+        }
+        setIsShowAuthModalOpen(false);
+    } else {
+        console.error('Cannot connect wallet: Code is running on the server.');
+    }
+
+  useEffect(() => {
+    if (isLoggedIn && metamaskAddress) {
+      dispatch(saveMetaMaskAddress(metamaskAddress))
+    }
+  }, [isLoggedIn, metamaskAddress])
 
   return (
     <header ref={headerRef} className={` dark:bg-[#161616] p-[4rem] py-32 text-center overflow-hidden ${getHeaderClasses(scrollPosition, headerHeight)} duration-500`} >
@@ -177,8 +190,7 @@ export default function HomepageHeader() {
               </div>
             </div>
 
-            <div className='w-30 h-10'>
-              <div className=' bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-600 duration-200 text-white hover:text-white font-sans font-semibold 
+            <div className='w-30 h-10'>  <div className=' bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-600 duration-200 text-white hover:text-white font-sans font-semibold 
                 justify-center px-2 py-2 cursor-pointer' onClick={ () => setIsShowAuthModalOpen(true)}>
                 Get Started
               </div>
@@ -187,12 +199,13 @@ export default function HomepageHeader() {
           </div>
 
           <div className='hidden sm:block w-full lg:w-1/2 h-full lg:-mr-44 '>
-            <img src="gif/logo/commune.gif" alt="Commune Logo" className='' />
+            <img src="https://raw.githubusercontent.com/luxejs/comhub-app/main/public/images/comai-webp.webp" alt="Commune Logo" className='' />
           </div>
 
         </div>
       </div>
 
+   
       {
         isShowAuthModalOpen &&
         <Modal open={isShowAuthModalOpen} onCancel={ () => setIsShowAuthModalOpen(false)} footer={null} width={500}>
@@ -204,7 +217,7 @@ export default function HomepageHeader() {
 
           <div className='flex items-center justify-evenly mt-14 mb-14 flex-col'>
 
-            <div className='flex w-full items-center justify-evenly cursor-pointer'>
+            <div className='flex w-full items-center justify-center cursor-pointer'>
 
               <ConnectButton.Custom>
                 {({
@@ -220,13 +233,13 @@ export default function HomepageHeader() {
                   // can remove all 'authenticationStatus' checks
                   const ready = mounted && authenticationStatus !== 'loading';
                   ready && account && chain && setIsLoggedIn(true);
+                  setMetamaskAddress(account?.address)
                   const connected =
                     ready &&
                     account &&
                     chain &&
                     (!authenticationStatus ||
                       authenticationStatus === 'authenticated');
-
                   return (
                     <div
                       {...(!ready && {
@@ -241,7 +254,7 @@ export default function HomepageHeader() {
                       {(() => {
                         if (!connected) {
                           return (
-                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[105.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
+                            <div className='flex items-center justify-center hover:bg-gray-300 p-2 w-[180.77px] h-[105.77px] rounded-md' style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}>
                               <Image src={MetaMaskImage} alt='login with Metamask' width={50} height={50} className='cursor-pointer mb-1' />
                               <button type="button">
                                 Metamask
@@ -307,7 +320,7 @@ export default function HomepageHeader() {
                 }}
               </ConnectButton.Custom>
 
-              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]' style={{ flexDirection: 'column', border: '1px solid gray' }}>
+              <div className='flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[180.77px] h-[105.77px] ml-8' style={{ flexDirection: 'column', border: '1px solid gray' }}>
                 <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1' />
                 <GitHubLogin clientId='8386c0df1514607054e7'
                   buttonText="Github"
@@ -317,23 +330,26 @@ export default function HomepageHeader() {
                   redirectUri={'http://localhost:3000/modules'}
                 />
               </div>
+
               <div className="transition-all duration-300 flex items-center justify-center flex-col border-[1px] border-[gray] p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]">
                 <button onClick={() => connectWallet()} className="w-full h-full flex justify-center items-center">
                   <Image className="w-[60px] h-[60px]" width={50} height={50} src={PolkadotImage} alt="Polkadot" />
                 </button>
               </div>
+
+
+
             </div>
           </div>
+
         </Modal>
       }
     </header>
   );
-}
-
+} } 
 export const getHeaderClasses = (position: number, height: number) => {
   if (position > height / 2) {
     return "rounded-b-lg shadow-lg mx-5";
   }
-
   return "";
 };

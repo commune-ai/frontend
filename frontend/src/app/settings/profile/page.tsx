@@ -6,6 +6,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -26,6 +28,14 @@ const ProfileEditPage: React.FC = () => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
+
+    const address = useSelector(({ transactionRecord: { address } }) => address)
+    const router = useRouter()
+    const currentLocation = usePathname()
+
+    const parts: string[] = currentLocation.split('/');
+    // Get the last non-empty part
+    const selectedItem: string = parts.filter(part => part !== '').pop() || '';
 
     const handleCancel = () => setPreviewOpen(false);
 
@@ -50,6 +60,7 @@ const ProfileEditPage: React.FC = () => {
     );
 
     const Items = [
+        'Profile',
         'Account',
         'Authentication',
         'Organizations',
@@ -83,32 +94,31 @@ const ProfileEditPage: React.FC = () => {
             });
     }
 
+    const handleRouters = (item: string) => {
+        router.push(`/settings/${item.replace(/\s/g, '').toLowerCase()}`)
+    }
+
     return (
         <div className='flex h-[70vh]'>
             <div className='w-[40%]  dark:bg-[#212324] dark:text-white flex flex-col items-center justify-start'>
                 <div className="bg-[#f5f5f5] h-full rounded-xl dark:bg-[#2B2B33]">
-                    <div className="flex items-center justify-center p-10">
-                        <Image src={LogoImage} alt="image" width={150} height={150}
+                    <div className="flex flex-col items-center justify-center p-10">
+                        <Image src={LogoImage} alt="image" width={250} height={250}
                             className="cursor-pointer" />
-                        <div className="flex flex-col">
-                            <h1 className=''>
-                                Alan Guerrero
-                            </h1>
-                            <span className="dark: text-gray-500">
-                                Alan1201
+                        {
+                            address && <span className="mt-5 text-[#000000] dark:text-[#ffffff]">
+                                <span className="font-bold">Address:</span> {address}
                             </span>
-                        </div>
+                        }
 
-                    </div>
-
-                    <div style={{ backgroundImage: 'linear-gradient(to right,rgb(190 191 195), rgb(101 101 101))' }} className="p-2 w-full mt-5 cursor-pointer hover:text-black">
-                        <span style={{ fontWeight: '500' }}>Profile</span>
                     </div>
 
                     {
                         Items.map((item, index) => {
                             return <div key={index}>
-                                <div className="p-2 w-full cursor-pointer hover:bg-slate-400 hover:text-black">
+                                <div className="p-2 w-full cursor-pointer hover:bg-slate-400 hover:text-black" style={{
+                                    backgroundImage: item.toLowerCase() === selectedItem ? 'linear-gradient(to right,rgb(190 191 195), rgb(101 101 101))' : 'none'
+                                }} onClick={() => handleRouters(item)}>
                                     <span >{item}</span>
                                 </div>
                             </div>
@@ -125,10 +135,10 @@ const ProfileEditPage: React.FC = () => {
                         Profile Settings
                     </span>
                     <label className="mt-[5rem]">Full name</label>
-                    <textarea value={fullName} onChange={({ target: { value } }) => setFullName(value)} className="dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
+                    <input value={fullName} onChange={({ target: { value } }) => setFullName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
 
                     <label className="mt-[4rem]">Username</label>
-                    <textarea value={username} onChange={({ target: { value } }) => setUserName(value)} className="dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
+                    <input value={username} onChange={({ target: { value } }) => setUserName(value)} className="mt-1 dark:bg-slate-600 dark:text-white flex justify-center p-2 w-full rounded-md" />
 
                     <label className="mt-[4rem]">Avatar <span className="dark:text-gray-500">(Optional)</span></label>
                     <Upload
@@ -144,7 +154,7 @@ const ProfileEditPage: React.FC = () => {
                         <img alt="example" style={{ width: '100%' }} src={previewImage} />
                     </Modal>
 
-                    <button className='gap-2 border-[rgb(229 231 235)] w-[20%] inline-flex cursor-pointer items-center justify-center rounded-[0.5rem] border-[1px] p-1 hover:scale-105' onClick={handleSaveUserProfile}>
+                    <button className='mt-4 gap-2 border-[rgb(229 231 235)] w-[20%] inline-flex cursor-pointer items-center justify-center rounded-[0.5rem] border-[1px] p-1 hover:scale-105' onClick={handleSaveUserProfile}>
                         Save Changes
                     </button>
                 </div>

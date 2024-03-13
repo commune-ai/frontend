@@ -4,6 +4,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import ThemeToggler from "@/components/templates/theme-toggler";
 import { ApiPromise, WsProvider } from '@polkadot/api';
+import { useSelector } from "react-redux";
+
 
 import classes from './navigation-bar.module.css';
 import classNames from "classnames";
@@ -55,9 +57,9 @@ export default function NavigationBar() {
     const [tokenType, setTokenType] = React.useState('')
     const [selectedChain, setSelectedChain] = React.useState('')
     const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = React.useState(false)
+    const loginStatus = useSelector(({ transactionRecord: { loginStatus } }) => loginStatus)
 
     //user profile
-    const [isShowUserProfileAvatar, setIsShowUserProfileAvatar] = React.useState(false)
 
     const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
     const { abi: erc20ABI } = erc20ContractABI
@@ -391,9 +393,12 @@ export default function NavigationBar() {
 
                 <ActiveLink activeClassName={classes.activeDocs} className={classNames(classes.item, classes.docs)} href="/docs/introduction">📚 Docs</ActiveLink>
 
-                <div className="ml-2 mr-2">
-                    <ProfileDropDownComponent />
-                </div>
+                {
+                    loginStatus &&
+                    <div className="ml-2 mr-2">
+                        <ProfileDropDownComponent />
+                    </div>
+                }
 
                 <div className={classes.themeTogglerWrapper}>
                     <ThemeToggler />

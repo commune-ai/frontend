@@ -35,6 +35,8 @@ import ThemeProvider from '@/context/toggle-theme-provider';
 
 import './globals.css';
 import 'reactflow/dist/style.css';
+import { Provider } from 'react-redux';
+import { store } from '@/store/index';
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
