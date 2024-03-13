@@ -339,7 +339,7 @@ export default function NavigationBar() {
                 <Link className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0]')} href="/docs/introduction">🚀 v0.0.0</Link>
                 <div className={classes.dropdown}>
                     <Link className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0]')} href="#" aria-haspopup="true" aria-expanded="false" role="button" >🔗 Community</Link>
-                    <ul className={classes.dropdownMenu}>
+                    <ul className={className(classes.dropdownMenu, 'dark:bg-black')}>
                         <li>
                             <Link
                                 className={classes.dropdownLink}
