@@ -1,0 +1,61 @@
+name: Commune Frontend GitHub Actions (frontend)
+
+on:
+  # Runs on creating a PR
+  pull_request:
+    paths:
+      - frontend
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Notify Trigger
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event on branch ${{ github.ref }}."
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Read Node.js Version
+        run: |
+          NODE_VERSION=$(cat .nvmrc)
+          echo "::set-output name=NODE_VERSION::$NODE_VERSION"
+          echo "🐢 Node.js version is $NODE_VERSION."
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+
+      - name: Cache Dependencies
+        uses: actions/cache@v3
+        id: frontend-npm-cache
+        with:
+          path: "node_modules"
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Dependencies
+        run: npm install
+        if: steps.frontend-npm-cache.outputs.cache-hit != 'true'
+
+      - name: Run lint
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          workdir: ./frontend
+          fail_on_error: true
+          eslint_flags: "src/"
+
+      - name: Display Job Status
+        run: echo "🍏 This job's status is ${{ job.status }}."

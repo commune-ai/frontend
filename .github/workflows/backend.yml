@@ -1,0 +1,32 @@
+name: Commune Frontend GitHub Actions (backend)
+
+on:
+  # Runs on creating a PR
+  pull_request:
+    paths:
+      - frontend
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Notify Trigger
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event on branch ${{ github.ref }}."
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run lint
+        uses: chartboost/ruff-action@v1
+
+      - name: Display Job Status
+        run: echo "🍏 This job's status is ${{ job.status }}."
