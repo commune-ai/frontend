@@ -2,7 +2,6 @@
 
 import { useContext } from "react";
 import { ThemeContext, ToggleThemeContext } from "@/context/toggle-theme-provider";
-
 import classes from "./theme-toggler.module.css";
 
 function LightThemeIcon() {

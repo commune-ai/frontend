@@ -1,7 +1,6 @@
 'use client';
 import classNames from 'classnames';
 import HomepageHeader from '@/components/templates/homepage-header';
-import BlueGifImage from '../../public/gif/cubes/commune-single-block_blue.gif'
 
 import classes from "./home.module.css";
 
