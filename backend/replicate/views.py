@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import requests
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -11,15 +10,13 @@ import gradio as gr
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-def greet(name, intensity):
-    return "Hello, " + name + "!" * int(intensity)
+
 
 def build_interface(data):
     inputs =[]
     schema =data.get("latest_version", {}).get("openapi_schema", {}).get("components", {}).get("schemas", {})
     ordered_properties = sorted(schema.get("Input", {}).get("properties", {}).items(), key=lambda x: x[1].get("x-order", 0))
     for property_name, property_info in ordered_properties :
-        print(property_name, property_info)
         if "x-order" in property_info:
             order = int(property_info.get('x-order',''))
             if property_info.get("type", {}) == "integer":
@@ -72,20 +69,36 @@ def build_interface(data):
                         outputs=gr.Textbox(value=chain)
                     else:
                         outputs.append(gr.Textbox(value=item))
+    elif schema.get("Output",{}).get("type",'') == "object":
+         if schema.get("Output",{}).get("properties",'') == "media_path":
+           outputs= gr.File()
+            # value= data.get("default_example",'').get("output", '').get("media_path",'')
+         properties = schema.get("Output", {}).get("properties", {})
+         if isinstance(properties, dict):
+           for key, item in properties.items():
+                if item.get('type', '') == 'string':
+                    if item.get('format', '') == 'uri':
+                        outputs.append(gr.Image())
+
     else:
           if schema.get("Output",{}).get("type",'') == "string":
                 if  schema.get("Output",{}).get("format",'') == "uri":
-                    outputs.append(gr.Image(value=data.get("default_example",'').get("output",'')))
+                    path=(data.get("default_example",'').get("output",''))
+                    if '.png' in path:
+                        outputs=(gr.Image(value=path))
+                    else:
+                         outputs=(gr.Image())
                 else:
-                    outputs.append(gr.Textbox(value=data.get("default_example",'').get("output",'')))
+                    outputs=(gr.Textbox(value=data.get("default_example",'').get("output",'')))
 
     title=data.get('owner','')+'/'+data.get('name','')
-    interface = gr.Interface(greet,inputs,outputs,title=title, description=data.get('description',''))  # Outputs can be added if needed
+    interface = gr.Interface(None,inputs,outputs,title=title, description=data.get('description',''))  # Outputs can be added if needed
     return interface
 
 def get_data(request):
     owner = request.GET.get('owner')
     name = request.GET.get('name')
+    print (owner)
     headers = {   
         'Content-Type': 'application/json',
         'Authorization': 'Token r8_ZGZlzThfRkPZVDMygVclY1XZ9AuxmIQ2qwwPP',
@@ -109,7 +122,8 @@ def get_data(request):
 
     schema = response.json()
     interface=build_interface(schema)
-    interface.launch()
+    interface_url=interface.launch(share = True)
 
-    return HttpResponse()
+    return interface
+    # return JsonResponse({'interface_url': interface_url})
     

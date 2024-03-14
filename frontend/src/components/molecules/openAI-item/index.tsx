@@ -33,18 +33,19 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
         }
     };
     const onClickItemHandle = () => {
-        // setOpenModal(true);
-        fetchData();
+       
+        //  fetchData();
+        setOpenModal(true);
         // window.open(data.url, "_blank");
     };
 
     return (
 
         <>
-            <Modal open={openModal} onCancel={() => setOpenModal(false)} width={840} footer={null} >
+            <Modal open={openModal} onCancel={() => setOpenModal(false)} width={1240} footer={null} >
                 {
-                    data.category != "replicate" ? <iframe className="w-[800px] h-[480px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe> :
-                        <ItemDetail model_owner={data.owner} model_name={data.name} />
+                    data.category != "replicate" ? <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe> :
+                    <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://commune-ai-stable-diffusion.hf.space`} ></iframe>
                 }
             </Modal>
             {

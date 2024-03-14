@@ -38,11 +38,9 @@ export default function () {
 	}, [searchString, loadedModules]);
 
 	async function getData() {
-		 const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
-		
+		const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
 		setLoadedModules(response.data);
 	 	updateDisplayedModules(response.data, currentPage);
-	
 	}
 
 	useEffect(() => {	
