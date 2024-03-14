@@ -1,7 +1,7 @@
 'use client';
 import classNames from 'classnames';
 import HomepageHeader from '@/components/templates/homepage-header';
-
+import Image from 'next/image'
 import classes from "./home.module.css";
 
 
@@ -31,7 +31,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#blue" className="hover:no-underline">
               <img
-                src="./gif/cubes/commune-single-block_blue.gif"
+                src="/gif/cubes/commune-single-block_blue.webp"
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px]  duration-300"
               />
             </a>
@@ -40,7 +40,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#green" className="hover:no-underline">
               <img
-                src="./gif/cubes/commune-single-block_green.gif"
+                src="/gif/cubes/commune-single-block_green.webp"
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px]  duration-300"
               />
             </a>
@@ -49,7 +49,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#yellow" className="hover:no-underline">
               <img
-                src="./gif/cubes/commune-single-block_yellow.gif"
+                src="/gif/cubes/commune-single-block_yellow.webp"
 
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px] duration-300"
               />
@@ -59,7 +59,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#red" className="hover:no-underline">
               <img
-                 src="./gif/cubes/commune-single-block_red.gif"
+                 src="/gif/cubes/commune-single-block_red.webp"
 
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px] duration-300"
               />
@@ -69,7 +69,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#pink" className="hover:no-underline">
               <img
-                src="./gif/cubes/commune-single-block_purple.gif"
+                src="/gif/cubes/commune-single-block_purple.webp"
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px]  duration-300"
               />
             </a>
@@ -78,7 +78,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#black" className="hover:no-underline">
               <img
-                      src="./gif/cubes/commune-single-block_gray.gif"
+                      src="/gif/cubes/commune-single-block_gray.webp"
 
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px]  duration-300"
               />
@@ -88,7 +88,7 @@ function WelcomeSection() {
           <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg ">
             <a href="#white" className="hover:no-underline">
               <img
-                src="./gif/cubes/commune-single-block_white.gif"
+                src="/gif/cubes/commune-single-block_white.webp"
 
                 className="lg:w-[200px] lg:h-[200px] lg:hover:w-[300px] lg:hover:h-[300px] duration-300"
               />
@@ -139,7 +139,7 @@ export default function Home() {
       <WelcomeSection />
       <SectionWrapper
         id="blue"
-        imageUrl="./gif/cubes/commune-single-block_blue.gif"
+        imageUrl="/gif/cubes/commune-single-block_blue.webp"
         backgroundClassName="bg-white"
       >
         <div className=' text-black '>
@@ -150,7 +150,7 @@ export default function Home() {
             <div className='flex flex-col space-y-10'>
               <div className=' flex md:flex-row sm:flex-col sm:space-y-4 text-center items-center justify-center'>
                 <div className=' my-auto mx-auto w-[30rem] h-[30rem] px-3 '>
-                  <img src="./img/frontpage/1.png" className='mt-5 h-[27rem]' />
+                  <img src="/img/frontpage/1.png" className='mt-5 h-[27rem]' />
                 </div>
                 <div className=' w-[30rem] mx-auto my-auto font-semibold text-lg'>
                   <ul className='text-left list-disc dark:text-white'>
@@ -168,7 +168,7 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className='my-auto mx-auto'>
-                  <img src="./img/frontpage/_5.png" className='my-auto w-[30rem] h-[30rem] p-2' />
+                  <img src="/img/frontpage/_5.png" className='my-auto w-[30rem] h-[30rem] p-2' />
                 </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="green"
-        imageUrl="./gif/cubes/commune-single-block_green.gif"
+        imageUrl="/gif/cubes/commune-single-block_green.webp"
         // backgroundClassName="dark:bg-gradient-to-b from-green-300 to-[#7ceb87] bg-[linear-gradient(180deg,#ffffff,#c3f7c8)]"
         backgroundClassName="bg-white"
       >
@@ -218,16 +218,16 @@ export default function Home() {
 
               <div className='flex md:flex-row  flex-col md:space-x-4 sm:items-center sm:justify-center'>
                 <div className='w-[35rem] h-[35rem] px-3 '>
-                  <img src="./img/frontpage/3.png" className='mt-[7.25rem]' />
+                  <img src="/img/frontpage/3.png" className='mt-[7.25rem]' />
                 </div>
 
                 <div className=' flex flex-col space-y-2'>
                   <div className='w-[30rem] my-auto px-3 '>
-                    <img src="./img/frontpage/4.png" className='py-4' />
+                    <img src="/img/frontpage/4.png" className='py-4' />
                   </div>
 
                   <div className='w-[30rem] my-auto px-3 '>
-                    <img src="./img/frontpage/5.png" className='py-4' />
+                    <img src="/img/frontpage/5.png" className='py-4' />
                   </div>
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="yellow"
-        imageUrl="./gif/cubes/commune-single-block_yellow.gif"
+        imageUrl="/gif/cubes/commune-single-block_yellow.webp"
         // backgroundClassName="dark:dark:bg-gradient-to-b from-yellow-300 to-[#fff7a1] bg-[linear-gradient(180deg,#ffffff,#fff7a1)] rounded-lg shadow-xl"
         backgroundClassName="bg-white"
       >
@@ -269,7 +269,7 @@ export default function Home() {
               </div>
 
               <div className='mx-auto my-auto w-[80%]'>
-                <img src="./img/frontpage/9.png" className='mt-5' />
+                <img src="/img/frontpage/9.png" className='mt-5' />
               </div>
             </div>
 
@@ -278,7 +278,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="red"
-        imageUrl="./gif/cubes/commune-single-block_red.gif"
+        imageUrl="/gif/cubes/commune-single-block_red.webp"
         // backgroundClassName="dark:bg-gradient-to-b from-red-300 to-[#ff8f8f] bg-[linear-gradient(180deg,#ffffff,#ff8f8f)] rounded-lg shadow-xl"
         backgroundClassName="bg-white"
       >
@@ -301,7 +301,7 @@ export default function Home() {
                 </div>
 
                 <div className='mx-auto my-auto w-[50%]'>
-                  <img src="./img/frontpage/8.png" className='mt-5' />
+                  <img src="/img/frontpage/8.png" className='mt-5' />
                 </div>
               </div>
 
@@ -312,7 +312,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="pink"
-        imageUrl="./gif/cubes/commune-single-block_purple.gif"
+        imageUrl="/gif/cubes/commune-single-block_purple.webp"
         // backgroundClassName="dark:bg-gradient-to-b from-pink-300 to-[#ffd6f5] bg-[linear-gradient(180deg,#ffffff,#ffd6f5)] rounded-lg shadow-xl"
         backgroundClassName="bg-white"
       >
@@ -334,7 +334,7 @@ export default function Home() {
                 </div>
 
                 <div className='w-[30rem] px-3 '>
-                  <img src="./img/frontpage/7.1.png" className='mt-5' />
+                  <img src="/img/frontpage/7.1.png" className='mt-5' />
                 </div>
               </div>
 
@@ -349,7 +349,7 @@ export default function Home() {
                 </div>
 
                 <div className='w-[30rem] px-3 '>
-                  <img src="./img/frontpage/7.2.png" className='mt-5' />
+                  <img src="/img/frontpage/7.2.png" className='mt-5' />
                 </div>
               </div>
 
@@ -360,7 +360,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="black"
-        imageUrl="./gif/cubes/commune-single-block_gray.gif"
+        imageUrl="/gif/cubes/commune-single-block_gray.webp"
         // backgroundClassName="dark:bg-[#1b1b1d] bg-[#ffffff] rounded-lg shadow-xl"
         backgroundClassName="bg-white"
       >
@@ -372,7 +372,7 @@ export default function Home() {
 
               <div className=' flex md:flex-row sm:flex-col sm:space-y-4 text-center items-center justify-center '>
                 <div className=' my-auto mx-auto '>
-                  <img src="./img/frontpage/6.png" className='my-auto w-[40rem]' />
+                  <img src="/img/frontpage/6.png" className='my-auto w-[40rem]' />
                 </div>
                 <div className=' w-[30rem] mx-auto my-auto font-semibold '>
                   <ul className=' text-left space-y-10 list-disc'>
@@ -391,7 +391,7 @@ export default function Home() {
       </SectionWrapper>
       <SectionWrapper
         id="white"
-        imageUrl="./gif/cubes/commune-single-block_white.gif"
+        imageUrl="/gif/cubes/commune-single-block_white.webp"
         // backgroundClassName="dark:bg-[linear-gradient(180deg,#ffffff,#ffffff)] bg-[linear-gradient(180deg,#1b1b1d,#1b1b1d)] rounded-lg shadow-xl"
         backgroundClassName="bg-white"
       >
@@ -404,7 +404,7 @@ export default function Home() {
 
                 <div>
                   <div className='z-40 absolute bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-violet-500 border-solid shadow-md px-3 '>
-                    <img src="./img/frontpage/commune_network.png" className='mt-5' />
+                    <img src="/img/frontpage/commune_network.png" className='mt-5' />
                   </div>
                   <div className=' z-30 mt-5 ml-5 absolute bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-blue-400 border-solid shadow-md px-3'></div>
                   <div className=' mt-10 ml-10 absolute  bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-green-400 border-solid shadow-md px-3'></div>
@@ -413,7 +413,7 @@ export default function Home() {
 
                 <div className='hidden lg:block xl:block  '>
                   <div className='z-40 absolute bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-pink-400 border-solid shadow-md px-3 '>
-                    <img src="./img/frontpage/without_commune.png" className='mt-5' />
+                    <img src="/img/frontpage/without_commune.png" className='mt-5' />
                   </div>
                   <div className=' z-30 mt-5 ml-5 absolute bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-blue-400 border-solid shadow-md px-3'></div>
                   <div className=' mt-10 ml-10 absolute  bg-gray-100 rounded-lg w-[17rem] h-[17rem] border-2 border-red-400 border-solid shadow-md px-3'></div>
@@ -426,7 +426,7 @@ export default function Home() {
               <div className=' -mt-2 flex justify-center rounded-xl lg:mb-4'>
                 <a href='https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' className=' hover:no-underline '>
                   <div className='flex flex-row bg-[#FF8F8F] hover:bg-[#FF8F8F] dark:bg-[#FF8F8F] dark:hover:bg-[#fc9494] text-white font-bold py-2 px-4 mt-10 rounded-lg shadow-md hover:shadow-xl duration-300 '>
-                    <img src="./svg/Drive.svg" className="mr-2 w-7 h-7" />
+                    <img src="/svg/Drive.svg" className="mr-2 w-7 h-7" />
                     Read Whitepaper
                   </div>
                 </a>
