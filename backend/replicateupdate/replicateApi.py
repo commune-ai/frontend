@@ -54,6 +54,7 @@ def get_data(str):
                             'category':'replicate',
                             'url':item.get('url', ''),
                             'likes':item.get('run_count', ''),
+                            'github_url': item.get('github_url', ''),
                             }     
                     )
                   count=count+1         
@@ -101,28 +102,17 @@ def get_list_collection():
              "repo": "language-model"
          },
           {
-             "name":  "text-to-video",
-             "repo":  "text-to-video"
-         },
-          {
              "name":  "audio-generation" ,
              "repo": "generate-music"
          }
 
     ]
-    for name, pro in slug:
-        for retry in range(max_retries):
-            try:
-                url= f'https://api.replicate.com/v1/collections/{name}'
-                response = requests.get(url,headers=headers, timeout=10)
-                # Process the response
-                break  # Break out of the loop if the request is successful
-            except ConnectTimeout:
-                if retry < max_retries - 1:
-                    print(f"Connection timed out. Retrying in {retry_delay} seconds...")
-                    time.sleep(retry_delay)
-                else:
-                    print("Max retries exceeded. Unable to establish connection.")
+    for item in slug:
+        name = item.get("name",'')
+        pro = item.get("repo",'')
+        url= f'https://api.replicate.com/v1/collections/{name}'
+        print(url)
+        response = requests.get(url,headers=headers, timeout=10)
         print(response.status_code)
         if response.status_code == 200:
             data = response.json() 
@@ -138,6 +128,7 @@ def get_list_collection():
                     'category':'replicate',
                     'url':domain,
                     'likes':item.get('run_count', ''),
+                    'github_url': item.get('github_url', ''),
                         }     
                         )
                 count=count+1         

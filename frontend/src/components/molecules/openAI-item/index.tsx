@@ -1,13 +1,11 @@
-"use client"
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
 import Modal from "antd/es/modal/Modal";
 import { useState } from "react";
 import Card from '@/components/atoms/card';
 import { GiMeshBall } from "react-icons/gi";
+import { FaGithub } from "react-icons/fa6"
 import { FaRegHeart } from "react-icons/fa";
-import ItemDetail from './detail';
-import axios from 'axios';
 
 type ModuleItemPropsType = {
     data: any;
@@ -17,42 +15,26 @@ type ModuleItemPropsType = {
 const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
     const router = useRouter();
     const [openModal, setOpenModal] = useState<boolean>(false);
-
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:8000/replicate/data/', {
-                params: {
-                    owner: data.owner,
-                    name: data.name,
-                },
-            });
-            console.log(response,'---response---------')
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
     const onClickItemHandle = () => {
-       
-        //  fetchData();
         setOpenModal(true);
-        // window.open(data.url, "_blank");
     };
+    const  onClickGitHubHandle = () => {
+        window.open(data.github_url, "_blank");
+    }
 
     return (
 
         <>
-            <Modal open={openModal} onCancel={() => setOpenModal(false)} width={1240} footer={null} >
+           <Modal open={openModal} onCancel={() => setOpenModal(false)} width={1240} footer={null} >
                 {
-                    data.category != "replicate" ? <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe> :
-                    <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://commune-ai-stable-diffusion.hf.space`} ></iframe>
+                  <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe>               
                 }
             </Modal>
             {
                 data.category == "replicate" ?
-                    <Card className="cursor-pointer h-[320px]" colorfrom={'white'} colorto={'white'}>
-                        <div onClick={() => onClickItemHandle()} className='relative z-0 flex flex-col '>
-                            <div className="absolute w-full h-[250px]">
+                    <Card className=" h-[320px]" colorfrom={'white'} colorto={'white'}>
+                        <div  className='relative z-0 flex flex-col '>
+                            <div className="cursor-pointer absolute w-full h-[250px]" onClick={() => onClickItemHandle()}>
                                 {data.image_url ?
                                     <Image
                                         src={data.image_url}
@@ -73,9 +55,10 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
                             </div>
                             <h4 className='absolute top-[270px] left-[10px] max-w-full truncate text-center font-bold text-gray-800 text-xl'>{data.name}</h4>
                             <div className='flex gap-x-[10px] items-center absolute  top-[275px] right-[10px]'>
-                                <FaRegHeart className=" text-red-400 w-[20px] h-[20px]" />
-                                <span className=' text-red-400 '>{data.likes}</span>
+                                <FaGithub className="text-gray-800 w-[20px] h-[20px] cursor-pointer" onClick={() => onClickGitHubHandle()}/>
+                                <span className=' text-gray-800 '>{data.likes}</span>
                             </div>
+
                         </div>
                     </Card> :
                     <Card className={`p-[20px] cursor-pointer h-[250px] hover:brightness-110`} colorfrom={data.colorfrom} colorto={data.colorto}>
@@ -104,6 +87,6 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
 
 }
 
-
 export default OpenAIModuleItem;
+
 

@@ -38,7 +38,8 @@ export default function () {
 	}, [searchString, loadedModules]);
 
 	async function getData() {
-		const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
+	   const response = await axios.get("http://127.0.0.1:8000/api/replicate/")
+		
 		setLoadedModules(response.data);
 	 	updateDisplayedModules(response.data, currentPage);
 	}
@@ -69,7 +70,7 @@ export default function () {
 					searchString={searchString}
 				/>
 				{displayedModules && displayedModules.length > 0 ? (
-					<div className='mt-[40px] grid grid-cols-3 grid-rows-3 gap-[20px] w-[100%]'>
+					<div className='mt-[40px] grid grid-cols-3 grid-rows-3 gap-[20px] w-[100%] '>
 						{displayedModules.map((item, idx) => (
 							<OpenAIModuleItem key={idx} data={item} />
 

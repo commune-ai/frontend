@@ -13,6 +13,6 @@ class ReplicateData(models.Model):
     colorfrom = models.CharField(max_length=100,null=True,blank=True)
     colorto = models.CharField(max_length=100,null=True,blank=True)
     likes = models.CharField(max_length=100,null=True,blank=True)
-
+    github_url = models.CharField(max_length=300,null=True,blank=True)
     
     
