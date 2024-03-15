@@ -13,27 +13,26 @@ type ModuleItemPropsType = {
 
 
 const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
-    const router = useRouter();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const onClickItemHandle = () => {
         setOpenModal(true);
     };
-    const  onClickGitHubHandle = () => {
+    const onClickGitHubHandle = () => {
         window.open(data.github_url, "_blank");
     }
 
     return (
 
         <>
-           <Modal open={openModal} onCancel={() => setOpenModal(false)} width={1240} footer={null} >
+            <Modal open={openModal} onCancel={() => setOpenModal(false)} width={1240} footer={null} >
                 {
-                  <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe>               
+                    <iframe className="w-[1200px] h-[700px] p-[20px]" src={`https://${data.url}.hf.space`} ></iframe>
                 }
             </Modal>
             {
                 data.category == "replicate" ?
                     <Card className=" h-[320px]" colorfrom={'white'} colorto={'white'}>
-                        <div  className='relative z-0 flex flex-col '>
+                        <div className='relative z-0 flex flex-col '>
                             <div className="cursor-pointer absolute w-full h-[250px]" onClick={() => onClickItemHandle()}>
                                 {data.image_url ?
                                     <Image
@@ -55,7 +54,7 @@ const OpenAIModuleItem = ({ data }: ModuleItemPropsType) => {
                             </div>
                             <h4 className='absolute top-[270px] left-[10px] max-w-full truncate text-center font-bold text-gray-800 text-xl'>{data.name}</h4>
                             <div className='flex gap-x-[10px] items-center absolute  top-[275px] right-[10px]'>
-                                <FaGithub className="text-gray-800 w-[20px] h-[20px] cursor-pointer" onClick={() => onClickGitHubHandle()}/>
+                                <FaGithub className="text-gray-800 w-[20px] h-[20px] cursor-pointer" onClick={() => onClickGitHubHandle()} />
                                 <span className=' text-gray-800 '>{data.likes}</span>
                             </div>
 

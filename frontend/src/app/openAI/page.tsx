@@ -7,7 +7,6 @@ import Modal from "antd/es/modal/Modal";
 import OpenAIModuleItem from "@/components/molecules/openAI-item";
 import axios from "axios";
 import { Pagination } from 'antd';
-import data from './data.json'
 
 const PolkadotWalletButton = dynamic(
 	() => import("@/components/atoms/polkadot-wallet-button"),
