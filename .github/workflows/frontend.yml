@@ -1,0 +1,44 @@
+name: Frontend GitHub Actions
+
+on:
+  # Runs on creating a PR
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Notify Trigger
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event on branch ${{ github.ref }}."
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.6.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.6.0
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: yarn
+
+      - name: Run lint
+        working-directory: ./frontend
+        run: yarn lint
+
+      - name: Display Job Status
+        run: echo "🍏 This job's status is ${{ job.status }}."
