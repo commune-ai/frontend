@@ -6,6 +6,7 @@ import classes from "./home.module.css";
 
 
 function WelcomeSection() {
+  
   return (
     <section id="welcome" className="h-full pt-20">
       <div className="flex flex-col items-center justify-center">

@@ -7,6 +7,7 @@ import Modal from "antd/es/modal/Modal";
 import OpenAIModuleItem from "@/components/molecules/openAI-item";
 import axios from "axios";
 import { Pagination } from 'antd';
+import { useSession } from "next-auth/react";
 
 const PolkadotWalletButton = dynamic(
 	() => import("@/components/atoms/polkadot-wallet-button"),
@@ -63,7 +64,7 @@ export default function () {
 	return (
 		<>
 			<main className="mt-[30px] mb-[10px] flex flex-col items-center justify-center my-auto mx-auto xl:w-[1400px] px-[20px] ">
-			   <PolkadotWalletButton/>
+			   {/* <PolkadotWalletButton/> */}
 				<SearchBar
 					setSearchString={setSearchString}
 					searchString={searchString}

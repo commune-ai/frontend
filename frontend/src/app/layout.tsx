@@ -32,9 +32,15 @@ import Head from '@/components/templates/head';
 import Footer from '@/components/templates/footer/footer';
 import NavigationBar from '@/components/organisms/navbar/navigation-bar';
 import ThemeProvider from '@/context/toggle-theme-provider';
+import { SessionProvider } from 'next-auth/react';
+
 
 import './globals.css';
 import 'reactflow/dist/style.css';
+import React, { ReactNode } from 'react';
+import { isValidElement } from 'react';
+import { useParams, useRouter, usePathname } from 'next/navigation';
+
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
@@ -83,6 +89,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const pathname = usePathname();
+
+
+
+  if (pathname == '/signin') {
+    return (
+      <html lang="en">
+        <Head />
+        <body>
+          <WagmiConfig config={wagmiConfig}>
+            <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
+              {/* <Provider store={store}> */}
+              <ThemeProvider>
+                <SessionProvider>
+                  {children}
+                </SessionProvider>
+              </ThemeProvider>
+              {/* </Provider> */}
+            </RainbowKitProvider>
+          </WagmiConfig>
+        </body>
+      </html>
+    );
+  }
+
   return (
     <html lang="en">
       <Head />
@@ -92,8 +124,10 @@ export default function RootLayout({
             {/* <Provider store={store}> */}
             <ThemeProvider>
               {/* <Banner /> */}
-              <NavigationBar />
-              {children}
+              <SessionProvider>
+                <NavigationBar />
+                {children}
+              </SessionProvider>
               <Footer />
             </ThemeProvider>
             {/* </Provider> */}
@@ -103,3 +137,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

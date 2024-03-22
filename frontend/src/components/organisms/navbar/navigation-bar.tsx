@@ -27,6 +27,9 @@ import TwitterIcon from "@/components/atoms/twitter-icon";
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
 import { RiOpenaiFill } from "react-icons/ri";
+import { BiLogInCircle } from "react-icons/bi";
+import { SessionProvider, useSession } from 'next-auth/react';
+import { LuLogOut } from "react-icons/lu";
 
 const items: MenuProps['items'] = [
     {
@@ -66,6 +69,7 @@ export default function NavigationBar() {
 
     const router = useRouter();
 
+
     const handleClickPayButton = async () => {
         try {
 
@@ -99,9 +103,11 @@ export default function NavigationBar() {
     const onClick: MenuProps['onClick'] = ({ key }) => {
         if (key === '1') {
             handleClickPayButton()
+            console.log("------------------------------------------------------")
         }
         if (key === '2') {
             handleMetaMaskPayment()
+            console.log("---------------------11111111111111111111---------------------------------")
         }
     };
 
@@ -295,7 +301,11 @@ export default function NavigationBar() {
         }
     };
 
+    const session = useSession();
+    console.log(session.data?.user, "session")
+
     return (
+
         <nav aria-label="Main" className={classes.navbar}>
             <div className={classes.items}>
                 <Link className={classes.brand} href="/">
@@ -304,6 +314,14 @@ export default function NavigationBar() {
                     </div>
                     <b className="dark:text-white dark:hover:text-[#25c2a0]">commune</b>
                 </Link>
+
+                {
+                    session.data ?
+                      
+                        <ProfileDropDownComponent/>
+
+                        : <></>
+                }
 
                 <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/openAI">
                     <div className="flex items-center gap-x-[5px]">
@@ -399,9 +417,19 @@ export default function NavigationBar() {
 
                 <ActiveLink activeClassName={classes.activeDocs} className={classNames(classes.item, classes.docs)} href="/docs/introduction">📚 Docs</ActiveLink>
 
-                <div className="ml-2 mr-2">
+                {/* <div className="ml-2 mr-2">
                     <ProfileDropDownComponent />
-                </div>
+                </div> */}
+
+                {
+                    session.data ? <></> :
+                        <ActiveLink activeClassName={classes.activeModules} className={classNames(classes.item, classes.modules)} href="/signin">
+                            <div className="p-x-[10px]">
+                                <BiLogInCircle className="text-cyan-400 w-[25px] h-[25px]" />
+                            </div>
+                        </ActiveLink>
+                }
+
 
                 <div className={classes.themeTogglerWrapper}>
                     <ThemeToggler />
@@ -559,6 +587,7 @@ export default function NavigationBar() {
                 </Modal>
             }
         </nav>
+
     );
 }
 
