@@ -1,25 +1,15 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState } from 'react'
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-
-import { loadStripe } from "@stripe/stripe-js";
-
-import { IoSettingsSharp } from "react-icons/io5";
-
 import classes from './navigation-bar.module.css';
-import LogoImage from '../../../../public/gif/logo/CubesShufflingGIF.gif'
-import StripeImage from '../../../../public/img/frontpage/stripe.png'
-import * as  erc20ContractABI from '../../../services/token_abi.json';
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
 import ThemeToggler from "@/components/templates/theme-toggler";
-
-
 
 
 const navigation = [
@@ -67,38 +57,8 @@ const community = [
 // ]
 
 export default function NavigationBar() {
-	const [isShowWalletPaymentModal, setIsShowWalletPaymentModal] = useState(false)
-	const [destinationAddress, setDestinationAddress] = useState('')
-	const [amount, setAmount] = useState('')
-	const [tokenType, setTokenType] = useState('')
-	const [selectedChain, setSelectedChain] = useState('')
-	const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = useState(false)
-	const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
-	const { abi: erc20ABI } = erc20ContractABI
+
 	const router = useRouter();
-
-	const handleClickPayButton = async () => {
-		try {
-			const amount = 1;
-			const stripe = await asyncStripe;
-			const res = await fetch("/api/stripe/session", {
-				method: "POST",
-				body: JSON.stringify({
-					amount,
-				}),
-				headers: { "Content-Type": "application/json" },
-			});
-			const { sessionId } = await res.json();
-			const result = await stripe?.redirectToCheckout({ sessionId });
-			// Check if 'error' exists in the result
-			if (result?.error) {
-				router.push("/error");
-			}
-		} catch (err) {
-			router.push("/error");
-		}
-	};
-
 
 
 	return (
