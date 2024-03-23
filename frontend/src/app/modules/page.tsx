@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Pagination } from 'antd';
 import axios from "axios";
-import Loading from "@/components/molecules/bittensor/loading";
+
 import ModuleItem, { ModuleItemPropsType } from "@/components/molecules/module-item";
 import SearchBar from "@/components/molecules/search-bar/search-bar";
 
@@ -65,15 +65,14 @@ const ModulePage = () => {
 					setSearchString={setSearchString}
 					searchString={searchString}
 				/>
-				{displayedModules && displayedModules.length > 0 ? (
+	
 					<ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
 						{displayedModules.map((item, idx) => (
 							<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
 						))}
 					</ul>
-				) : (
-					<Loading />
-				)}
+				
+	
 			</main>
 			<Pagination current={currentPage} total={filteredModules.length} defaultPageSize={16} showSizeChanger={false} onChange={handlePageChange} className="dark:text-white mx-auto" />;
 		</>
