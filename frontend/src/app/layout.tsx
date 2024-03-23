@@ -10,7 +10,11 @@ import './globals.css';
 import 'reactflow/dist/style.css';
 import { store } from "@/store/index"
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <Head />
