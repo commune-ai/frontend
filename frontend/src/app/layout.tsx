@@ -1,6 +1,5 @@
 "use client";
 import '@rainbow-me/rainbowkit/styles.css';
-import { useState, useEffect } from 'react';
 import { Provider } from "react-redux"
 import "@fontsource/source-code-pro";
 import NavigationBar from '@/components/organisms/navbar/navigation-bar';

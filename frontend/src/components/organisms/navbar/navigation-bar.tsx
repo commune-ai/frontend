@@ -1,8 +1,7 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import classes from './navigation-bar.module.css';
@@ -57,9 +56,6 @@ const community = [
 // ]
 
 export default function NavigationBar() {
-
-	const router = useRouter();
-
 
 	return (
 		<>
