@@ -403,9 +403,9 @@ export default function HomepageHeader() {
       <Image src="/gif/logo/commune.webp" width={500} height={500} alt="Commune Logo" className='mx-auto' />
     </div>
    <div className='m-auto w-full md:w-1/2 flex flex-col items-center justify-center order-2 md:order-first md:ml-12'>
-  <div className='w-auto sm:w-[710px] sm:h-[150px]'>
+  <div className='w-auto sm:w-[710px] sm:h-[150px] xl:mb-5'>
     <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl sm:pb-3 dark:text-white">{TITLE}</h1>
-    <div className='sm:block'>
+    <div className='sm:block mb-5'>
       <p className=" text-4xl  sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl dark:text-white lg:mx-3">{TAGLINE}
         <br />
         <span
@@ -416,12 +416,12 @@ export default function HomepageHeader() {
           </p>
         </div>
       </div>
-      <div className='w-[10rem] h-[5rem]'>
+      <div className='w-[10rem] h-[5rem] mt-5'>
         <div
           className='
             bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center 
             hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
-            font-sans font-semibold justify-center px-2 py-2 cursor-pointer
+            font-sans font-semibold justify-center px-2 py-2 xl:mt-5  cursor-pointer
           '
         >
           Get Started
