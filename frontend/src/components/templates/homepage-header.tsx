@@ -41,7 +41,7 @@ export default function HomepageHeader() {
   // const [scrollPosition] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const headerRef = useRef<any>(null);
-  const [headerHeight, setHeaderHeight] = useState(20);
+  const [, setHeaderHeight] = useState(20);
   // typeWriter effect
   // give me the context of this whole useEffect
   useEffect(() => {
@@ -101,7 +101,8 @@ export default function HomepageHeader() {
     if (headerRef?.current) {
       setHeaderHeight(headerRef.current.clientHeight);
     }
-  }, [headerRef.current]);
+  }, [headerRef]);
+  
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onGitHubLoginSuccess = (response: any) => {
