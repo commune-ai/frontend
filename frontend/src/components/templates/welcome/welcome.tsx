@@ -26,7 +26,7 @@ export default function WelcomeSection() {
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#blue" className="hover:no-underline">
                 <Image
-                  src="/gif/cubes/commune-single-block_blue.webp"
+                  src="/gif/cubes/commune-single-block_blue.gif"
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   alt='Image'
                   width={30}
@@ -38,7 +38,7 @@ export default function WelcomeSection() {
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#green" className="hover:no-underline">
                 <Image
-                  src="/gif/cubes/commune-single-block_green.webp"
+                  src="/gif/cubes/commune-single-block_green.gif"
                   alt='Image'
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
@@ -50,7 +50,7 @@ export default function WelcomeSection() {
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#yellow" className="hover:no-underline">
                 <Image
-                  src="/gif/cubes/commune-single-block_yellow.webp"
+                  src="/gif/cubes/commune-single-block_yellow.gif"
                   alt='Image'
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
@@ -63,7 +63,7 @@ export default function WelcomeSection() {
               <a href="#red" className="hover:no-underline">
                 <Image
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_red.webp"
+                  src="/gif/cubes/commune-single-block_red.gif"
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
                   height={30}
@@ -75,7 +75,7 @@ export default function WelcomeSection() {
               <a href="#pink" className="hover:no-underline">
                 <Image
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_purple.webp"
+                  src="/gif/cubes/commune-single-block_purple.gif"
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
                   height={30}
@@ -87,7 +87,7 @@ export default function WelcomeSection() {
               <a href="#black" className="hover:no-underline">
                 <Image
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_gray.webp"
+                  src="/gif/cubes/commune-single-block_gray.gif"
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
                   height={30}
@@ -99,7 +99,7 @@ export default function WelcomeSection() {
               <a href="#white" className="hover:no-underline">
                 <Image
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_white.webp"
+                  src="/gif/cubes/commune-single-block_white.gif"
                   className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
                   width={30}
                   height={30}
