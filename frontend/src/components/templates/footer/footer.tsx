@@ -71,7 +71,7 @@ export default function Footer() {
 				</div>
 			</div>
 			<p className="text-[16px] font-medium dark:text-white text-center mb-[5rem] px-3">
-				Copyright © {new Date().getFullYear()} Commune, Inc. Built with Docusaurus.
+				Copyleft © {new Date().getFullYear()} CommuneAI.
 			</p>
 		</footer>
 	);
