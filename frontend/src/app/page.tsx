@@ -296,11 +296,12 @@ export default function Home() {
               <p className="text-2xl font-semibold text-center">Want to read more? Check<br />out our whitepaper.</p>
               <div className='flex justify-center rounded-xl lg:mb-4'>
                 <a href='https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' className='hover:no-underline '>
-                  <div className='w-[15rem] h-[3rem] flex flex-row gap-2 bg-[#FF8F8F] hover:bg-[#FF8F8F] dark:bg-[#FF8F8F] dark:hover:bg-[#fc9494] text-white text-xl font-bold py-2 px-4 mt-10 rounded-lg shadow-md hover:shadow-xl duration-300 '>
-                    <Image src="/svg/Drive.svg" className="mr-2 w-7 h-7" alt='Image' width={272}
-                      height={272} />
-                    Read Whitepaper
-                  </div>
+               
+Copy code
+<div className='w-[16rem] h-[3rem] flex flex-row gap-2 bg-[#FF8F8F] hover:bg-[#FF8F8F] dark:bg-[#FF8F8F] dark:hover:bg-[#fc9494] text-white text-xl font-bold py-2 px-4 mt-10 rounded-lg shadow-md hover:shadow-xl duration-300 items-center'>
+  <Image src="/svg/Drive.svg" className="flex-shrink-0 mr-2 w-7 h-7" alt='Image' width={272} height={272} />
+  <span className="min-w-0 truncate">Read Whitepaper</span>
+</div>
                 </a>
               </div>
             </div>

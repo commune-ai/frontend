@@ -162,18 +162,10 @@ export default function HomepageHeader() {
 
   return (
     <header
-      ref={headerRef}
-      className={`
-        relative 
-        z-10 
-        h-[100vh]
-        dark:bg-gray-900 
-        p-[4rem] 
-        text-center 
-        overflow-hidden 
-        duration-500
-        `}
-    >
+    ref={headerRef}
+    className={`relative z-10 md:h-[50vh] lg:h-[90vh] dark:bg-gray-900 p-16 text-center overflow-hidden transition duration-500`}
+
+  >
       <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
         <svg width="450" height="556" viewBox="0 0 450 556" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle
@@ -306,7 +298,7 @@ export default function HomepageHeader() {
           </defs>
         </svg>
       </div>
-      <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100">
+      <div className="hidden md:block md:absolute bottom-0 left-0 z-[-1] md:opacity-30 lg:opacity-100">
         <svg width="364" height="201" viewBox="0 0 364 201" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M5.88928 72.3303C33.6599 66.4798 101.397 64.9086 150.178 105.427C211.155 156.076 229.59 162.093 264.333 166.607C299.076 171.12 337.718 183.657 362.889 212.24"
@@ -404,47 +396,41 @@ export default function HomepageHeader() {
         </svg>
       </div>
 
-      <Image
-        src="/gif/logo/commune.webp"
-        alt="Commune Logo"
-        className='block lg:hidden'
-        width={5000}
-        height={5000}
-      />
+   
       <div className="px-10 py-5 m-auto">
-        <div className='flex lg:flex-row flex-col mt-[100px]'>
-          <div className='m-auto w-full lg:w-1/2 flex flex-col items-center justify-center'>
-            <div className='w-auto sm:w-[710px] sm:h-[250px]'>
-              <h1 className="text-4xl sm:text-6xl sm:pb-3 dark:text-white">{TITLE}</h1>
-              <div className='hidden sm:block'>
-                <p className="hero__subtitle text-xl sm:text-4xl dark:text-white">{TAGLINE}
-                  <br />
-                  <span
-                    className={`hero__subtitle text-4xl ${colour[index]} font-semibold mb-5`}
-                  >
-                    {`${words[index].substring(0, subIndex)}${blink ? "|" : ""}`}
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div className='w-[10rem] h-[5rem]'>
-              <div
-                className='
-                  bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center 
-                  hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
-                  font-sans font-semibold justify-center px-2 py-2 cursor-pointer
-                '
-               
-              >
-                Get Started
-              </div>
-            </div>
-          </div>
-          <div className='hidden lg:block w-full lg:w-1/2 h-full lg:-mr-44 '>
-            <Image src="/gif/logo/commune.gif" width={500} height={500} alt="Commune Logo" className='' />
-          </div>
+      <div className='flex flex-col md:flex-row mt-8 sm:mt-16 lg:mt-[100px]'>
+    <div className='w-full md:w-1/2 h-full order-1 md:order-last py-3'>
+      <Image src="/gif/logo/commune.webp" width={500} height={500} alt="Commune Logo" className='mx-auto' />
+    </div>
+   <div className='m-auto w-full md:w-1/2 flex flex-col items-center justify-center order-2 md:order-first md:ml-12'>
+  <div className='w-auto sm:w-[710px] sm:h-[150px]'>
+    <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl sm:pb-3 dark:text-white">{TITLE}</h1>
+    <div className='sm:block'>
+      <p className=" text-4xl  sm:text-xl md:text-4xl lg:text-4xl xl:text-4xl dark:text-white lg:mx-3">{TAGLINE}
+        <br />
+        <span
+          className={`hero__subtitle text-4xl ${colour[index]} font-semibold mb-5`}
+        >
+          {`${words[index].substring(0, subIndex)}${blink ? "|" : ""}`}
+        </span>
+          </p>
         </div>
       </div>
+      <div className='w-[10rem] h-[5rem]'>
+        <div
+          className='
+            bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center 
+            hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
+            font-sans font-semibold justify-center px-2 py-2 cursor-pointer
+          '
+        >
+          Get Started
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       {
         isShowAuthModalOpen &&
         <Modal open={isShowAuthModalOpen} onCancel={() => setIsShowAuthModalOpen(false)} footer={null} width={500}>
