@@ -12,8 +12,12 @@ import ThemeToggler from "@/components/templates/theme-toggler";
 
 
 const navigation = [
-	{ name: '🚀Modules', href: '/modules', current: false },
-	{ name: '⛓Telemetry', href: '/telemetry', current: false },
+	{ 
+		name: '🚀Modules', 
+		href: '/modules', 
+		current: false,
+		
+	  },	{ name: '⛓Telemetry', href: '/telemetry', current: false },
 	// { name: '🥂ComChat', href: 'https://comchat.io/', current: false },
 	// { name: '💻ComfyUILauncher', href: 'https://huggingface.co/spaces/subbytech/comfyui-launcher/', current: false },
 	// { name: '💱Comwallet', href: 'https://comwallet.io/', current: false },
@@ -78,6 +82,7 @@ export default function NavigationBar() {
 										<div className="hidden xl:block">
 											<div className="flex">
 												{navigation.map((item) => (
+													
 													<a
 														key={item.name}
 														href={item.href}
