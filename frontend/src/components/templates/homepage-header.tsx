@@ -434,7 +434,7 @@ export default function HomepageHeader() {
                   hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
                   font-sans font-semibold justify-center px-2 py-2 cursor-pointer
                 '
-                onClick={() => setIsShowAuthModalOpen(true)}
+               
               >
                 Get Started
               </div>
