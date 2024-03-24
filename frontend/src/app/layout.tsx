@@ -10,10 +10,6 @@ import './globals.css';
 import 'reactflow/dist/style.css';
 import { store } from "@/store/index"
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
-
 export default function RootLayout({
   children,
 }: {
