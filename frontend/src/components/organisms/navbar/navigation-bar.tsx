@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,8 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { loadStripe } from "@stripe/stripe-js";
-import { Dropdown, Modal, Space, Select, MenuProps } from 'antd';
+import { Modal, Space, Select } from 'antd';
+import { IoSettingsSharp } from "react-icons/io5";
 import { parseEther } from 'viem'
 import { useSendTransaction, useContractWrite } from 'wagmi'
 import classes from './navigation-bar.module.css';
@@ -21,6 +22,8 @@ import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
 import ThemeToggler from "@/components/templates/theme-toggler";
 import { saveTransaction } from "@/store/action/transaction.record.action";
+import { IoSettingsSharp } from "react-icons/io5";
+import HamburgerModal from '@/components/atoms/Hamburger/hamburger';
 
 const user = {
 	name: 'Tom Cook',
@@ -30,11 +33,11 @@ const user = {
 const navigation = [
 	{ name: '🚀Modules', href: '/modules', current: false },
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
-	{ name: '🥂ComChat', href: 'https://comchat.io/', current: false },
-	{ name: '💻ComfyUILauncher', href: 'https://huggingface.co/spaces/subbytech/comfyui-launcher/', current: false },
-	{ name: '💱Comwallet', href: 'https://comwallet.io/', current: false },
-	{ name: 'Bittensor', href: '/bittensor', current: false },
-	{ name: 'Staking', href: '/staking', current: false },
+	// { name: '🥂ComChat', href: 'https://comchat.io/', current: false },
+	// { name: '💻ComfyUILauncher', href: 'https://huggingface.co/spaces/subbytech/comfyui-launcher/', current: false },
+	// { name: '💱Comwallet', href: 'https://comwallet.io/', current: false },
+	// { name: 'Bittensor', href: '/bittensor', current: false },
+	// { name: 'Staking', href: '/staking', current: false },
 	{ name: '📚Docs', href: '/docs/introduction', current: false },
 	{ name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
 ]
@@ -45,39 +48,39 @@ const community = [
 	{ name: 'Github', href: 'https://github.com/commune-ai' },
 ]
 
-const userNavigation = [
-	{ name: 'Profile', href: '/profile' },
-	{ name: 'Settings', href: '#' },
-]
+// const userNavigation = [
+// 	{ name: 'Profile', href: '/profile' },
+// 	{ name: 'Settings', href: '#' },
+// ]
 
-const items: MenuProps['items'] = [
-	{
-		key: '1',
-		label: (
-			<span rel="noopener noreferrer" className="flex items-center">
-				Pay with Stripe
-				<Image src={StripeImage} alt="stripeImage" width={24} height={24} className="rounded-md ml-auto" />
-			</span>
-		),
-	},
-	{
-		key: '2',
-		label: (
-			<span rel="noopener noreferrer" className="flex items-center" >
-				Pay with Wallet
-				<Image src={MetaMaskImage} alt="MetaMaskImage" width={24} height={24} className="rounded-md ml-2" />
-			</span>
-		),
-	},
-]
+// const items: MenuProps['items'] = [
+// 	{
+// 		key: '1',
+// 		label: (
+// 			<span rel="noopener noreferrer" className="flex items-center">
+// 				Pay with Stripe
+// 				<Image src={StripeImage} alt="stripeImage" width={24} height={24} className="rounded-md ml-auto" />
+// 			</span>
+// 		),
+// 	},
+// 	{
+// 		key: '2',
+// 		label: (
+// 			<span rel="noopener noreferrer" className="flex items-center" >
+// 				Pay with Wallet
+// 				<Image src={MetaMaskImage} alt="MetaMaskImage" width={24} height={24} className="rounded-md ml-2" />
+// 			</span>
+// 		),
+// 	},
+// ]
 
 export default function NavigationBar() {
-	const [isShowWalletPaymentModal, setIsShowWalletPaymentModal] = React.useState(false)
-	const [destinationAddress, setDestinationAddress] = React.useState('')
-	const [amount, setAmount] = React.useState('')
-	const [tokenType, setTokenType] = React.useState('')
-	const [selectedChain, setSelectedChain] = React.useState('')
-	const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = React.useState(false)
+	const [isShowWalletPaymentModal, setIsShowWalletPaymentModal] = useState(false)
+	const [destinationAddress, setDestinationAddress] = useState('')
+	const [amount, setAmount] = useState('')
+	const [tokenType, setTokenType] = useState('')
+	const [selectedChain, setSelectedChain] = useState('')
+	const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = useState(false)
 	const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 	const { abi: erc20ABI } = erc20ContractABI
 	const router = useRouter();
@@ -108,14 +111,14 @@ export default function NavigationBar() {
 		setIsShowWalletPaymentModal(true)
 	}
 
-	const onClick: MenuProps['onClick'] = ({ key }) => {
-		if (key === '1') {
-			handleClickPayButton()
-		}
-		if (key === '2') {
-			handleMetaMaskPayment()
-		}
-	};
+	// const onClick: MenuProps['onClick'] = ({ key }) => {
+	// 	if (key === '1') {
+	// 		handleClickPayButton()
+	// 	}
+	// 	if (key === '2') {
+	// 		handleMetaMaskPayment()
+	// 	}
+	// };
 
 	const handleWalletPaymentModalOpen = () => {
 		setIsShowWalletPaymentModal(false)
@@ -126,88 +129,6 @@ export default function NavigationBar() {
 	};
 
 	const { data: hash, sendTransaction } = useSendTransaction()
-
-	//This Function must be used in Client side.
-	// 	const createBTCTx = async (toAddress: string, value: number, env: string, fromAddress: string) => {
-	// 		try {
-	// 			// const { toAddress, value, env, fromAddress } = data;
-	// 			const valueInSatoshi = value * 100000000;
-	// 			// console.log(valueInSatoshi);
-	// 			// console.log("Vivek bhai ",toAddress, value, env, fromAddress);
-	// 			if (!fromAddress || !toAddress || !value || !env) {
-	// 				return {
-	// 					code: 0,
-	// 					message: "invalid/insufficient parameters"
-	// 				}
-	// 			}
-	// 			let url;
-	// 			if (env == 'testnet') {
-	// 				url = 'https://api.blockcypher.com/v1/btc/test3/txs/new'
-	// 			}
-	// 			else if (env == 'mainnet') {
-	// 				url = 'https://api.blockcypher.com/v1/btc/main/txs/new'
-	// 			}
-	// 			else {
-	// 				return {
-	// 					code: 0,
-	// 					message: 'Invalid env'
-	// 				}
-	// 			}
-	// 			let data = JSON.stringify({
-	// 				"inputs": [
-	// 					{
-	// 						"addresses": [
-	// 							`${fromAddress}`  /* "n1TKu4ZX7vkyjfvo7RCbjeUZB6Zub8N3fN" */
-	// 						]
-	// 					}
-	// 				],
-	// 				"outputs": [
-	// 					{
-	// 						"addresses": [
-	// 							`${toAddress}` /* "2NCY42y4mbvJCxhd7gcCroBEvVh1dXkbPzA"
-	// */                    ],
-	// 						"value": valueInSatoshi
-	// 					}
-	// 				]
-	// 			});
-
-	// 			let config = {
-	// 				method: 'post',
-	// 				maxBodyLength: Infinity,
-	// 				url: 'https://api.blockcypher.com/v1/btc/test3/txs/new',
-	// 				headers: {
-	// 					'Content-Type': 'application/json'
-	// 				},
-	// 				data: data
-	// 			};
-
-	// 			const response = await axios.request(config)
-	// 				.then((response) => {
-	// 					// console.log("Tushar",JSON.stringify(response.data));
-	// 					return response;
-	// 				})
-	// 				.catch((error) => {
-	// 					console.log(error);
-	// 				});
-	// 			// console.log(response.status);
-	// 			if (response?.status != 201) {
-	// 				return {
-	// 					code: 0,
-	// 					message: response?.data?.error
-	// 				}
-	// 			}
-	// 			return {
-	// 				code: 1,
-	// 				result: response.data
-	// 			}
-	// 		} catch (error) {
-	// 			console.log('error generating btc tx', error);
-	// 			return {
-	// 				code: 0,
-	// 				message: error,
-	// 			};
-	// 		}
-	// 	}
 
 	const { data: txHashUSDT, write: paywithUSDT } = useContractWrite({
 		address: '0x28B3071bE7A6E4B3bE2b36D78a29b6e4DbBdDb74',
@@ -250,11 +171,11 @@ export default function NavigationBar() {
 	const handleConnectWithSubstrateModalCancel = () => {
 		setIsShowConnectWithSubstrateModalOpen(false)
 	}
-	const [api, setApi] = React.useState < ApiPromise | null > (null);
-	const [chainInfo, setChainInfo] = React.useState('');
-	const [nodeName, setNodeName] = React.useState('');
+	const [api, setApi] = useState<ApiPromise | null>(null);
+	const [chainInfo, setChainInfo] = useState('');
+	const [nodeName, setNodeName] = useState('');
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const connectToSubstrate = async () => {
 			const provider = new WsProvider('wss://rpc.polkadot.io');
 			const substrateApi = await ApiPromise.create({ provider });
@@ -266,30 +187,37 @@ export default function NavigationBar() {
 	const getChainInfo = async () => {
 		if (api) {
 			const chain = await api.rpc.system.chain();
-			setChainInfo(chain.toString())
+			if (chain) {
+				setChainInfo(chain?.toString())
+			}
 			const nodeName = await api.rpc.system.name();
-			setNodeName(nodeName.toString())
+			if (nodeName) {
+				setNodeName(nodeName?.toString())
+			}
 			console.log(`Connected to chain ${chain} using ${nodeName}`);
 		}
 	};
 
+
 	return (
 		<>
 			<div className="min-h-full">
-				<Disclosure as="nav" className="dark:bg-blue-900 shadow-md">
+				<Disclosure as="nav" className="dark:bg-gray-900 border-b-2 border-slate-500 shadow-md">
 					{({ open }) => (
 						<>
-							<div className="mx-auto px-4 md:px-0 lg:px-8">
+							<div className="mx-auto px-4 lg:px-8">
 								<div className="flex h-16 items-center justify-between">
 									<div className="flex items-center">
 										<Link className={classes.brand} href="/">
-											<img
+											<Image
 												style={{ width: "auto", height: "4rem", marginRight: "-0.25rem" }}
-												src="/svg/commune.svg"
+												src="/gif/logo/commune.gif"
 												alt="Commune Logo"
+												width={64}
+												height={64}
 											/>
 										</Link>
-										<div className="hidden md:block">
+										<div className="hidden xl:block">
 											<div className="flex">
 												{navigation.map((item) => (
 													<a
@@ -298,7 +226,7 @@ export default function NavigationBar() {
 														className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 lg:pl-4 md:text-xl')}
 														aria-current={item.current ? 'page' : undefined}
 													>
-                            <span className='flex items-center justify-center'>
+														<span className='flex items-center justify-center'>
 															{item.name === 'Bittensor' && <Image src='/img/frontpage/bittensor.jpg' alt='bittensor' width={25} height={10} className='mr-1' />}
 															{item.name === 'Staking' && <Image src='/img/frontpage/staking.jpg' alt='staking' width={25} height={10} className='mr-1 rounded-md' />}
 															{item.name}
@@ -308,14 +236,15 @@ export default function NavigationBar() {
 											</div>
 										</div>
 									</div>
+									{/* <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Commune AI</span></h1> */}
 									<div className="hidden md:block">
-										<div className="flex items-center">
-											<Menu as="div" className="relative ml-3">
-												<div>
-													<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-xl')} aria-haspopup="true" aria-expanded="false" role="button" >
-														🔗Community
-													</Menu.Button>
-												</div>
+										<div className="flex items-center relative">
+											<Menu as="div" className="flex relative ml-3">
+
+												<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-xl')} aria-haspopup="true" aria-expanded="false" role="button" >
+													🔗Community
+												</Menu.Button>
+
 												<Transition
 													as={Fragment}
 													enter="transition ease-out duration-100"
@@ -325,7 +254,7 @@ export default function NavigationBar() {
 													leaveFrom="transform opacity-100 scale-100"
 													leaveTo="transform opacity-0 scale-95"
 												>
-													<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 														<Menu.Item>
 															<Link
 																className={classes.dropdownLink}
@@ -334,8 +263,8 @@ export default function NavigationBar() {
 																rel="noopener noreferrer"
 															>
 																<div style={{ display: "flex", alignItems: "center", }}>
-																	<DiscordIcon />
-																	<span className="ml-3">Discord</span>
+																	<span><DiscordIcon /></span>
+																	<span className="ml-1 mr-2">Discord</span>
 																</div>
 															</Link>
 														</Menu.Item>
@@ -348,7 +277,7 @@ export default function NavigationBar() {
 															>
 																<div style={{ display: "flex", alignItems: "center", }}>
 																	<TwitterIcon />
-																	<span className="ml-3">Twitter</span>
+																	<span className="ml-1 mr-2">Twitter</span>
 																</div>
 															</Link>
 														</Menu.Item>
@@ -361,24 +290,58 @@ export default function NavigationBar() {
 															>
 																<div style={{ display: "flex", alignItems: "center", }}>
 																	<GitHubIcon />
-																	<span className="ml-3">Github</span>
+																	<span className="ml-1 mr-2">Github</span>
 																</div>
 															</Link>
 														</Menu.Item>
 													</Menu.Items>
 												</Transition>
+
 											</Menu>
-											<Dropdown menu={{ items, onClick }}>
-												<Space>
-													<span style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-[18px]')}>💰Payment</span>
-												</Space>
-											</Dropdown>
-											<Menu as="div" className="mx-3">
+
+											<Menu as="div" className="flex relative ml-3">
 												<div>
-													<Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-														<span className="absolute -inset-1.5" />
-														<span className="sr-only">Open user menu</span>
-														<Image className="h-8 w-8 rounded-full bg-white" src={LogoImage} alt="" />
+													<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-[18px]')}>💰Payment</Menu.Button>
+												</div>
+												<Transition
+													as={Fragment}
+													enter="transition ease-out duration-100"
+													enterFrom="transform opacity-0 scale-95"
+													enterTo="transform opacity-100 scale-100"
+													leave="transition ease-in duration-75"
+													leaveFrom="transform opacity-100 scale-100"
+													leaveTo="transform opacity-0 scale-95"
+												>
+													<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-48 origin-top-right rounded-md bg-white py-1 px-5 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+														<Menu.Item>
+															<button rel="noopener noreferrer" onClick={handleClickPayButton} className="flex items-center" >
+																Pay with Stripe
+																<Image src={StripeImage} alt="stripeImage" width={24} height={24} className="rounded-md ml-3" />
+															</button>
+
+														</Menu.Item>
+														<Menu.Item>
+															<button rel="noopener noreferrer" onClick={handleMetaMaskPayment} className="flex items-center" >
+																Pay with Wallet
+																<Image src={MetaMaskImage} alt="MetaMaskImage" width={24} height={24} className="rounded-md ml-2" />
+															</button>
+
+														</Menu.Item>
+													</Menu.Items>
+												</Transition>
+
+											</Menu>
+
+											{/* <Dropdown menu={{ items, onClick }}>
+												<Space>
+													<button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-[18px]')}>💰Payment</button>
+												</Space>
+											</Dropdown> */}
+
+											<Menu as="div" className="flex relative ml-3 mr-3 mt-2">
+												<div>
+													<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-xl')} aria-haspopup="true" aria-expanded="false" role="button" >
+														<IoSettingsSharp />
 													</Menu.Button>
 												</div>
 												<Transition
@@ -390,36 +353,94 @@ export default function NavigationBar() {
 													leaveFrom="transform opacity-100 scale-100"
 													leaveTo="transform opacity-0 scale-95"
 												>
-													<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														{userNavigation.map((item) => (
-															<Menu.Item key={item.name}>
-																{({ active }) => (
-																	<a
-																		href={item.href}
-																		className={classNames(
-																			active ? 'bg-gray-100' : '',
-																			'block px-4 py-2 text-sm text-gray-700'
-																		)}
-																	>
-																		{item.name}
-																	</a>
-																)}
-															</Menu.Item>
-														))}
+													<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-6 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+														<Menu.Item>
+															<Link
+																className={classes.dropdownLink}
+																href="/profile"
+																target="_blank"
+																rel="noopener noreferrer"
+															>
+																<div style={{ display: "flex", alignItems: "center", }}>
+																	<span className="ml-1 mr-2">Profile</span>
+																</div>
+															</Link>
+														</Menu.Item>
+														<Menu.Item>
+															<Link
+																className={classes.dropdownLink}
+																href="#"
+																target="_blank"
+																rel="noopener noreferrer"
+															>
+																<div style={{ display: "flex", alignItems: "center", }}>
+																	<span className="ml-1 mr-2">Settings</span>
+																</div>
+															</Link>
+														</Menu.Item>
 													</Menu.Items>
 												</Transition>
+
 											</Menu>
-											<div className={classes.themeTogglerWrapper}>
-												<ThemeToggler />
-											</div>
+
+											{/* <Menu as="div" className="mx-3">
+												<div>
+													<Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+														<span className="absolute -inset-1.5" />
+														<span className="sr-only">Open user menu</span>
+														<Image className="h-8 w-8 rounded-full bg-white" src={LogoImage} alt="" />
+													</Menu.Button>
+												</div>
+
+												<Transition
+													as={Fragment}
+													enter="transition ease-out duration-100"
+													enterFrom="transform opacity-0 scale-95"
+													enterTo="transform opacity-100 scale-100"
+													leave="transition ease-in duration-75"
+													leaveFrom="transform opacity-100 scale-100"
+													leaveTo="transform opacity-0 scale-95"
+												>
+													<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-10 z-10 mt-2 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+														{
+															userNavigation.map((item) => (
+																<Menu.Item key={item.name}>
+																	{({ active }) => (
+																		<a
+																			href={item.href}
+																			className={classNames(
+																				active ? 'bg-gray-100' : '',
+																				'block px-4 py-2 text-sm text-gray-700'
+																			)}
+																		>
+																			{item.name}
+																		</a>
+																	)}
+																</Menu.Item>
+															))
+														}
+													</Menu.Items>
+												</Transition>
+
+											</Menu> */}
+
+											{/* <div className={classes.themeTogglerWrapper} style={{ marginLeft: '0.1rem' }}> */}
+											<ThemeToggler/>
+											{/*  </div> */}		
+											{/* <div className='absolute'>								 */}
+											<div className='hidden xl:block'>
+											<HamburgerModal/>
+											</div>	
+											
+											{/* </div>																		 */}
 										</div>
 									</div>
-									<div className="-mr-2 flex md:hidden">
+									<div className="flex xl:hidden">
 										{/* Mobile menu button */}
 										<Disclosure.Button
 											className="
 												relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 
-												text-gray-400 hover:text-[#25c2a0] hover:text-white focus:outline-none focus:ring-2 
+												text-gray-400 hover:text-[#25c2a0] focus:outline-none focus:ring-2 
 												focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800
 											"
 										>
@@ -435,8 +456,8 @@ export default function NavigationBar() {
 								</div>
 							</div>
 
-							<Disclosure.Panel className="md:hidden">
-								<div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+							<Disclosure.Panel className="xl:hidden">
+								<div className="space-y-1 pb-3 pt-2 px-3">
 									{navigation.map((item) => (
 										<Disclosure.Button
 											key={item.name}
