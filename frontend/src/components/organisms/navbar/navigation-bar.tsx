@@ -74,6 +74,7 @@ const community = [
 // ]
 
 export default function NavigationBar() {
+
 	const [isShowWalletPaymentModal, setIsShowWalletPaymentModal] = useState(false)
 	const [destinationAddress, setDestinationAddress] = useState('')
 	const [amount, setAmount] = useState('')
@@ -424,13 +425,13 @@ export default function NavigationBar() {
 											</Menu> */}
 
 											{/* <div className={classes.themeTogglerWrapper} style={{ marginLeft: '0.1rem' }}> */}
-											<ThemeToggler/>
-											{/*  </div> */}		
+											<ThemeToggler />
+											{/*  </div> */}
 											{/* <div className='absolute'>								 */}
 											<div className='hidden xl:block'>
-											<HamburgerModal/>
-											</div>	
-											
+												<HamburgerModal />
+											</div>
+
 											{/* </div>																		 */}
 										</div>
 									</div>

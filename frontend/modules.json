@@ -98,5 +98,17 @@
             "wallet",
             "bridge"
         ]
+    },
+    {
+        "name": "Hyperspace",
+        "url": "/hyperspace",
+        "image": "/img/frontpage/comai-logo.png",
+        "description": "coming soon",
+        "registerKey": "5EJ9AUpSGafWeagdP5nwc5AwcYBkagYSZyx2BmLKWJrGBZUZ",
+        "verified": false,
+        "tags": [
+            "wallet",
+            "bridge"
+        ]
     }
 ]
