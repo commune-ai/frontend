@@ -1,17 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
-import { GhostNavbar, GhostButton } from "react-hamburger-menus";
+import React from 'react';
+import Link from "next/link"
+import { GhostNavbar } from "react-hamburger-menus";
 import "react-hamburger-menus/dist/style.css";
 import modules from '../../../../modules.json';
 
-import Link from "next/link"
 
 const HamburgerModal: React.FC = () => {
   // function rgba(arg0: number, arg1: number, arg2: number): import("csstype").Property.BackgroundColor | undefined {
   //   throw new Error('Function not implemented.');
   // }
 
-  return (   
+  return (
 
     <GhostNavbar
       styles={
@@ -42,7 +42,7 @@ const HamburgerModal: React.FC = () => {
           ))
         }
       </ul>
-    </GhostNavbar>   
+    </GhostNavbar>
   );
 };
 

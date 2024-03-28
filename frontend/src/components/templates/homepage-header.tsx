@@ -2,13 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux'
 import Image from "next/image";
-import { ApiPromise, WsProvider } from "@polkadot/api";
-import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Modal from "antd/es/modal/Modal";
 import {saveMetaMaskAddress} from '@/store/action/transaction.record.action';
 import { toast } from 'react-toastify';
 import GitHubLogin from "react-github-login";
+import PolkadotWallet from '@/components/atoms/polkadot-login-button';
 import GithubImage from "../../../public/svg/github-mark.svg";
 import MetaMaskImage from "../../../public/svg/metamask.svg";
 import PolkadotImage from "../../../public/svg/polkadot.svg";
@@ -37,6 +36,7 @@ export default function HomepageHeader() {
   const [blink, setBlink] = useState(true);
   const [reverse, setReverse] = useState(false);
   const [isShowAuthModalOpen, setIsShowAuthModalOpen] = useState(false)
+  const [isShowPolkadotModalOpen, setIsShowPolkadotModalOpen]= useState(false)
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [metamaskAddress, setMetamaskAddress] = useState<string | undefined>('')
@@ -146,21 +146,7 @@ export default function HomepageHeader() {
   }
 
   const connectWallet = async () => {
-    if (typeof window !== 'undefined') {
-      try {
-        await web3Enable('Commune AI');
-        const accounts = await web3Accounts();
-        const provider = new WsProvider('wss://rpc.polkadot.io');
-        const polkadotAPI = await ApiPromise.create({ provider });
-        const address = accounts[0].address;
-        await polkadotAPI.query.system.account(address);
-      } catch (error) {
-        console.error('Error connecting to wallet:', error);
-      }
-      setIsShowAuthModalOpen(false);
-    } else {
-      console.error('Cannot connect wallet: Code is running on the server.');
-    }
+    setIsShowPolkadotModalOpen(true)
   };
 
   const dispatch = useDispatch<any>()
@@ -172,6 +158,10 @@ export default function HomepageHeader() {
       dispatch(saveMetaMaskAddress(metamaskAddress));
     }
   }, [metamaskAddress])
+
+  const handlePolkadotWalletModalCancel=()=>{
+    setIsShowPolkadotModalOpen(false)
+  }
 
   return (
     <header
@@ -461,7 +451,7 @@ export default function HomepageHeader() {
       {
         isShowAuthModalOpen &&
         <Modal open={isShowAuthModalOpen} onCancel={() => setIsShowAuthModalOpen(false)} footer={null} width={500}>
-          <div className='flex items-center justify-center'>
+          <div className='flex items-center justify-center dark: text-white'>
             <span style={{ fontWeight: '500', alignItems: 'center', display: 'flex', fontSize: '2rem' }}>
               Connect to Commune AI
             </span>
@@ -503,12 +493,12 @@ export default function HomepageHeader() {
                         if (!connected) {
                           return (
                             <div className='
-                                flex items-center justify-center hover:bg-gray-300 p-2 w-[105.77px] h-[105.77px] rounded-md
+                                flex items-center justify-center hover:bg-gray-300 p-2 w-[105.77px] h-[105.77px] rounded-md dark:text-white hover: text-black
                               '
                               style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}
                             >
                               <Image src={MetaMaskImage} alt='login with Metamask' width={50} height={50} className='cursor-pointer mb-1' />
-                              <button type="button">
+                              <button type="button" className="dark: text-white hover: text-black">
                                 Metamask
                               </button>
                             </div>
@@ -571,11 +561,11 @@ export default function HomepageHeader() {
                 }}
               </ConnectButton.Custom>
               <div className='
-                  flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]
+                  flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px] dark: text-white
                 '
                 style={{ flexDirection: 'column', border: '1px solid gray' }}
               >
-                <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1' />
+                <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1 dark: text-white' />
                 <GitHubLogin clientId='8386c0df1514607054e7'
                   buttonText="Github"
                   style={{ marginTop: '8px' }}
@@ -591,13 +581,16 @@ export default function HomepageHeader() {
               >
                 <button onClick={() => connectWallet()} className="w-full h-full flex justify-center items-center flex-col">
                   <Image className="w-[60px] h-[60px]" width={50} height={50} src={PolkadotImage} alt="Polkadot" />
-                  <span>Comwallet</span>
+                  <span className="dark: text-white">Comwallet</span>
                 </button>
               </div>
             </div>
           </div>
         </Modal>
       }
+      {isShowPolkadotModalOpen&&<Modal open={isShowPolkadotModalOpen} onCancel={handlePolkadotWalletModalCancel} footer={null} >
+        <PolkadotWallet/>
+      </Modal>}
     </header>
   );
 }
