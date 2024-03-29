@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Modal from "antd/es/modal/Modal";
-import {saveMetaMaskAddress} from '@/store/action/transaction.record.action';
 import { toast } from 'react-toastify';
 import GitHubLogin from "react-github-login";
 import PolkadotWallet from '@/components/atoms/polkadot-login-button';
