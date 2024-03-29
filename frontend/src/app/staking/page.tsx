@@ -22,7 +22,7 @@ const CommunalSystem: React.FC = () => {
     const [filteredModules, setFilteredModules] = useState<ValidatorType[]>([]);
     const [loadedModules, setLoadedModules] = useState<ValidatorType[]>([]);
 
-    const itemsPerPage = 16;
+    const itemsPerPage = 50;
     // Function to stake a module
     const stakeModule = (moduleId: string) => {
         setStakedModules([...stakedModules, moduleId]);
@@ -83,10 +83,10 @@ const CommunalSystem: React.FC = () => {
                 {
                     displayedModules && displayedModules.map(
                         module => {
-                            return <Card title={<span className={classnames('text-white')}>{module.name}</span>} style={{ width: 300, marginBottom: 20 }} className={classnames(Style.cardClass, 'mx-5 cursor-pointer shadow-xl card-class text-white')} key={module.address}>
+                            return <Card title={<span className={classnames('text-white text-[22px]')}>{module.name}</span>} style={{ width: 300, marginBottom: 20 }} className={classnames(Style.cardClass, 'flex flex-col text-[18px] mx-5 cursor-pointer shadow-xl card-class border-[1px] border-[#f2f2f2] text-[#f2f2f2] rounded-[20px] w-[280px] bg-[#1f2330] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]')} key={module.address}>
                                 <p className='text-white'>Amount: {module.balance}</p>
                                 <p className='text-white'>Staked: {stakedModules.includes(module.address) ? 'Yes' : 'No'}</p>
-                                <div className='flex'>
+                                <div className='flex mt-[6rem]'>
                                     <Button onClick={() => stakeModule(module.address)} className='flex items-center mr-1 bg-blue-500 rounded-lg shadow-lg hover:shadow-2xl text-center hover:bg-blue-600 duration-200 text-white hover:text-white font-sans 
                 justify-center px-2 py-2 cursor-pointer'>Stake</Button>
                                     <Button onClick={() => unstakeModule(module.address)} className='mr-1 text-white'>Unstake</Button>
