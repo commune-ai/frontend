@@ -4,11 +4,6 @@ import Image from 'next/image';
 import classes from "./home.module.css";
 import HomepageHeader from '@/components/templates/homepage-header';
 import WelcomeSection from '@/components/templates/welcome/welcome';
-import ModuleComponent from '@/components/templates/module/ModuleComponent';
-import { useState } from 'react';
-import { Modal } from 'antd';
-import ModuleModal from '@/components/RegisterModal';
-import RegisterModal from '@/components/RegisterModal';
 // import Modal from 'antd/es/modal/Modal';
 
 function SectionWrapper({
@@ -52,7 +47,7 @@ function SectionWrapper({
 export default function Home() {
 
   return (
-    <main className={classNames(classes.main, "flex flex-col relative")}>  
+    <main className={classNames(classes.main, "flex flex-col relative")}>
       <HomepageHeader />
       {/*       <ModuleComponent /> */}
       <WelcomeSection />
@@ -314,7 +309,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </SectionWrapper>      
+      </SectionWrapper>
     </main>
   )
 }

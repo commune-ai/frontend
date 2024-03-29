@@ -16,7 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 		<section
 			className={classNames(
 				classes.inputWrapper,
-				"my-auto mx-auto bg-gray-100 rounded-lg border-zinc-700 dark:bg-[#1e2022] dark:border-gray-100 border-solid mt-28"
+				"my-auto mx-auto bg-gray-100 rounded-lg border-zinc-700 dark:bg-[#1e2022] dark:border-gray-100 border-solid"
 			)}
 		>
 			<input

@@ -1,33 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { Pagination } from 'antd';
 import axios from "axios";
+import {
+    FaSpinner,
+    FaWallet,
+
+} from "react-icons/fa"
+import RegisterModal from "@/components/RegisterModal";
+import ThreeDButton from "@/components/atoms/threedbutton/ThreeDbutton";
 import Loading from "@/components/molecules/bittensor/loading";
 import ModuleItem, { ModuleItemPropsType } from "@/components/molecules/module-item";
 import SearchBar from "@/components/molecules/search-bar/search-bar";
-import ThreeDButton from "@/components/atoms/threedbutton/ThreeDbutton";
-import RegisterModal from "@/components/RegisterModal";
-import Image from "next/image";
-import {
-    FaDiscord,
-    FaGithub,
-    FaSpinner,
-    FaTelegram,
-    FaTwitter,
-    FaWallet,
-    FaYoutube,
-
-} from "react-icons/fa"
-import { truncateWalletAddress } from "@/utils"
 import { usePolkadot } from "@/context";
-import { PolkadotProvider } from "@/context";
-
-const PolkadotWalletButton = dynamic(
-    () => import("@/components/atoms/polkadot-wallet-button"),
-    { ssr: false }
-);
+import { truncateWalletAddress } from "@/utils"
 
 const Modules: React.FC = () => {
     const [searchString, setSearchString] = useState("");
@@ -117,28 +105,28 @@ const Modules: React.FC = () => {
                     )}
                 </>
             )}
-          
+
             <main className="h-[100vh] mt-[30px] flex flex-col items-center justify-center my-auto mx-auto xl:w-[1400px] px-[20px] ">
 
-            {isConnected && (
-                <>
-                <SearchBar
-                    setSearchString={setSearchString}
-                    searchString={searchString} />
+                {isConnected && (
+                    <>
+                        <SearchBar
+                            setSearchString={setSearchString}
+                            searchString={searchString} />
 
-                {displayedModules && displayedModules.length > 0 ? (
-                    <ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
-                        {displayedModules.map((item, idx) => (
-                            <ModuleItem key={idx} id={item.id} cardData={item.cardData} />
-                        ))}
-                    </ul>
-                ) : (
-                    <Loading />
-                )}
-                {moduleModalOpen && <RegisterModal onClose={handleCloseModal} />}
-                </>)}
+                        {displayedModules && displayedModules.length > 0 ? (
+                            <ul className='mt-[40px] flex justify-center flex-wrap gap-[20px]'>
+                                {displayedModules.map((item, idx) => (
+                                    <ModuleItem key={idx} id={item.id} cardData={item.cardData} />
+                                ))}
+                            </ul>
+                        ) : (
+                            <Loading />
+                        )}
+                        {moduleModalOpen && <RegisterModal onClose={handleCloseModal} />}
+                    </>)}
             </main><Pagination current={currentPage} total={filteredModules.length} defaultPageSize={16} showSizeChanger={false} onChange={handlePageChange} className="dark:text-white mx-auto" />;
-        
+
         </>
     );
 }

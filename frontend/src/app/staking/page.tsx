@@ -79,7 +79,7 @@ const CommunalSystem: React.FC = () => {
                 setSearchString={setSearchString}
                 searchString={searchString}
             />
-            <div className="flex justify-center flex-wrap gap-[10px]">
+            <div className="flex justify-center flex-wrap gap-[10px] mt-5">
                 {
                     displayedModules && displayedModules.map(
                         module => {

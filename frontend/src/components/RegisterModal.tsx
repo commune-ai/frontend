@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Form, Input, Button, Select } from "antd";
 import modules from "../../modules.json"
-import { Background } from "reactflow";
 import './registerModal.css'
-import { url } from "inspector";
-
 interface ModalProps {
   onClose: () => void;
 }
@@ -104,7 +101,7 @@ const RegisterModal: React.FC<ModalProps> = ({ onClose }) => {
               { value: 'Streamlit', label: 'Streamlit' },
               { value: 'Gradio', label: 'Gradio' },
               { value: 'Docker', label: 'Docker' },
-              { value: 'Static', label: 'Static' },          
+              { value: 'Static', label: 'Static' },
             ]} />
         </Form.Item>
         <Form.Item
