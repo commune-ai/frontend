@@ -102,6 +102,7 @@ export default function RootLayout({
       window.removeEventListener('load', handleLoad);
     };
   }, []);
+  
   return (
     <html lang="en">
       <Head />

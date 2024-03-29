@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { web3Enable, web3Accounts } from "@polkadot/extension-dapp";
 // import { web3Accounts } from "@polkadot/extension-dapp";
@@ -10,19 +11,23 @@ const PolkadotWallet = () => {
     const [extensionAvailable, setExtensionAvailable] = useState<boolean>(true);
 
     async function connectWallet() {
-        try {
-            const extensions = await web3Enable("CommuneAI");
-            if (extensions.length === 0) {
-                console.error("Install Polkadot wallet extension");
-                setExtensionAvailable(false);
-                return;
-            }
+        if (typeof window !== 'undefined') {
+            try {
+                const extensions = await web3Enable("CommuneAI");
+                if (extensions.length === 0) {
+                    console.error("Install Polkadot wallet extension");
+                    setExtensionAvailable(false);
+                    return;
+                }
 
-            setExtensionAvailable(true);
-            const allAccounts = await web3Accounts();
-            setAccounts(allAccounts as InjectedAccountWithMeta[]);
-        } catch (error) {
-            console.error("Error connecting to wallet", error);
+                setExtensionAvailable(true);
+                const allAccounts = await web3Accounts();
+                setAccounts(allAccounts as InjectedAccountWithMeta[]);
+            } catch (error) {
+                console.error("Error connecting to wallet", error);
+            }
+        } else {
+            console.error('Cannot connect wallet');
         }
     }
 
