@@ -1,12 +1,9 @@
 "use client"
-
+import React from 'react';
+import classnames from 'classnames';
 import Image from "next/image"
-import React, { useState } from 'react';
 import Link from "next/link"
 import { MdVerified } from "react-icons/md";
-
-import classnames from 'classnames';
-
 interface ModuleCardInterface {
     url: string
     name: string
@@ -20,7 +17,8 @@ interface ModuleCardInterface {
 
 const ModuleCard = ({ url, name, image, description, registerKey, verified, tags }: ModuleCardInterface) => {
 
-    console.log('--------This is the status--------', verified)
+    console.log('--------This is the status--------', verified);
+
     return (
         <div>
             {registerKey &&
