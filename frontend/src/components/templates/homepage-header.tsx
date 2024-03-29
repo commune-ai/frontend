@@ -1,6 +1,5 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux'
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Modal from "antd/es/modal/Modal";
@@ -38,14 +37,17 @@ export default function HomepageHeader() {
   const [isShowAuthModalOpen, setIsShowAuthModalOpen] = useState(false)
   const [isShowPolkadotModalOpen, setIsShowPolkadotModalOpen]= useState(false)
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log('-----------This is the loginstatus--------', isLoggedIn)
   const [metamaskAddress, setMetamaskAddress] = useState<string | undefined>('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // state of the scroll position and header height
   const [scrollPosition] = useState(0);
+  console.log('-------------This is the scrollPosition------------', scrollPosition)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const headerRef = useRef<any>(null);
   const [headerHeight, setHeaderHeight] = useState(20);
+  console.log('---------------This is teh headerHeight------------', headerHeight)
   // typeWriter effect
   // give me the context of this whole useEffect
   useEffect(() => {
@@ -149,13 +151,13 @@ export default function HomepageHeader() {
     setIsShowPolkadotModalOpen(true)
   };
 
-  const dispatch = useDispatch<any>()
+  //const dispatch = useDispatch<any>()
 
   useEffect(()=>{
     if(metamaskAddress){
       console.log('-----------This is an wallet address---------', metamaskAddress);
       toast.success(`You are logged in with ${metamaskAddress}`, { autoClose: 2000 });
-      dispatch(saveMetaMaskAddress(metamaskAddress));
+      //dispatch(saveMetaMaskAddress(metamaskAddress));
     }
   }, [metamaskAddress])
 
@@ -451,7 +453,7 @@ export default function HomepageHeader() {
       {
         isShowAuthModalOpen &&
         <Modal open={isShowAuthModalOpen} onCancel={() => setIsShowAuthModalOpen(false)} footer={null} width={500}>
-          <div className='flex items-center justify-center dark: text-white'>
+          <div className='flex items-center justify-center'>
             <span style={{ fontWeight: '500', alignItems: 'center', display: 'flex', fontSize: '2rem' }}>
               Connect to Commune AI
             </span>
@@ -498,7 +500,7 @@ export default function HomepageHeader() {
                               style={{ flexDirection: 'column', border: '1px solid gray' }} onClick={openConnectModal}
                             >
                               <Image src={MetaMaskImage} alt='login with Metamask' width={50} height={50} className='cursor-pointer mb-1' />
-                              <button type="button" className="dark: text-white hover: text-black">
+                              <button type="button">
                                 Metamask
                               </button>
                             </div>
@@ -561,11 +563,11 @@ export default function HomepageHeader() {
                 }}
               </ConnectButton.Custom>
               <div className='
-                  flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px] dark: text-white
+                  flex items-center justify-center p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]
                 '
                 style={{ flexDirection: 'column', border: '1px solid gray' }}
               >
-                <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1 dark: text-white' />
+                <Image src={GithubImage} alt='login with Github' width={50} height={50} className='cursor-pointer mb-1' />
                 <GitHubLogin clientId='8386c0df1514607054e7'
                   buttonText="Github"
                   style={{ marginTop: '8px' }}
@@ -581,7 +583,7 @@ export default function HomepageHeader() {
               >
                 <button onClick={() => connectWallet()} className="w-full h-full flex justify-center items-center flex-col">
                   <Image className="w-[60px] h-[60px]" width={50} height={50} src={PolkadotImage} alt="Polkadot" />
-                  <span className="dark: text-white">Comwallet</span>
+                  <span>Comwallet</span>
                 </button>
               </div>
             </div>
