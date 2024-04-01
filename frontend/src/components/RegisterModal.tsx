@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Form, Input, Button, Select } from "antd";
+import { toast } from "react-toastify";
 import modules from "../../modules.json"
 import './registerModal.css'
 interface ModalProps {
@@ -11,6 +12,7 @@ const RegisterModal: React.FC<ModalProps> = ({ onClose }) => {
   const [form] = Form.useForm();
 
   const handleSubmit = () => {
+    toast.success('success')
     form.validateFields().then((values) => {
       // console.log(values.email);
       modules.push({
