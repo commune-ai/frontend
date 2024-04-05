@@ -2,10 +2,14 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 
 const Head = () => {
+  
   const currentPath = usePathname();
 
+  // Check if currentPath is null, and if so, default to an empty string
+  const safePath = currentPath || '';
+
   // Split the path and get the last part
-  const pathParts = currentPath.split('/');
+  const pathParts = safePath.split('/');
   let moduleName = pathParts[pathParts.length - 1];
 
   // If moduleName is empty, default it to 'Home' or some other default value
