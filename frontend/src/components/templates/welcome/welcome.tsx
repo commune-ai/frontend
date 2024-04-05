@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Image from "next/image";
-import { Fade, Bounce } from 'react-awesome-reveal';
+import { Bounce } from 'react-awesome-reveal';
 import { InView } from "react-intersection-observer";
 
 export default function WelcomeSection() {

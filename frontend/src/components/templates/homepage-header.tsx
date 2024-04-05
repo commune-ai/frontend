@@ -38,7 +38,6 @@ export default function HomepageHeader() {
   const [blink, setBlink] = useState(true);
   const [reverse, setReverse] = useState(false);
   const [isShowAuthModalOpen, setIsShowAuthModalOpen] = useState(false)
-  const [isShowPolkadotModalOpen, setIsShowPolkadotModalOpen]= useState(false)
 
   const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
 
@@ -151,10 +150,6 @@ export default function HomepageHeader() {
   const onGitHubLoginFailure = (response: any) => {
     console.log('------the data from github-----failed-----', response);
   }
-
-  const connectWallet = async () => {
-    setIsShowPolkadotModalOpen(true)
-  };
 
   //const dispatch = useDispatch<any>()
 
@@ -615,11 +610,6 @@ export default function HomepageHeader() {
           </div>
         </Modal>
       }
-      {
-        isShowPolkadotModalOpen&&<Modal open={isShowPolkadotModalOpen} onCancel={handlePolkadotWalletModalCancel} footer={null} >
-        <PolkadotWallet/>
-      </Modal>
-    }
     </header>
   );
 }
