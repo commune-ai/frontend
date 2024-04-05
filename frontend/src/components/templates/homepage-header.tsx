@@ -9,7 +9,6 @@ import { AiFillWallet} from "react-icons/ai"
 import { FaSpinner } from "react-icons/fa6"
 import { truncateWalletAddress } from "@/utils"
 import GitHubLogin from "react-github-login";
-import PolkadotWallet from '@/components/atoms/polkadot-login-button';
 import GithubImage from "../../../public/svg/github-mark.svg";
 import MetaMaskImage from "../../../public/svg/metamask.svg";
 import PolkadotImage from "../../../public/svg/polkadot.svg";
@@ -160,10 +159,6 @@ export default function HomepageHeader() {
       //dispatch(saveMetaMaskAddress(metamaskAddress));
     }
   }, [metamaskAddress])
-
-  const handlePolkadotWalletModalCancel=()=>{
-    setIsShowPolkadotModalOpen(false)
-  }
 
   return (
     <header
