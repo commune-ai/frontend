@@ -8,7 +8,6 @@ interface ModalProps {
 }
 
 const RegisterModal: React.FC<ModalProps> = ({ onClose }) => {
-  console.log("-----------", modules);
   const [form] = Form.useForm();
 
   const handleSubmit = () => {

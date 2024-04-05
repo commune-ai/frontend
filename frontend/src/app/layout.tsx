@@ -31,6 +31,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import "@fontsource/source-code-pro";
 import { projectId } from "../config"
+import Providers from "@/app/provider"
 import Loading from '@/components/molecules/bittensor/loading';
 import NavigationBar from '@/components/organisms/navbar/navigation-bar';
 import Footer from '@/components/templates/footer/footer';
@@ -102,10 +103,12 @@ export default function RootLayout({
       window.removeEventListener('load', handleLoad);
     };
   }, []);
-  
+
   return (
     <html lang="en">
+
       <Head />
+      
       <body>
         {
           isLoading ?
@@ -113,15 +116,17 @@ export default function RootLayout({
             :
             <WagmiConfig config={wagmiConfig}>
               <RainbowKitProvider chains={chains} coolMode theme={darkTheme()}>
-                <Provider store={store}>
-                  <ThemeProvider>
-                    {/* <Banner /> */}
-                    <NavigationBar />           
-                                
-                    {children}
-                    <Footer />
-                  </ThemeProvider>
-                </Provider>
+                <Providers>
+                  <Provider store={store}>
+                    <ThemeProvider>
+                      {/* <Banner /> */}
+                      <NavigationBar />
+
+                      {children}
+                      <Footer />
+                    </ThemeProvider>
+                  </Provider>
+                </Providers>
                 <ToastContainer />
               </RainbowKitProvider>
             </WagmiConfig>

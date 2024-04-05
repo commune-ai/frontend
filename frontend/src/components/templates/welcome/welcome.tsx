@@ -1,18 +1,30 @@
-
+import {useState} from 'react';
 import Image from "next/image";
+import { Fade, Bounce } from 'react-awesome-reveal';
+import { InView } from "react-intersection-observer";
 
 export default function WelcomeSection() {
+
+    const [show, setShow] = useState(false);
+
     return (
-      <section id="welcome" className="h-full pt-20 dark:bg-gray-900">
+      <InView onChange={(inView) => setShow(inView)} id="welcome" className="h-full pt-20 dark:bg-gray-900 overflow-hidden">
         <div className="flex flex-col items-center justify-center">
           <div className="pt-6 w-full">
-            <h1 className="text-6xl pb-3 dark:text-white text-center">
-              Welcome to the{" "}
-              <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">
-                commune
-              </span>
-              ! 
-            </h1>
+            {
+              show && (
+                <Bounce duration={1000} delay={300}>
+                <h1 className="text-6xl pb-3 dark:text-white text-center">
+                  Welcome to the{" "}
+                  <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">
+                    commune
+                  </span>
+                  ! 
+                </h1>
+              </Bounce>
+              )
+          }
+            
             <p className="hero__subtitle text-4xl text-center dark:text-white">
               A place for{" "}
               <span className="text-[#ffb4ed] dark:text-[#FFD6F5]">everyone</span>{" "}
@@ -110,6 +122,6 @@ export default function WelcomeSection() {
             </div>
           </div>
         </div>
-      </section>
+      </InView>
     );
   }

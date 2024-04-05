@@ -1,24 +1,26 @@
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const Head = () => {
-	const searchParams = useSearchParams();
+  const currentPath = usePathname();
 
-	const name = searchParams?.get("titlename");
+  // Split the path and get the last part
+  const pathParts = currentPath.split('/');
+  let moduleName = pathParts[pathParts.length - 1];
 
-	const dynamicTitle = name ? `${name} | Commune` : "Commune";
+  // If moduleName is empty, default it to 'Home' or some other default value
+  if (!moduleName) {
+    moduleName = 'Home'; // You can change this default value to whatever you want
+  }
 
-	return (
-		<>
-			<title>
-				{dynamicTitle.charAt(0).toUpperCase() + dynamicTitle.slice(1)}
-			</title>
-			<meta content="width=device-width, initial-scale=1" name="viewport" />
-			<meta name="description" content="Renovating the way we build software for developers" />
-			<link rel="icon" href="/svg/commune.svg" />
-		</>
-	);
+  return (
+    <>
+      <title>{`Commune | ${moduleName}`}</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta name="description" content="Renovating the way we build software for developers" />
+      <link rel="icon" href="/svg/commune.svg" />
+    </>
+  );
 };
 
 export default Head;
-

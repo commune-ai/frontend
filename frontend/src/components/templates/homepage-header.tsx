@@ -3,7 +3,11 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Modal from "antd/es/modal/Modal";
+import { usePolkadot } from "@/context"
 import { toast } from 'react-toastify';
+import { AiFillWallet} from "react-icons/ai"
+import { FaSpinner } from "react-icons/fa6"
+import { truncateWalletAddress } from "@/utils"
 import GitHubLogin from "react-github-login";
 import PolkadotWallet from '@/components/atoms/polkadot-login-button';
 import GithubImage from "../../../public/svg/github-mark.svg";
@@ -35,6 +39,8 @@ export default function HomepageHeader() {
   const [reverse, setReverse] = useState(false);
   const [isShowAuthModalOpen, setIsShowAuthModalOpen] = useState(false)
   const [isShowPolkadotModalOpen, setIsShowPolkadotModalOpen]= useState(false)
+
+  const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log('-----------This is the loginstatus--------', isLoggedIn)
@@ -575,23 +581,45 @@ export default function HomepageHeader() {
                   redirectUri={'http://localhost:3000/modules'}
                 />
               </div>
-              <div className="
+             
+                
+                {
+                  isInitialized && selectedAccount ? (
+                  <div className="flex items-center">
+                    <div className="relative flex items-center bg-white rounded-full shadow px-4 py-2">
+                      <button className="flex items-center cursor-pointer">
+                        <AiFillWallet size={24} className="text-purple" />
+                        <span className="ml-2 font-mono">
+                          {truncateWalletAddress(selectedAccount.address)}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="
                   transition-all duration-300 flex items-center justify-center flex-col border-[1px] 
                   border-[gray] p-2 rounded-md hover:bg-gray-300 w-[105.77px] h-[105.77px]
                 "
               >
-                <button onClick={() => connectWallet()} className="w-full h-full flex justify-center items-center flex-col">
-                  <Image className="w-[60px] h-[60px]" width={50} height={50} src={PolkadotImage} alt="Polkadot" />
-                  <span>Comwallet</span>
-                </button>
+                  <div className="flex items-center gap-x-2">
+                    {!isInitialized && <FaSpinner className="spinner" />}
+                    <button onClick={handleConnect} className="w-full h-full flex justify-center items-center flex-col">
+                      <Image className="w-[60px] h-[60px]" width={50} height={50} src={PolkadotImage} alt="Polkadot" />
+                      <span>Comwallet</span>
+                    </button>
+                  </div>
               </div>
+
+                )}
             </div>
           </div>
         </Modal>
       }
-      {isShowPolkadotModalOpen&&<Modal open={isShowPolkadotModalOpen} onCancel={handlePolkadotWalletModalCancel} footer={null} >
+      {
+        isShowPolkadotModalOpen&&<Modal open={isShowPolkadotModalOpen} onCancel={handlePolkadotWalletModalCancel} footer={null} >
         <PolkadotWallet/>
-      </Modal>}
+      </Modal>
+    }
     </header>
   );
 }

@@ -1,11 +1,10 @@
 "use client"
-import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types"
 import React, { useState } from "react"
+import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types"
 import Modal from "antd/es/modal/Modal"
 import { AiFillCheckCircle } from "react-icons/ai"
-import { infoToast } from "@/components/atoms/toast"
 import { FaTimes } from "react-icons/fa"
-import { Button } from "antd"
+import { infoToast } from "@/components/atoms/toast"
 
 const WalletModal = ({
   open,
@@ -24,20 +23,17 @@ const WalletModal = ({
     <Modal
       open={open}
       onCancel={() => setOpen(false)}
-      closeIcon={<FaTimes size={20} />} 
+      closeIcon={<FaTimes size={20} />}
       styles={{
-        mask:{
+        mask: {
           backdropFilter: 'blur(10px)'
         }
       }
-    }
-      footer={[
-        <Button key="cancel" onClick={() => setOpen(false)} className="bg-green-400">
-          Cancel
-        </Button>,
-      ]}    
+      }
+      footer={null}
     >
-      <h6 className="text-lg font-semibold text-white">Select your wallet</h6>
+
+      <h6 className="text-lg font-semibold text-black dark:text-black">Choose your polkadot wallet to connect</h6>
       <hr className="my-3" />
       <div className="mt-5">
         <div className="flex flex-col gap-y-4 h-[300px] overflow-y-scroll no-scrollbar">

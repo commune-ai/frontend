@@ -57,7 +57,7 @@ const PolkadotWallet = () => {
                     accounts.length === 0 && (
                         <div className="bg-neutral-100 p-8 rounded-md shadow-md flex flex-col gap-4">
                             <button onClick={handleConnectClick} className="rounded-md px-4 py-2 bg-neutral-800 text-white ">
-                                Connect
+                                Connect with Polkadot{".js"}
                             </button>
                         </div>
                     )

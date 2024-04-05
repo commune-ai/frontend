@@ -23,10 +23,10 @@ export default function Footer() {
 					</div>
 					<div className="flex flex-col gap-3 relative">
 						<p className="text-[22px] font-bold footer-main">📚 Docs</p>
-						<a className="text-[1.5rem] font-bold footer-main hover:underline" href="/docs/introduction">
+						<a className="text-[1rem] font-bold footer-main hover:underline" href="/docs/introduction">
 							Introduction
 						</a>
-						<a className="text-[1.5rem] font-bold footer-main hover:underline" href="/docs/setup-commune">
+						<a className="text-[1rem] font-bold footer-main hover:underline" href="/docs/setup-commune">
 							Installation
  						</a>
 					</div>
@@ -63,14 +63,14 @@ export default function Footer() {
 							href={externalLinks.whitepaper}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-[1.5rem] font-bold footer-main hover:underline"
+							className="text-[1rem] font-bold footer-main hover:underline"
 						>
 							📄 Whitepaper
 						</a>
 					</div>
 				</div>
 			</div>
-			<p className="text-[16px] font-medium dark:text-white text-center mb-[5rem] px-3">
+			<p className="text-[16px] font-medium dark:text-white text-center mb-[2rem] px-3">
 				Copyright © {new Date().getFullYear()} Commune, Inc. Built with Docusaurus.
 			</p>
 		</footer>
