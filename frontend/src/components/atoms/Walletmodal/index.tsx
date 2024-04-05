@@ -33,7 +33,7 @@ const WalletModal = ({
       footer={null}
     >
 
-      <h6 className="text-lg font-semibold text-black dark:text-black">Choose your polkadot wallet to connect</h6>
+      <h6 className="text-lg font-semibold text-black dark:text-white">Choose your polkadot wallet to connect</h6>
       <hr className="my-3" />
       <div className="mt-5">
         <div className="flex flex-col gap-y-4 h-[300px] overflow-y-scroll no-scrollbar">

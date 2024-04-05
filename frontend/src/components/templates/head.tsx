@@ -15,7 +15,7 @@ const Head = () => {
 
   return (
     <>
-      <title>{`Commune | ${moduleName}`}</title>
+      <title>{`Commune | ${moduleName.charAt(0).toUpperCase() + moduleName.slice(1)}`}</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta name="description" content="Renovating the way we build software for developers" />
       <link rel="icon" href="/svg/commune.svg" />
