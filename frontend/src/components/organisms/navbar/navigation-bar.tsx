@@ -9,11 +9,13 @@ import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { loadStripe } from "@stripe/stripe-js";
 import { Modal, Space, Select } from 'antd';
-import { IoSettingsSharp } from "react-icons/io5";
+import { AiFillWallet } from 'react-icons/ai';
+import { FaSpinner } from 'react-icons/fa6';
 import { parseEther } from 'viem'
 import { useSendTransaction, useContractWrite } from 'wagmi'
 import classes from './navigation-bar.module.css';
-import LogoImage from '../../../../public/gif/logo/CubesShufflingGIF.gif'
+import CommuneAILogo from '../../../../public/img/frontpage/comai-logo.png'
+import HuggingfaceImage from '../../../../public/img/frontpage/huggingface.png'
 import StripeImage from '../../../../public/img/frontpage/stripe.png'
 import MetaMaskImage from '../../../../public/svg/metamask.svg'
 import * as  erc20ContractABI from '../../../services/token_abi.json';
@@ -22,16 +24,13 @@ import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
 import ThemeToggler from "@/components/templates/theme-toggler";
+import { usePolkadot } from "@/context"
 import { saveTransaction } from "@/store/action/transaction.record.action";
-// import { IoSettingsSharp } from "react-icons/io5";
-
-const user = {
-	name: 'Tom Cook',
-	email: 'tom@example.com',
-}
+import { truncateWalletAddress } from '@/utils';
+import Button from '@/utils/button';
 
 const navigation = [
-	{ name: '🚀Modules', href: '/modules', current: false },
+	// { name: '🚀Modules', href: '/modules', current: false },
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
 	// { name: '🥂ComChat', href: 'https://comchat.io/', current: false },
 	// { name: '💻ComfyUILauncher', href: 'https://huggingface.co/spaces/subbytech/comfyui-launcher/', current: false },
@@ -86,6 +85,9 @@ export default function NavigationBar() {
 	const { abi: erc20ABI } = erc20ContractABI
 	const router = useRouter();
 
+	//polkadot js login
+	const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
+
 	const handleClickPayButton = async () => {
 		try {
 			const amount = 1;
@@ -111,15 +113,6 @@ export default function NavigationBar() {
 	const handleMetaMaskPayment = () => {
 		setIsShowWalletPaymentModal(true)
 	}
-
-	// const onClick: MenuProps['onClick'] = ({ key }) => {
-	// 	if (key === '1') {
-	// 		handleClickPayButton()
-	// 	}
-	// 	if (key === '2') {
-	// 		handleMetaMaskPayment()
-	// 	}
-	// };
 
 	const handleWalletPaymentModalOpen = () => {
 		setIsShowWalletPaymentModal(false)
@@ -199,6 +192,13 @@ export default function NavigationBar() {
 		}
 	};
 
+	const handleHuggingfaceModuleRouter = () => {
+		router.push('/modules')
+	}
+
+	const handleCommuneAIModuleRouter = () => {
+		router.push('/commune-modules')
+	}
 
 	return (
 		<>
@@ -218,31 +218,64 @@ export default function NavigationBar() {
 												height={64}
 											/>
 										</Link>
+
+										<Menu as="div" className="flex relative ml-3">
+											<div>
+												<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>🚀Modules</Menu.Button>
+											</div>
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-[11rem] origin-top-right rounded-md bg-white py-1 px-5 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none flex items-start justify-center flex-col">
+													<Menu.Item>
+														<button rel="noopener noreferrer" onClick={handleCommuneAIModuleRouter} className="flex items-center mt-2" >
+															CommuneAI
+															<Image src={CommuneAILogo} alt="CommuneAIImage" width={24} height={24} className="rounded-md ml-5" />
+														</button>
+													</Menu.Item>
+													{/* <div className='bg-white w-full h-[1px] mt-1' /> */}
+													<Menu.Item>
+														<button rel="noopener noreferrer" onClick={handleHuggingfaceModuleRouter} className="flex items-center cursor-pointer" >
+															Huggingface
+															<Image src={HuggingfaceImage} alt="HuggingfaceImage" width={64} height={64} className="rounded-md" />
+														</button>
+													</Menu.Item>
+												</Menu.Items>
+											</Transition>
+										</Menu>
+
 										<div className="hidden xl:block">
 											<div className="flex">
-												{navigation.map((item) => (
-													<a
-														key={item.name}
-														href={item.href}
-														className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 lg:pl-4 md:text-xl')}
-														aria-current={item.current ? 'page' : undefined}
-													>
-														<span className='flex items-center justify-center'>
-															{item.name === 'Bittensor' && <Image src='/img/frontpage/bittensor.jpg' alt='bittensor' width={25} height={10} className='mr-1' />}
-															{item.name === 'Staking' && <Image src='/img/frontpage/staking.jpg' alt='staking' width={25} height={10} className='mr-1 rounded-md' />}
-															{item.name}
-														</span>
-													</a>
-												))}
+												{
+													navigation.map((item) => (
+														<a
+															key={item.name}
+															href={item.href}
+															className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 lg:pl-4')}
+															aria-current={item.current ? 'page' : undefined}
+														>
+															<span className='flex items-center justify-center'>
+																{item.name}
+															</span>
+														</a>
+													))
+												}
 											</div>
 										</div>
 									</div>
+
 									{/* <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Commune AI</span></h1> */}
 									<div className="hidden md:block">
 										<div className="flex items-center relative">
 											<Menu as="div" className="flex relative ml-3">
 
-												<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-xl')} aria-haspopup="true" aria-expanded="false" role="button" >
+												<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
 													🔗Community
 												</Menu.Button>
 
@@ -302,7 +335,7 @@ export default function NavigationBar() {
 
 											<Menu as="div" className="flex relative ml-3">
 												<div>
-													<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-[18px]')}>💰Payment</Menu.Button>
+													<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>💰Payment</Menu.Button>
 												</div>
 												<Transition
 													as={Fragment}
@@ -339,7 +372,7 @@ export default function NavigationBar() {
 												</Space>
 											</Dropdown> */}
 
-											<Menu as="div" className="flex relative ml-3 mr-3 mt-2">
+											{/* <Menu as="div" className="flex relative ml-3 mr-3 mt-2">
 												<div>
 													<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 md:text-xl')} aria-haspopup="true" aria-expanded="false" role="button" >
 														<IoSettingsSharp />
@@ -382,7 +415,7 @@ export default function NavigationBar() {
 													</Menu.Items>
 												</Transition>
 
-											</Menu>
+											</Menu> */}
 
 											{/* <Menu as="div" className="mx-3">
 												<div>
@@ -427,17 +460,43 @@ export default function NavigationBar() {
 
 											{/* <div className={classes.themeTogglerWrapper} style={{ marginLeft: '0.1rem' }}> */}
 											<ThemeToggler />
-											{/*  </div> */}
-											{/* <div className='absolute'>								 */}
+											{
+												isInitialized && selectedAccount ? (
+													<div className="flex items-center ml-4">
+
+														<div className="relative flex items-center bg-white rounded-full shadow px-4 py-2">
+															<button className="flex items-center cursor-pointer">
+																<AiFillWallet size={24} className="text-purple" />
+																<span className="ml-2 font-mono">
+																	{truncateWalletAddress(selectedAccount.address)}
+																</span>
+															</button>
+														</div>
+													</div>
+												) : (
+													<div className="flex items-center gap-x-2 ml-4">
+														{!isInitialized && <FaSpinner className="spinner" />}
+														<Button
+															size="large"
+															variant="primary"
+															className='flex items-center justify-center'
+															onClick={handleConnect}
+															isDisabled={!isInitialized}
+														>
+															<AiFillWallet size={18} />
+															Connect Wallet
+														</Button>
+													</div>
+												)
+											}
+
 											<div className='hidden xl:block'>
 												<HamburgerModal />
 											</div>
 
-											{/* </div>																		 */}
 										</div>
 									</div>
 									<div className="flex xl:hidden">
-										{/* Mobile menu button */}
 										<Disclosure.Button
 											className="
 												relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 
@@ -476,12 +535,7 @@ export default function NavigationBar() {
 								</div>
 								<div className="border-t border-gray-700 pb-3 pt-4">
 									<div className="flex items-center px-5">
-										<Image className="h-10 w-10 rounded-full bg-white" src={LogoImage} alt="" />
-										<div className="ml-3">
-											<div className="text-base font-medium leading-none dark:text-white">{user.name}</div>
-											<div className="text-sm font-medium leading-none dark:text-white">{user.email}</div>
-										</div>
-										<div className={classNames(classes.themeTogglerWrapper, 'ml-auto')}>
+										<div className={classNames(classes.themeTogglerWrapper)}>
 											<ThemeToggler />
 										</div>
 									</div>

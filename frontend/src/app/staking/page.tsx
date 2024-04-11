@@ -5,15 +5,10 @@ import { Card, Button } from 'antd';
 import { Pagination } from 'antd';
 import Style from './staking.module.css';
 import { ValidatorType } from '../api/staking/type';
-import { useGetValidatorsQuery } from "@/app/api/staking/modulelist"
 import SearchBar from '@/components/molecules/search-bar/search-bar';
+import communeModels from '@/utils/validatorData.json'
 
 const CommunalSystem: React.FC = () => {
-
-    const { data: validatorData } =
-        useGetValidatorsQuery(undefined, {
-            pollingInterval: 300000,
-        })
 
     const [searchString, setSearchString] = useState("");
     const [stakedModules, setStakedModules] = useState<string[]>([]);
@@ -44,8 +39,8 @@ const CommunalSystem: React.FC = () => {
     };
 
     useEffect(() => {
-        validatorData && setLoadedModules(validatorData)
-    }, [validatorData])
+        communeModels && setLoadedModules(communeModels)
+    }, [communeModels])
 
     useEffect(() => {
         const filtered = searchString

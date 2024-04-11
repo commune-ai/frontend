@@ -12,6 +12,10 @@ nextjs-portal {
     /* Add other font properties as needed */
 }
 
+.card-validator-heading {
+    @apply text-sm leading-6 font-medium tracking-tight flex items-center gap-x-2 text-textSecondary;
+  }
+  
 body {
     font-family: 'CommuneFont', sans-serif;
 }

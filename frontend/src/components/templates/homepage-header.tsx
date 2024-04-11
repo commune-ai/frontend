@@ -427,18 +427,21 @@ export default function HomepageHeader() {
                 </p>
               </div>
             </div>
-            <div className='w-[10rem] h-[5rem]'>
-              <div
-                className='
-                  bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center 
-                  hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
-                  font-sans font-semibold justify-center px-2 py-2 cursor-pointer
-                '
-                onClick={() => setIsShowAuthModalOpen(true)}
-              >
-                Get Started
+            {/* 
+              <div className='w-[10rem] h-[5rem]'>
+                <div
+                  className='
+                    bg-blue-700 rounded-lg shadow-lg hover:shadow-2xl text-center 
+                    hover:bg-blue-600 duration-200 text-xl text-white hover:text-white 
+                    font-sans font-semibold justify-center px-2 py-2 cursor-pointer
+                  '
+                  onClick={() => setIsShowAuthModalOpen(true)}
+                >
+                  Get Started
+                </div>
               </div>
-            </div>
+              */}
+              
           </div>
           <div className='hidden lg:block w-full lg:w-1/2 h-full lg:-mr-44 '>
             <Image src="/gif/logo/commune.gif" width={500} height={500} alt="Commune Logo" className='' />
