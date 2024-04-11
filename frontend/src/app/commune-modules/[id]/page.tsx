@@ -124,15 +124,28 @@ const ValidatorDetailPage = () => {
                     }
 
                 </span>
+
+                <span className="card-validator-data truncate" style={{ fontSize: '26px' }}>
+                    {validatorData?.key}
+                    {
+                        copiedValidatorKey ? <CheckOutlined className="ml-2" /> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardValidatorKey(validatorData?.key)} />
+                    }
+                </span>
+
+                <span className="card-validator-data mr-2" style={{ fontSize: '26px' }}>
+                    {validatorData?.address}
+                    {copiedNetworkUrl ? <CheckOutlined className="ml-2"/> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardNetworkUrl(validatorData?.address)} />}
+                </span>
+
             </div>
 
             <div className="flex gap-x-5 flex-col items-center lg:items-start lg:flex-row">
                 <div className="p-4 w-[500px]">
 
                     <div className={classnames(Style.cardClass, "h-64 w-64 flex justify-center items-center rounded-3xl mx-auto dark:text-black bg-[#1f2330] duration-300 transition-all hover:opacity-75 hover:border-primary shadow-xl border-[1px] border-[#f2f2f2] cursor-pointer")}
-                        style={{ backgroundColor: validatorData && getColorForModule(validatorData.name), width: '280px', height: '280px' }}
+                        style={{ backgroundColor: validatorData && getColorForModule(validatorData.name), width: '320px', height: '320px' }}
                     >
-                        <span className="dark:text-white" style={{ fontSize: '40px' }}>{validatorData?.name}</span>
+                        <span className="dark:text-white" style={{ fontSize: '46px' }}>{validatorData?.name}</span>
                     </div>
                     {
                         validatorData?.key ===
@@ -145,7 +158,7 @@ const ValidatorDetailPage = () => {
                         )
                     }
 
-                    <div className="flex justify-center gap-x-4 mt-[2.5rem]">
+                    <div className="flex justify-center gap-x-4 mt-[1.5rem]">
                         <a href="" target="_blank">
                             <FaDiscord size={22} />
                         </a>
