@@ -6,8 +6,6 @@ import { FaUsers } from "react-icons/fa"
 import { FaArrowLeft, FaDiscord } from "react-icons/fa6"
 import { FaXTwitter } from "react-icons/fa6"
 import { GiProfit } from "react-icons/gi"
-import { GoKey } from "react-icons/go"
-import { PiCirclesFourLight } from "react-icons/pi"
 import { RiAiGenerate } from "react-icons/ri"
 import { SiBlockchaindotcom } from "react-icons/si"
 import { TbWorld } from "react-icons/tb"
@@ -35,6 +33,7 @@ const ValidatorDetailPage = () => {
     const [copiedValidatorKey, setCopiedValidatorKey] = useState(false);
     const [copiedNetworkUrl, setCopiedNetworkUrl] = useState(false)
     const [copiedModuleName, setCopiedModuleName] = useState(false)
+    const [stakeModuleAmount, setStakeModuleAmount] = useState(0)
 
     const copyToClipboardValidatorKey = async (text: string | undefined) => {
         try {
@@ -96,46 +95,49 @@ const ValidatorDetailPage = () => {
     };
 
     return (
-        <div className="container px-3 md:px-0 mx-auto mb-4">
+        <div className="w-[97%] px-3 md:px-0 mx-auto mb-4">
             <div className="flex py-5 items-center gap-x-3">
                 <button
                     className="border-2 p-2 rounded-lg cursor-pointer"
                     onClick={() => router.push("/commune-modules")}
                 >
-                    <FaArrowLeft />
+                    <FaArrowLeft className="h-[53px] w-[50px]" />
                 </button>
-                <span className="text-lg font-semibold flex items-center gap-x-2 mr-2" style={{ fontSize: '26px' }}>
-                    {
-                        validatorData?.name
-                    }{" "}
 
-                    {
-                        validatorData?.isVerified && (
-                            <Verified
-                                isGold={
-                                    validatorData.key === process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR
-                                }
-                            />
-                        )
-                    }
+                <div className="flex border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[96%] items-center justify-around">
+                    <span className="font-semibold flex items-center gap-x-2 mr-2" style={{ fontSize: '32px' }}>
+                        {
+                            validatorData?.name
+                        }{" "}
 
-                    {
-                        copiedModuleName ? <CheckOutlined /> : <CopyOutlined onClick={() => copyToClipboardModuleAddress(validatorData?.name)} />
-                    }
+                        {
+                            validatorData?.isVerified && (
+                                <Verified
+                                    isGold={
+                                        validatorData.key === process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR
+                                    }
+                                />
+                            )
+                        }
 
-                </span>
+                        {
+                            copiedModuleName ? <CheckOutlined /> : <CopyOutlined onClick={() => copyToClipboardModuleAddress(validatorData?.name)} />
+                        }
 
-                <span className="card-validator-data truncate" style={{ fontSize: '26px' }}>
-                    {validatorData?.key}
-                    {
-                        copiedValidatorKey ? <CheckOutlined className="ml-2" /> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardValidatorKey(validatorData?.key)} />
-                    }
-                </span>
+                    </span>
 
-                <span className="card-validator-data mr-2" style={{ fontSize: '26px' }}>
-                    {validatorData?.address}
-                    {copiedNetworkUrl ? <CheckOutlined className="ml-2"/> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardNetworkUrl(validatorData?.address)} />}
-                </span>
+                    <span className="card-validator-data truncate" style={{ fontSize: '32px' }}>
+                        {validatorData?.key}
+                        {
+                            copiedValidatorKey ? <CheckOutlined className="ml-2" /> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardValidatorKey(validatorData?.key)} />
+                        }
+                    </span>
+
+                    <span className="card-validator-data mr-2" style={{ fontSize: '32px' }}>
+                        {validatorData?.address}
+                        {copiedNetworkUrl ? <CheckOutlined className="ml-2" /> : <CopyOutlined className="ml-2" onClick={() => copyToClipboardNetworkUrl(validatorData?.address)} />}
+                    </span>
+                </div>
 
             </div>
 
@@ -143,14 +145,14 @@ const ValidatorDetailPage = () => {
                 <div className="p-4 w-[500px]">
 
                     <div className={classnames(Style.cardClass, "h-64 w-64 flex justify-center items-center rounded-3xl mx-auto dark:text-black bg-[#1f2330] duration-300 transition-all hover:opacity-75 hover:border-primary shadow-xl border-[1px] border-[#f2f2f2] cursor-pointer")}
-                        style={{ backgroundColor: validatorData && getColorForModule(validatorData.name), width: '320px', height: '320px' }}
+                        style={{ backgroundColor: validatorData && getColorForModule(validatorData.name), width: '100%', height: '320px' }}
                     >
                         <span className="dark:text-white" style={{ fontSize: '46px' }}>{validatorData?.name}</span>
                     </div>
                     {
                         validatorData?.key ===
                         process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR && (
-                            <p className="text-md mt-[3.5rem] text-center" style={{ fontSize: '23px' }}>
+                            <p className="text-md mt-[1.5rem] text-center" style={{ fontSize: '25px' }}>
                                 All Statistics of CommuneAI at one place. Staking
                                 infrastructure, prices, validators, miners, swap, bridge,
                                 exchange for $COMAI
@@ -158,7 +160,7 @@ const ValidatorDetailPage = () => {
                         )
                     }
 
-                    <div className="flex justify-center gap-x-4 mt-[1.5rem]">
+                    <div className="flex justify-center gap-x-4 mt-[0.5rem]">
                         <a href="" target="_blank">
                             <FaDiscord size={22} />
                         </a>
@@ -170,7 +172,7 @@ const ValidatorDetailPage = () => {
                         </a>
                     </div>
 
-                    <div className="mt-[3rem]">
+                    <div className="mt-[1rem]">
                         {
                             !isConnected && (
                                 <p className="text-[16px] mb-1 italic text-center text-red-400">
@@ -179,74 +181,72 @@ const ValidatorDetailPage = () => {
                             )
                         }
 
+                        <div className='flex border rounded-[0.5rem] bg-[#fff] items-center justify-evenly p-5 w-full'>
+                            <input value={stakeModuleAmount} className='border-none outline-none appearance-none w-[80%] bg-[#fff]' type='text' onChange={({ target: { value } }) => {
+                                if (!isNaN(parseFloat(value))) {
+                                    setStakeModuleAmount(parseFloat(value));
+                                }
+                            }} />
+                            COMAI
+                        </div>
+
                         <Button
                             size="large"
                             type="primary"
-                            className="w-full justify-center cursor-pointer font-[26px]"
+                            className="w-full justify-center cursor-pointer font-[40px] mt-4"
                             disabled={!isConnected}
                             onClick={() => setStakingOpen(true)}
-                            style={{ fontSize: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}
+                            style={{ fontSize: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}
                         >
-                            <span className="font-[26px]">Stake Now</span>
+                            <span className="font-[40px]">Stake Now</span>
                         </Button>
-
                     </div>
+
 
                 </div>
 
-                <div className="flex gap-4 flex-col flex-1 mt-4">
-                    <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-full">
-                        <p className="card-validator-heading flex items-center justify-start ">
-                            <GoKey size={16} className="mr-2" /> <span style={{ fontSize: '26px' }}>Validator Key</span>
-                        </p>
+                <div className="flex gap-4 flex-col flex-1 mt-8">
+                    <div className="flex lg:space-x-3 flex-wrap">
 
-                        <span className="card-validator-data truncate dark:text-white mr-2" style={{ fontSize: '26px' }}>
-                            {validatorData?.key}
-                        </span>
-
-                        {
-                            copiedValidatorKey ? <CheckOutlined /> : <CopyOutlined onClick={() => copyToClipboardValidatorKey(validatorData?.key)} />
-                        }
-
-                    </div>
-
-                    <div className="flex pt-3 lg:space-x-3 flex-wrap">
-                        <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
-                            <p className="card-validator-heading flex items-center justify-start">
-                                <PiCirclesFourLight size={20} className="mr-2" style={{ fontSize: '26px' }} />
-                                <span style={{ fontSize: '26px' }}>Network URL</span>
+                        <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
+                            <p className="card-validator-heading flex items-center justify-start ">
+                                <GiProfit size={20} className="mr-2" style={{ fontSize: '40px' }} />
+                                <span style={{ fontSize: '40px' }}>Subnet ID</span>
                             </p>
-
-                            {/* <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div className="square" style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '5px' }}></div>
-                            <div className="square" style={{ width: '20px', height: '20px', backgroundColor: 'blue', marginRight: '5px' }}></div>
-                            <div className="square" style={{ width: '20px', height: '20px', backgroundColor: 'green', marginRight: '5px' }}></div>
-                        </div> */}
-
-                            <span className="card-validator-data dark:text-white mr-2" style={{ fontSize: '26px' }}>{validatorData?.address}</span>
-
-                            {copiedNetworkUrl ? <CheckOutlined /> : <CopyOutlined onClick={() => copyToClipboardNetworkUrl(validatorData?.address)} />}
+                            <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
+                                {validatorData?.subnet_id}
+                            </span>
                         </div>
 
-                        <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                        <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
                             <p className="card-validator-heading flex items-center justify-start ">
-                                <GiProfit size={20} className="mr-2" style={{ fontSize: '26px' }} />
-                                <span style={{ fontSize: '26px' }}>APY</span>
+                                <GiProfit size={20} className="mr-2" style={{ fontSize: '40px' }} />
+                                <span style={{ fontSize: '40px' }}>Balance</span>
                             </p>
-                            <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                            <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
+                                {validatorData?.balance}
+                            </span>
+                        </div>
+
+                        <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
+                            <p className="card-validator-heading flex items-center justify-start ">
+                                <GiProfit size={20} className="mr-2" style={{ fontSize: '40px' }} />
+                                <span style={{ fontSize: '40px' }}>APY</span>
+                            </p>
+                            <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                 {validatorData?.apy?.toFixed(2)}%
                             </span>
                         </div>
                     </div>
 
-                    <div className="container">
-                        <div className="flex pt-3 lg:space-x-3 flex-wrap">
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                    <div className="container mt-4">
+                        <div className="flex lg:space-x-3 flex-wrap">
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start">
                                     <SiBlockchaindotcom size={20} className="mr-2" />
-                                    <span style={{ fontSize: '26px' }}>Total Staked</span>
+                                    <span style={{ fontSize: '40px' }}>Total Staked</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {numberWithCommas(
                                         formatTokenPrice({
                                             amount: Number(validatorData?.stake),
@@ -255,44 +255,45 @@ const ValidatorDetailPage = () => {
                                     COMAI
                                 </span>
                             </div>
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start">
                                     <SiBlockchaindotcom size={20} className="mr-2" />
-                                    <span style={{ fontSize: '26px' }}>Registration Block</span>
+                                    <span style={{ fontSize: '40px' }}>Registration Block</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {validatorData?.regblock}
                                 </span>
                             </div>
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start">
                                     <FaUsers size={20} className="mr-2" />
-                                    <span style={{ fontSize: '26px' }}>Total Stakers</span>
+                                    <span style={{ fontSize: '40px' }}>Total Stakers</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {validatorData?.total_stakers}
                                 </span>
                             </div>
 
                         </div>
 
-                        <div className="flex pt-5 flex-wrap lg:space-x-3">
+                        <div className="flex flex-wrap lg:space-x-3 mt-6">
 
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start ml-1">
                                     <RiAiGenerate size={20} />
-                                    <span className="ml-2" style={{ fontSize: '26px' }}>Incentive</span>
+                                    <span className="ml-2" style={{ fontSize: '40px' }}>Incentive</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {validatorData?.incentive}
                                 </span>
                             </div>
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start">
                                     <RiAiGenerate size={20} className="mr-2" />
-                                    <span style={{ fontSize: '26px' }}>Emission per 100 blocks</span>
+                                    <span style={{ fontSize: '40px' }}>Emission per 100 blocks</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {numberWithCommas(
                                         formatTokenPrice({
                                             amount: Number(validatorData?.emission),
@@ -301,12 +302,12 @@ const ValidatorDetailPage = () => {
                                 </span>
                             </div>
 
-                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%]">
+                            <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
                                 <p className="card-validator-heading flex items-center justify-start">
                                     <RiAiGenerate size={20} className="mr-2" />
-                                    <span style={{ fontSize: '26px' }}>Dividends</span>
+                                    <span style={{ fontSize: '40px' }}>Dividends</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white" style={{ fontSize: '26px' }}>
+                                <span className="card-validator-data dark:text-white" style={{ fontSize: '40px' }}>
                                     {validatorData?.dividends}
                                 </span>
                             </div>
