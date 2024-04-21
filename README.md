@@ -80,44 +80,85 @@ docker run -p 3000:3000 commune-frontend.
     docker build -t backend .
 
 
-# Running with docker
-```bash
-make up 
-```
-or 
-    
-```bash
-docker-compose build
-```
+## Running with docker 
+### Frontend
+    ```bash
+    make up 
+    ```
+    or 
+        
+    ```bash
+    docker-compose build
+    ```
 
-Start Commune Frontend: Once the Docker container is built, start Commune Frontend by running the following command:
+    Start Commune Frontend: Once the Docker container is built, start Commune Frontend by running the following command:
 
-```bash
-make start
-```
-or 
-```bash
-docker-compose up -d # -d for detached mode
-```
+    ```bash
+    make start
+    ```
+    or 
+    ```bash
+    docker-compose up -d # -d for detached mode
+    ```
 
-To enter the docker container do, and do the following
+    To enter the docker container do, and do the following
 
-```bash
-make enter
-```
-or 
-```bash
-docker exec -it Commune Frontend bash
-```
+    ```bash
+    make enter
+    ```
+    or 
+    ```bash
+    docker exec -it Commune Frontend bash
+    ```
 
-Then run the following command to sync the network
+    Then run the following command to run frontend
 
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
 
-To exit the container
+    To exit the container
 
-```bash
-exit
-```
+    ```bash
+    exit
+    ```
+### Backend
+    ```bash
+    make up 
+    ```
+    or 
+        
+    ```bash
+    docker-compose build
+    ```
+
+    Start Commune backend: Once the Docker container is built, start Commune backend by running the following command:
+
+    ```bash
+    make start
+    ```
+    or 
+    ```bash
+    docker-compose up -d # -d for detached mode
+    ```
+
+    To enter the docker container do, and do the following
+
+    ```bash
+    make enter
+    ```
+    or 
+    ```bash
+    docker exec -it Commune backend bash
+    ```
+
+    Then run the following command to run frontend
+
+    ```bash
+    uvicorn main:app --reload
+    ```
+
+    To exit the container
+
+    ```bash
+    exit
