@@ -25,13 +25,7 @@ import LogoImage from '../../../../public/gif/logo/commune.gif'
 import MetamaskImage from '../../../../public/svg/metamask.svg'
 
 const navigation = [
-	// { name: '🚀Modules', href: '/modules', current: false },
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
-	// { name: '🥂ComChat', href: 'https://comchat.io/', current: false },
-	// { name: '💻ComfyUILauncher', href: 'https://huggingface.co/spaces/subbytech/comfyui-launcher/', current: false },
-	// { name: '💱Comwallet', href: 'https://comwallet.io/', current: false },
-	// { name: 'Bittensor', href: '/bittensor', current: false },
-	// { name: 'Staking', href: '/staking', current: false },
 	{ name: '📚Docs', href: '/docs/introduction', current: false },
 	{ name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
 ]
@@ -240,13 +234,6 @@ export default function NavigationBar() {
 															</span>
 														</button>
 													</div>
-													// isMetamaskLogedin ? (
-													// 	<div className="flex items-center bg-white rounded-full shadow px-4 py-2 ml-2 w-[250px]">
-													// 		<Image src={MetamaskImage} width={35} height={15} alt='image' />
-													// 		<span className="ml-2 font-mono dark:text-black">
-													// 			{address}
-													// 		</span>
-													// 	</div>
 												)
 													:
 													<Menu as="div" className="flex">
@@ -295,7 +282,6 @@ export default function NavigationBar() {
 																	}
 																</Menu.Item>
 
-																{/* <div className='bg-white w-full h-[1px] mt-1' /> */}
 																<Menu.Item>
 																	<ConnectButton.Custom>
 																		{({
@@ -307,8 +293,6 @@ export default function NavigationBar() {
 																			authenticationStatus,
 																			mounted,
 																		}) => {
-																			// Note: If your app doesn't use authentication, you
-																			// can remove all 'authenticationStatus' checks
 																			const ready = mounted && authenticationStatus !== 'loading';
 																			setIsMetamaskLogedin(true);
 																			setAddress(account?.displayName)

@@ -65,11 +65,6 @@ const connectors = connectorsForWallets([
       ...(projectId ? [okxWallet({ projectId, chains })] : []),
       ...(projectId ? [ledgerWallet({ projectId, chains })] : []),
 
-      // rainbowWallet({ projectId, chains }),
-      // coinbaseWallet({ projectId, chains }),
-      // okxWallet({ projectId, chains }),
-      // ledgerWallet({ projectId, chains }),
-      // Add other wallets to the "Other" group
     ],
   },
 ]);
