@@ -42,32 +42,6 @@ const community = [
 	{ name: 'Github', href: 'https://github.com/commune-ai' },
 ]
 
-// const userNavigation = [
-// 	{ name: 'Profile', href: '/profile' },
-// 	{ name: 'Settings', href: '#' },
-// ]
-
-// const items: MenuProps['items'] = [
-// 	{
-// 		key: '1',
-// 		label: (
-// 			<span rel="noopener noreferrer" className="flex items-center">
-// 				Pay with Stripe
-// 				<Image src={StripeImage} alt="stripeImage" width={24} height={24} className="rounded-md ml-auto" />
-// 			</span>
-// 		),
-// 	},
-// 	{
-// 		key: '2',
-// 		label: (
-// 			<span rel="noopener noreferrer" className="flex items-center" >
-// 				Pay with Wallet
-// 				<Image src={MetaMaskImage} alt="MetaMaskImage" width={24} height={24} className="rounded-md ml-2" />
-// 			</span>
-// 		),
-// 	},
-// ]
-
 export default function NavigationBar() {
 
 	const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = useState(false)
