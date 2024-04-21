@@ -75,7 +75,7 @@ export const modulesList = [
       get_hash: {
         input: { k: "str", seed: "int", seed_sep: "str" },
         default: { k: null, seed: null, seed_sep: "<SEED>" },
-        output: "str",
+        output: "str", 
         type: "self",
       },
       get: {

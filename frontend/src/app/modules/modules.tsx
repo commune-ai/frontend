@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-// import { PlusCircleTwoTone } from "@ant-design/icons";
 import { Pagination } from 'antd';
 import axios from "axios";
 import {

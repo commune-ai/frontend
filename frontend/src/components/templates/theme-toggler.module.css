@@ -3,12 +3,8 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 30%;
     height: 100%;
     border-radius: 50%;
     transition: background var(--ifm-transition-fast);
-}
-
-.button:hover {
-    background: var(--ifm-color-gray-200);
 }

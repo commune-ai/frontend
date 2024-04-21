@@ -5,7 +5,7 @@ import {
   InjectedAccountWithMeta,
   InjectedExtension,
 } from "@polkadot/extension-inject/types"
-import WalletModal from "@/components/atoms/Walletmodal"
+import { WalletModal } from "@/components/atoms/utils/walletModal/index"
 import { errorToast, successToast } from "@/components/atoms/toast"
 import { NET_ID } from "@/constants"
 import { IAddStaking, ITransfer, ITransferStaking } from "@/types"
@@ -43,7 +43,7 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
   children,
   wsEndpoint,
 }) => {
-  const [api, setApi] = useState<ApiPromise | null>(null)
+  const [api, setApi] = useState<ApiPromise | null>(null);
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const [accounts, setAccounts] = useState<InjectedAccountWithMeta[]>([])
   const [isConnected, setIsConnected] = useState(false)
@@ -186,7 +186,6 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
     setOpenModal(false)
   }
 
-
   return (
     <PolkadotContext.Provider
       value={{
@@ -203,12 +202,14 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
         transferStake,
       }}
     >
+      {/* <ThemeProvider> */}
       <WalletModal
         open={openModal}
         setOpen={setOpenModal}
         wallets={accounts}
         handleWalletSelections={handleWalletSelections}
       />
+      {/* </ThemeProvider> */}
       {children}
     </PolkadotContext.Provider>
   )

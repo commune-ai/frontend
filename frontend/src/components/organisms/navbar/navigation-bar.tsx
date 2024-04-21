@@ -20,6 +20,9 @@ import ThemeToggler from "@/components/templates/theme-toggler";
 import { usePolkadot } from "@/context"
 import { truncateWalletAddress } from '@/utils';
 import Button from '@/utils/button';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import LogoImage from '../../../../public/gif/logo/commune.gif'
+import MetamaskImage from '../../../../public/svg/metamask.svg'
 
 const navigation = [
 	// { name: '🚀Modules', href: '/modules', current: false },
@@ -73,6 +76,8 @@ export default function NavigationBar() {
 	//polkadot js login
 	const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
 
+	const [isMetamaskLogedin, setIsMetamaskLogedin] = useState(false)
+	const [address, setAddress] = useState<string | undefined>('')
 	const handleConnectWithSubstrateModalCancel = () => {
 		setIsShowConnectWithSubstrateModalOpen(false)
 	}
@@ -114,7 +119,7 @@ export default function NavigationBar() {
 	return (
 		<>
 			<div className="min-h-full">
-				<Disclosure as="nav" className="dark:bg-gray-900 border-b-2 border-slate-500 shadow-md">
+				<Disclosure as="nav" className="dark:bg-gray-900 border-b-2 border-slate-500 shadow-md py-6">
 					{({ open }) => (
 						<>
 							<div className="mx-auto px-4 lg:px-8">
@@ -123,7 +128,7 @@ export default function NavigationBar() {
 										<Link className={classes.brand} href="/">
 											<Image
 												style={{ width: "auto", height: "4rem", marginRight: "-0.25rem" }}
-												src="/gif/logo/commune.gif"
+												src={LogoImage}
 												alt="Commune Logo"
 												width={64}
 												height={64}
@@ -179,100 +184,256 @@ export default function NavigationBar() {
 												}
 											</div>
 										</div>
+										<Menu as="div" className="flex relative ml-3">
+
+											<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
+												🔗Community
+											</Menu.Button>
+
+											<Transition
+												as={Fragment}
+												enter="transition ease-out duration-100"
+												enterFrom="transform opacity-0 scale-95"
+												enterTo="transform opacity-100 scale-100"
+												leave="transition ease-in duration-75"
+												leaveFrom="transform opacity-100 scale-100"
+												leaveTo="transform opacity-0 scale-95"
+											>
+												<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+													<Menu.Item>
+														<Link
+															className={classes.dropdownLink}
+															href="https://discord.gg/communeai"
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<div style={{ display: "flex", alignItems: "center", }}>
+																<span><DiscordIcon /></span>
+																<span className="ml-1 mr-2">Discord</span>
+															</div>
+														</Link>
+													</Menu.Item>
+													<Menu.Item>
+														<Link
+															className={classes.dropdownLink}
+															href="https://twitter.com/communeaidotorg"
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<div style={{ display: "flex", alignItems: "center", }}>
+																<TwitterIcon />
+																<span className="ml-1 mr-2">Twitter</span>
+															</div>
+														</Link>
+													</Menu.Item>
+													<Menu.Item>
+														<Link
+															className={classes.dropdownLink}
+															href="https://github.com/commune-ai"
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															<div style={{ display: "flex", alignItems: "center", }}>
+																<GitHubIcon />
+																<span className="ml-1 mr-2">Github</span>
+															</div>
+														</Link>
+													</Menu.Item>
+												</Menu.Items>
+											</Transition>
+
+										</Menu>
+
 									</div>
 
 									<div className="hidden md:block">
 										<div className="flex items-center relative">
-											<Menu as="div" className="flex relative ml-3">
 
-												<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
-													🔗Community
-												</Menu.Button>
 
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
-												>
-													<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														<Menu.Item>
-															<Link
-																className={classes.dropdownLink}
-																href="https://discord.gg/communeai"
-																target="_blank"
-																rel="noopener noreferrer"
-															>
-																<div style={{ display: "flex", alignItems: "center", }}>
-																	<span><DiscordIcon /></span>
-																	<span className="ml-1 mr-2">Discord</span>
-																</div>
-															</Link>
-														</Menu.Item>
-														<Menu.Item>
-															<Link
-																className={classes.dropdownLink}
-																href="https://twitter.com/communeaidotorg"
-																target="_blank"
-																rel="noopener noreferrer"
-															>
-																<div style={{ display: "flex", alignItems: "center", }}>
-																	<TwitterIcon />
-																	<span className="ml-1 mr-2">Twitter</span>
-																</div>
-															</Link>
-														</Menu.Item>
-														<Menu.Item>
-															<Link
-																className={classes.dropdownLink}
-																href="https://github.com/commune-ai"
-																target="_blank"
-																rel="noopener noreferrer"
-															>
-																<div style={{ display: "flex", alignItems: "center", }}>
-																	<GitHubIcon />
-																	<span className="ml-1 mr-2">Github</span>
-																</div>
-															</Link>
-														</Menu.Item>
-													</Menu.Items>
-												</Transition>
-
-											</Menu>
-
-											<ThemeToggler />
 											{
 												isInitialized && selectedAccount ? (
-													<div className="flex items-center ml-4">
 
-														<div className="relative flex items-center bg-white rounded-full shadow px-4 py-2">
-															<button className="flex items-center cursor-pointer">
-																<AiFillWallet size={24} className="text-purple" />
-																<span className="ml-2 font-mono">
-																	{truncateWalletAddress(selectedAccount.address)}
-																</span>
-															</button>
-														</div>
+													<div className="flex items-center bg-white rounded-full shadow px-4 py-2 ml-2 w-[180px]">
+														<button className="flex items-center cursor-pointer">
+															<Image
+																width={35}
+																height={15}
+																className="cursor-pointer"
+																alt="Tailwind CSS Navbar component"
+																src="/img/polkadot.png" />
+															<span className="ml-2 font-mono dark:text-black">
+																{truncateWalletAddress(selectedAccount.address)}
+															</span>
+														</button>
 													</div>
-												) : (
-													<div className="flex items-center gap-x-2 ml-4">
-														{!isInitialized && <FaSpinner className="spinner" />}
-														<Button
-															size="large"
-															variant="primary"
-															className='flex items-center justify-center'
-															onClick={handleConnect}
-															isDisabled={!isInitialized}
-														>
-															<AiFillWallet size={18} />
-															Connect Wallet
-														</Button>
-													</div>
+													// isMetamaskLogedin ? (
+													// 	<div className="flex items-center bg-white rounded-full shadow px-4 py-2 ml-2 w-[250px]">
+													// 		<Image src={MetamaskImage} width={35} height={15} alt='image' />
+													// 		<span className="ml-2 font-mono dark:text-black">
+													// 			{address}
+													// 		</span>
+													// 	</div>
 												)
+													:
+													<Menu as="div" className="flex">
+														<div>
+															<Menu.Button style={{ marginLeft: '0.35rem', width: '200px' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>Choose wallet</Menu.Button>
+														</div>
+														<Transition
+															as={Fragment}
+															enter="transition ease-out duration-100"
+															enterFrom="transform opacity-0 scale-95"
+															enterTo="transform opacity-100 scale-100"
+															leave="transition ease-in duration-75"
+															leaveFrom="transform opacity-100 scale-100"
+															leaveTo="transform opacity-0 scale-95"
+														>
+															<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-[15.5rem] origin-top-right rounded-md bg-white py-1 px-5 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none flex items-start justify-center flex-col">
+																<Menu.Item>
+																	{
+																		isInitialized && selectedAccount ? (
+																			<div className="flex items-center">
+
+																				<div className="relative flex items-center bg-white rounded-full shadow px-4 py-2">
+																					<button className="flex items-center cursor-pointer">
+																						<AiFillWallet size={24} className="text-purple dark:text-black" />
+																						<span className="ml-2 font-mono dark:text-black">
+																							{truncateWalletAddress(selectedAccount.address)}
+																						</span>
+																					</button>
+																				</div>
+																			</div>
+																		) : (
+																			<div className="flex items-center gap-x-2 w-full">
+																				{!isInitialized && <FaSpinner className="spinner" />}
+																				<Button
+																					size="large"
+																					variant="primary"
+																					className='flex items-center justify-center'
+																					onClick={handleConnect}
+																					isDisabled={!isInitialized}
+																				>
+																					<AiFillWallet size={18} />
+																					Connect with Polkadot
+																				</Button>
+																			</div>
+																		)
+																	}
+																</Menu.Item>
+
+																{/* <div className='bg-white w-full h-[1px] mt-1' /> */}
+																<Menu.Item>
+																	<ConnectButton.Custom>
+																		{({
+																			account,
+																			chain,
+																			openAccountModal,
+																			openChainModal,
+																			openConnectModal,
+																			authenticationStatus,
+																			mounted,
+																		}) => {
+																			// Note: If your app doesn't use authentication, you
+																			// can remove all 'authenticationStatus' checks
+																			const ready = mounted && authenticationStatus !== 'loading';
+																			setIsMetamaskLogedin(true);
+																			setAddress(account?.displayName)
+																			const connected =
+																				ready &&
+																				account &&
+																				chain &&
+																				(!authenticationStatus ||
+																					authenticationStatus === 'authenticated');
+																			return (
+																				<div
+																					{...(!ready && {
+																						'aria-hidden': true,
+																						'style': {
+																							opacity: 0,
+																							pointerEvents: 'none',
+																							userSelect: 'none',
+																						},
+																					})}
+																				>
+																					{(() => {
+																						if (!connected) {
+																							return (
+
+																								<Button
+																									size="large"
+																									variant="primary"
+																									className='flex items-center justify-center mt-2 w-full'
+																									onClick={openConnectModal}
+																								>
+																									<AiFillWallet size={18} />
+																									Connect with Metamask
+																								</Button>
+																							);
+																						}
+
+																						if (chain.unsupported) {
+																							return (
+																								<button onClick={openChainModal} type="button" style={{ boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px' }}>
+																									Wrong network
+																								</button>
+																							);
+																						}
+
+																						return (
+																							<div style={{ display: 'flex', gap: 12 }} className='flex items-center flex-col justify-center'>
+																								<button
+																									onClick={openChainModal}
+																									style={{ display: 'flex', alignItems: 'center' }}
+																									type="button"
+																								>
+																									{chain.hasIcon && (
+																										<div
+																											style={{
+																												background: chain.iconBackground,
+																												width: 12,
+																												height: 12,
+																												borderRadius: 999,
+																												overflow: 'hidden',
+																												marginRight: 4,
+																											}}
+																										>
+																											{chain.iconUrl && (
+																												<Image
+																													alt={chain.name ?? 'Chain icon'}
+																													src={chain.iconUrl}
+																													style={{ width: 12, height: 12 }}
+																													width={12}
+																													height={12}
+																												/>
+																											)}
+																										</div>
+																									)}
+																									{chain.name}
+																								</button>
+																								<button type="button" style={{ color: 'darkcyan' }}>
+																									Connected
+																								</button>
+																								<button onClick={openAccountModal} type="button">
+																									{account.displayName}
+																									{account.displayBalance
+																										? ` (${account.displayBalance})`
+																										: ''}
+																								</button>
+																							</div>
+																						);
+																					})()}
+																				</div>
+																			);
+																		}}
+																	</ConnectButton.Custom>
+																</Menu.Item>
+															</Menu.Items>
+														</Transition>
+													</Menu>
+
 											}
+
+											<ThemeToggler />
 
 											<div className='hidden xl:block'>
 												<HamburgerModal />
@@ -280,6 +441,7 @@ export default function NavigationBar() {
 
 										</div>
 									</div>
+
 									<div className="flex xl:hidden">
 										<Disclosure.Button
 											className="
@@ -318,11 +480,13 @@ export default function NavigationBar() {
 									))}
 								</div>
 								<div className="border-t border-gray-700 pb-3 pt-4">
+
 									<div className="flex items-center px-5">
 										<div className={classNames(classes.themeTogglerWrapper)}>
 											<ThemeToggler />
 										</div>
 									</div>
+
 									<div className="mt-3 space-y-1 px-2">
 										{community.map((item) => (
 											<Disclosure.Button

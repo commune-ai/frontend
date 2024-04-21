@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-hover {
+  box-shadow: inset 0px 0px 8px 11px #ddcb75;
+}
+
+.custom-hover:hover {
+  box-shadow: inset 0px 2px 9px 10px #ddcb75, 0 6px 20px 0 #ddcb75;
+  cursor: pointer;
+}
+
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.libre-baskerville-bold {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.libre-baskerville-regular-italic {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'CustomFont1Name';
+  src: local('CustomFont1Name'),
+    url('../../public/fonts/a.otf') format('woff'),
+}
+
+.ant-card-head #card {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+      radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) !important;
+}
+
 :root {
   --ifm-footer-background-color: #303846;
   --ifm-color-secondary: #ebedf0;
@@ -154,6 +192,7 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
@@ -161,7 +200,8 @@ a {
 }
 
 
-.ant-pagination .ant-pagination-item a, .ant-pagination-item-link span, 
+.ant-pagination .ant-pagination-item a,
+.ant-pagination-item-link span,
 .ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis,
 .ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis {
   color: white;

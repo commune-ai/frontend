@@ -28,14 +28,7 @@ const CustomNode: FC<NodeProps> = () => {
 		}
 	}, [searchString, loadedModules]);
 
-
 	useEffect(() => {
-		// async function fetchModules() {
-		// 	const modules = await ModulesService.getModulesList();
-		// 	setLoadedModules(modules);
-		// 	updateDisplayedModules(modules, currentPage);
-		// }
-
 		async function fetchModules() {
 			const response = await axios.get('https://huggingface.co/api/spaces?full=full&direction=-1&sort=likes&limit=5000')
 			setLoadedModules(response.data);
@@ -45,15 +38,11 @@ const CustomNode: FC<NodeProps> = () => {
 		fetchModules();
 	}, []);
 
-
-
 	const updateDisplayedModules = (modules: ModuleItemPropsType[], page: number) => {
 		const startIndex = (page - 1) * itemsPerPage;
 		const endIndex = startIndex + itemsPerPage;
 		setDisplayedModules(modules.slice(startIndex, endIndex));
 	};
-
-
 
 	return (
 		<>
@@ -63,15 +52,17 @@ const CustomNode: FC<NodeProps> = () => {
 				setSearchString={setSearchString}
 				searchString={searchString}
 			/>
-			{displayedModules && displayedModules.length > 0 ? (
-				<ul className={classes.modulesList}>
-					{displayedModules.map((item, idx) => (
-						<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
-					))}
-				</ul>
-			) : (
-				<span className="dark: text-white" style={{ height: "1500px" }}>There is no data to display</span>
-			)}
+			{
+				displayedModules && displayedModules.length > 0 ? (
+					<ul className={classes.modulesList}>
+						{displayedModules.map((item, idx) => (
+							<ModuleItem key={idx} id={item.id} cardData={item.cardData} />
+						))}
+					</ul>
+				) : (
+					<span className="dark: text-white" style={{ height: "1500px" }}>There is no data to display</span>
+				)
+			}
 		</>
 	);
 };

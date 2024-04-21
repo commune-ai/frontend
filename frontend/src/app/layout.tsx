@@ -56,9 +56,6 @@ const connectors = connectorsForWallets([
       metaMaskWallet({ projectId, chains }), // Metamask
       ...(projectId ? [walletConnectWallet({ projectId, chains })] : []),
       ...(projectId ? [trustWallet({ projectId, chains })] : []),
-      // walletConnectWallet({ projectId, chains }),
-      // trustWallet({ projectId, chains }),
-      // Add more recommended wallets as needed
     ],
   },
   {
@@ -108,7 +105,7 @@ export default function RootLayout({
     <html lang="en">
 
       <Head />
-      
+
       <body>
         {
           isLoading ?
@@ -119,9 +116,7 @@ export default function RootLayout({
                 <Providers>
                   <Provider store={store}>
                     <ThemeProvider>
-                      {/* <Banner /> */}
                       <NavigationBar />
-
                       {children}
                       <Footer />
                     </ThemeProvider>

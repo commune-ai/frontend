@@ -27,7 +27,6 @@ const RegisterModal: React.FC<ModalProps> = ({ onClose }) => {
           "wallet"
         ]
       })
-      console.log("modulsesadfasdfasdf", modules);
       onClose(); // Close the modal
     });
   };

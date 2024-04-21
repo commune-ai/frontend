@@ -3,14 +3,15 @@ import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import axios from "axios";
 
 export const postRequest = async (selectedAccount: InjectedAccountWithMeta | null, callback: (data: string[]) => void) => {
-	const endpoint = "http://165.227.45.30:50147/modules";
+
+	const endpoint = "https://api.comstats.io";
 
 	const currentTimestamp = Math.floor(Date.now() / 1000);
 
 	const serverData = {
 		args: [],
 		kwargs: {},
-		ip: "165.227.45.30",
+		ip: "162.255.119.80",
 		timestamp: currentTimestamp,
 		hash: "9b44a42788425d19de82f930640e41b2a56f4e3b25eccca50a90b95e79ede994",
 	};

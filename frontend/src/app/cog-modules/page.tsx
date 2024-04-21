@@ -49,7 +49,7 @@ const CogModulePage = () => {
 	async function fetchModules(val: string) {
 		const response = await fetch(`/api/replicate?cursor=${val}`, { method: "GET" });
 		const data = await response.json();
-		const next = data.modules.next;
+		const next = data.modules?.next;
 		if (count < 6) {
 			const dataArray: ModuleItemProps[] = data.modules.results;
 			dataArray.forEach(element => {
