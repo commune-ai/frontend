@@ -1,6 +1,6 @@
 <div align="center">
 
-# **Commune Frontend AI**
+# **CommuneAI Frontend**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Discord Chat](https://img.shields.io/badge/discord-join%20chat-blue.svg)](https://discord.com/invite/DgjvQXvhqf)
