@@ -8,6 +8,7 @@ export type ValidatorType = {
     regblock: number
     last_update: number
     balance: number
+    weight: number
     stake: number
     total_stakers: number
     delegation_fee: number

@@ -9,16 +9,18 @@ import { GiProfit } from "react-icons/gi"
 import { RiAiGenerate } from "react-icons/ri"
 import { SiBlockchaindotcom } from "react-icons/si"
 import { TbWorld } from "react-icons/tb"
-import Verified from "../verified"
+import Verified from "../../verified"
 import StakingModal from "@/components/atoms/modal/stake"
 import { usePolkadot } from "@/context"
 import { numberWithCommas } from "@/utils/numberWithCommas"
 import { formatTokenPrice } from "@/utils/tokenPrice"
 import communeModels from '@/utils/validatorData.json'
-import Style from '../commune-module.module.css'
+import Style from '../../commune-module.module.css'
 import classnames from "classnames"
 import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
 import { Button } from "antd"
+import { useGetValidatorsByIdQuery } from "@/app/api/staking/modulelist"
+import StakedUsersTable from "./staker"
 
 interface ModuleColors {
     [key: string]: string;
@@ -29,6 +31,18 @@ const ValidatorDetailPage = () => {
     const params = useParams()
 
     const validatorData = communeModels.find(item => item.key === params?.id)
+
+    const { data: validatorDataForStakers, isLoading: validatorLoading } =
+        useGetValidatorsByIdQuery(
+            {
+                key: String(params.id),
+                wallet: "",
+                subnet_id: Number(params.subnetId),
+            },
+            {
+                skip: !params.id,
+            },
+        )
 
     const [copiedValidatorKey, setCopiedValidatorKey] = useState(false);
     const [copiedNetworkUrl, setCopiedNetworkUrl] = useState(false)
@@ -334,6 +348,8 @@ const ValidatorDetailPage = () => {
                             </div>
                         </div>
 
+
+
                         <StakingModal
                             open={stakingOpen}
                             setOpen={setStakingOpen}
@@ -341,6 +357,12 @@ const ValidatorDetailPage = () => {
                         />
                     </div>
                 </div>
+
+            </div>
+            <div className="my-6">
+                {validatorDataForStakers && validatorDataForStakers?.stake_from && (
+                    <StakedUsersTable stakedUsers={validatorDataForStakers?.stake_from} />
+                )}
             </div>
         </div>
     )

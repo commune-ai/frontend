@@ -7,9 +7,6 @@ import modules from '../../../../modules.json';
 
 
 const HamburgerModal: React.FC = () => {
-  // function rgba(arg0: number, arg1: number, arg2: number): import("csstype").Property.BackgroundColor | undefined {
-  //   throw new Error('Function not implemented.');
-  // }
 
   return (
 

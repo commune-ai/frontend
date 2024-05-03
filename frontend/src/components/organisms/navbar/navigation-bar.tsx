@@ -123,7 +123,6 @@ export default function NavigationBar() {
 															<Image src={CommuneAILogo} alt="CommuneAIImage" width={24} height={24} className="rounded-md ml-5" />
 														</button>
 													</Menu.Item>
-													{/* <div className='bg-white w-full h-[1px] mt-1' /> */}
 													<Menu.Item>
 														<button rel="noopener noreferrer" onClick={handleHuggingfaceModuleRouter} className="flex items-center cursor-pointer" >
 															Huggingface

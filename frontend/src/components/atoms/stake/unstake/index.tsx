@@ -70,7 +70,6 @@ const UnstakingForm = ({
           }}
         />
       </div>
-      {/* <StakingDisclaimer /> */}
 
       <Button
         size="large"

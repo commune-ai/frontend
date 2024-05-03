@@ -1,18 +1,16 @@
 "use client"
 import React from "react";
 import Image from "next/image";
-import ValidatorTable from "./validatorTable";
-import { BorderOuterOutlined } from "@ant-design/icons";
 import communeModels from '@/utils/validatorData.json'
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import classnames from "classnames";
-import Style from './commune-module.module.css';
 import { ValidatorType } from "../api/staking/type";
 import Verified from "./verified";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa";
+import BubbleChartComponent from "./bubbleChart";
 
 interface ModuleColors {
     [key: string]: string;
@@ -61,7 +59,6 @@ export const CommuneModulePage = () => {
         vali: 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)', // Gold gradient
         storage: 'rgb(192, 192, 192)', // Silver
         openai: 'rgb(153, 101, 21)' // Bronze or another metallic color
-        // Add more module-color mappings as needed
     };
 
     const getColorForModule = (moduleName: string): string => {
@@ -89,8 +86,7 @@ export const CommuneModulePage = () => {
                         <span className="dark:text-white" style={{ fontSize: '45px' }}>COMAI Modules</span>
                     </span>
 
-                    <BorderOuterOutlined className="ml-3 cursor-pointer" height={30} width={30} style={{ width: '30px', height: '30px' }} alt="Switch format" onClick={handleModuleDisplayType} />
-
+                    <Button className="flex ml-2 mt-1 animate-bounce bg-pink-400 border-pink-400 hover:bg-pink-600" onClick={handleModuleDisplayType}>Visualize</Button>
                 </div>
 
                 <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
@@ -115,7 +111,7 @@ export const CommuneModulePage = () => {
             </div>
             {
                 isShowModuleAsCard ?
-                    <div className="flex justify-center flex-wrap gap-[6px] mt-5">
+                    <div className="flex justify-center flex-wrap gap-[4px] mt-5">
                         {
                             resultData && resultData.map(
                                 module => {
@@ -138,7 +134,7 @@ export const CommuneModulePage = () => {
                                             </span>
                                         }
                                         style={{
-                                            width: 400,
+                                            width: 500,
                                             marginBottom: 20,
                                             boxShadow: '1px 1px 2px 2px #d8e4e0',
                                             background: '#4c4341',
@@ -156,7 +152,7 @@ export const CommuneModulePage = () => {
                                         <div className="flex items-center justify-evenly">
 
                                             <Link
-                                                href={`/commune-modules/${module.key}`}
+                                                href={`/commune-modules/${module.subnet_id}/${module.key}`}
                                                 className="flex items-center gap-x-1 underline text-black"
                                                 style={{ fontSize: '24px' }}
                                             >
@@ -171,6 +167,14 @@ export const CommuneModulePage = () => {
                                                 Workspace <FaAngleRight />
                                             </Link>
 
+                                            <Link
+                                                href={`/stakers/${module.subnet_id}/${module.key}`}
+                                                className="flex items-center gap-x-1 underline text-black"
+                                                style={{ fontSize: '24px' }}
+                                            >
+                                                Stakers <FaAngleRight />
+                                            </Link>
+
                                         </div>
 
                                     </Card>
@@ -179,7 +183,7 @@ export const CommuneModulePage = () => {
                         }
                     </div>
                     :
-                    <ValidatorTable searchString={searchString} />
+                    <BubbleChartComponent data={resultData} />
             }
 
         </section>

@@ -1,8 +1,9 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+const flowbite = require("flowbite-react/tailwind");
 
 export default {
-  content: ["./src/**/*.tsx"],
+  content: ["./src/**/*.tsx", flowbite.content(),],
   theme: {
     extend: {
       fontFamily: {
@@ -43,5 +44,5 @@ export default {
     },
   },
   darkMode: ['class', '[data-theme="dark"]'],
-  plugins: [],
+  plugins: [flowbite.plugin(),],
 } satisfies Config;
