@@ -16,7 +16,7 @@ interface ModuleColors {
     [key: string]: string;
 }
 
-export const CommuneModulePage = () => {
+const CommuneModulePage = () => {
 
     const [searchString, setSearchString] = React.useState('')
     const [isShowModuleAsCard, setIsShowModuleAsCard] = React.useState(true)
