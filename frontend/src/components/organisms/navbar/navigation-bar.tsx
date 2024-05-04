@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Modal } from 'antd';
 import { AiFillWallet } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa6';
 import classes from './navigation-bar.module.css';
+import LogoImage from '../../../../public/gif/logo/commune.gif'
 import CommuneAILogo from '../../../../public/img/frontpage/comai-logo.png'
 import HuggingfaceImage from '../../../../public/img/frontpage/huggingface.png'
 import HamburgerModal from '@/components/atoms/Hamburger/hamburger';
@@ -20,14 +22,12 @@ import ThemeToggler from "@/components/templates/theme-toggler";
 import { usePolkadot } from "@/context"
 import { truncateWalletAddress } from '@/utils';
 import Button from '@/utils/button';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import LogoImage from '../../../../public/gif/logo/commune.gif'
-import MetamaskImage from '../../../../public/svg/metamask.svg'
 
 const navigation = [
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
 	{ name: '📚Docs', href: '/docs/introduction', current: false },
 	{ name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
+	{ name: 'Products', href: '/products' },
 ]
 
 const community = [
@@ -44,8 +44,8 @@ export default function NavigationBar() {
 	//polkadot js login
 	const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
 
-	const [isMetamaskLogedin, setIsMetamaskLogedin] = useState(false)
-	const [address, setAddress] = useState<string | undefined>('')
+	// const [isMetamaskLogedin, setIsMetamaskLogedin] = useState(false)
+	// const [address, setAddress] = useState<string | undefined>('')
 	const handleConnectWithSubstrateModalCancel = () => {
 		setIsShowConnectWithSubstrateModalOpen(false)
 	}
@@ -293,8 +293,8 @@ export default function NavigationBar() {
 																			mounted,
 																		}) => {
 																			const ready = mounted && authenticationStatus !== 'loading';
-																			setIsMetamaskLogedin(true);
-																			setAddress(account?.displayName)
+																			// setIsMetamaskLogedin(true);
+																			// setAddress(account?.displayName)
 																			const connected =
 																				ready &&
 																				account &&

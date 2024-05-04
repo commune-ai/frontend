@@ -1,9 +1,8 @@
 
 "use client";
-
+import Image from "next/image";
 import { Card, Tabs } from "flowbite-react";
 import { HiAdjustments, HiUserCircle, HiSupport, HiTicket } from "react-icons/hi";
-import Image from "next/image";
 import TableComponent from "./table";
 
 export default function UserPage() {
