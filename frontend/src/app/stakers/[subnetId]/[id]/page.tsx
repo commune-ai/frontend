@@ -4,10 +4,8 @@ import { useParams } from 'next/navigation';
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import './commune-module.module.css'
-import { ValidatorType } from '@/types';
 
 interface ReactBubbleChartProps {
-    data: ValidatorType[];
     darkMode?: boolean;
 }
 
@@ -26,11 +24,9 @@ const StakePage: React.FC<ReactBubbleChartProps> = ({ darkMode = true }) => {
             },
         )
 
-    console.log('-----------', validatorLoading)
-
     const [chartData, setChartData] = useState<any[]>([]); // State to hold chart data
     const [error, setError] = useState<string>(''); // State to hold error message
-    
+
     const [displayName, setDisplayName] = useState<string>('Total_stakers');
     const [selectedSubnets, setSelectedSubnets] = useState<number[]>([0]); // State to hold selected subnets, defaulting to 0
     console.log('---------------', error, setDisplayName, setSelectedSubnets);
