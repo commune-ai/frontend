@@ -27,7 +27,6 @@ const navigation = [
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
 	{ name: '📚Docs', href: '/docs/introduction', current: false },
 	{ name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
-	{ name: 'Products', href: '/products' },
 ]
 
 const community = [

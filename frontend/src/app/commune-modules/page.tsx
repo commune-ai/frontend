@@ -1,20 +1,16 @@
 "use client"
 import React from "react";
-import Image from "next/image";
-import communeModels from '@/utils/validatorData.json'
-import { Button, Card } from "antd";
 import classnames from "classnames";
-import { ValidatorType } from "../api/staking/type";
-import Verified from "./verified";
-import { numberWithCommas } from "@/utils/numberWithCommas";
-import { formatTokenPrice } from "@/utils/tokenPrice";
+import Image from "next/image";
 import Link from "next/link";
+import { Button, Card } from "antd";
 import { FaAngleRight } from "react-icons/fa";
 import BubbleChartComponent from "./bubbleChart";
-
-interface ModuleColors {
-    [key: string]: string;
-}
+import Verified from "./verified";
+import { ValidatorType } from "../api/staking/type";
+import { numberWithCommas } from "@/utils/numberWithCommas";
+import { formatTokenPrice } from "@/utils/tokenPrice";
+import communeModels from '@/utils/validatorData.json'
 
 const CommuneModulePage = () => {
 
@@ -54,27 +50,6 @@ const CommuneModulePage = () => {
         setIsShowModuleAsCard(!isShowModuleAsCard)
     }
 
-    const moduleColors: ModuleColors = {
-        model: 'rgb(184, 115, 51)', // Copper
-        vali: 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)', // Gold gradient
-        storage: 'rgb(192, 192, 192)', // Silver
-        openai: 'rgb(153, 101, 21)' // Bronze or another metallic color
-    };
-
-    const getColorForModule = (moduleName: string): string => {
-        if (moduleName.includes('vali')) {
-            return moduleColors['vali'] || '#000'; // Color for 'vali'
-        } else if (moduleName.includes('model')) {
-            return moduleColors['model'] || '#000'; // Color for 'model'
-        } else if (moduleName.includes('storage')) {
-            return moduleColors['storage'] || '#000'; // Color for 'storage'
-        } else if (moduleName.includes('openai')) {
-            return moduleColors['openai'] || '#000'; // Color for 'openai'
-        } else {
-            return '#000'; // Default color is black
-        }
-    };
-
     return (
         <section className="my-10 mx-auto w-[95%]">
             <div className="flex justify-center mb-4 items-center flex-col sm:flex-col">
@@ -104,7 +79,7 @@ const CommuneModulePage = () => {
                     />
 
                     <div className="absolute left-4 z-10 mr-2 ml-2" style={{ color: 'white' }}>
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" className="text-textSecondary" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="text-textSecondary" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
                     </div>
                 </div>
 

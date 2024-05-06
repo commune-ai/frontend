@@ -1,5 +1,7 @@
 "use client";
 import React, { useCallback, useRef, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { Button } from 'antd';
 import ReactFlow, {
 	Node,
 	useNodesState,
@@ -17,9 +19,7 @@ import ReactFlow, {
 } from 'reactflow';
 import styles from '../Flow.module.css';
 import CustomNode from '../components/organisms/CustomNode';
-import { useParams } from 'next/navigation';
 import communeModels from '@/utils/validatorData.json'
-import { Button } from 'antd';
 
 const nodeTypes = {
 	custom: CustomNode,
@@ -132,7 +132,7 @@ const WorkSpace = () => {
 	}, [setNodes]);
 
 	const onNodeClick = useCallback(
-		(event: any, element: any) => {
+		(event: React.MouseEvent, element: any) => {
 			if (isNode(element)) {
 				setSelectedElementId(element.id);
 				setSelectedElementType('node');
@@ -197,7 +197,6 @@ const WorkSpace = () => {
 					onConnectStart={onConnectStart}
 					onConnectEnd={onConnectEnd}
 					onNodeClick={onNodeClick}
-					onEdgeClick={onNodeClick}
 					nodeTypes={nodeTypes}
 					defaultEdgeOptions={defaultEdgeOptions}
 					connectionLineType={ConnectionLineType.SmoothStep}
@@ -210,8 +209,13 @@ const WorkSpace = () => {
 	);
 }
 
-export default () => (
-	<ReactFlowProvider>
-		<WorkSpace />
-	</ReactFlowProvider>
+const WorkSpacePage = () => (
+    <ReactFlowProvider>
+        <WorkSpace />
+    </ReactFlowProvider>
 );
+
+
+WorkSpacePage.displayName = 'ReactFlowComponent';
+
+export default WorkSpacePage;

@@ -1,7 +1,10 @@
 "use client"
 import React, { useState } from "react"
+import classnames from "classnames"
 import { useRouter } from "next/navigation"
 import { useParams } from "next/navigation"
+import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
+import { Button } from "antd"
 import { FaUsers } from "react-icons/fa"
 import { FaArrowLeft, FaDiscord } from "react-icons/fa6"
 import { FaXTwitter } from "react-icons/fa6"
@@ -9,18 +12,15 @@ import { GiProfit } from "react-icons/gi"
 import { RiAiGenerate } from "react-icons/ri"
 import { SiBlockchaindotcom } from "react-icons/si"
 import { TbWorld } from "react-icons/tb"
+import StakedUsersTable from "./staker"
+import Style from '../../commune-module.module.css'
 import Verified from "../../verified"
+import { useGetValidatorsByIdQuery } from "@/app/api/staking/modulelist"
 import StakingModal from "@/components/atoms/modal/stake"
 import { usePolkadot } from "@/context"
 import { numberWithCommas } from "@/utils/numberWithCommas"
 import { formatTokenPrice } from "@/utils/tokenPrice"
 import communeModels from '@/utils/validatorData.json'
-import Style from '../../commune-module.module.css'
-import classnames from "classnames"
-import { CheckOutlined, CopyOutlined } from "@ant-design/icons"
-import { Button } from "antd"
-import { useGetValidatorsByIdQuery } from "@/app/api/staking/modulelist"
-import StakedUsersTable from "./staker"
 
 interface ModuleColors {
     [key: string]: string;
@@ -43,6 +43,8 @@ const ValidatorDetailPage = () => {
                 skip: !params.id,
             },
         )
+
+    console.log('------------------here------------', validatorLoading)
 
     const [copiedValidatorKey, setCopiedValidatorKey] = useState(false);
     const [copiedNetworkUrl, setCopiedNetworkUrl] = useState(false)
@@ -233,7 +235,7 @@ const ValidatorDetailPage = () => {
                             onClick={() => setStakingOpen(true)}
                             style={{ fontSize: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}
                         >
-                            <span className="font-[40px]">Stake Now</span>
+                            <span className="font-[40px] dark:text-white">Stake Now</span>
                         </Button>
                     </div>
 

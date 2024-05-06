@@ -5,8 +5,7 @@ import Image from 'next/image';
 import { Fade, Bounce } from 'react-awesome-reveal';
 import { InView } from "react-intersection-observer";
 import classes from "./home.module.css";
-import CarouselComponent from '@/components/carousel';
-// import HomepageHeader from '@/components/templates/homepage-header';
+import HomepageHeader from '@/components/templates/homepage-header';
 import WelcomeSection from '@/components/templates/welcome/welcome';
 
 function SectionWrapper({
@@ -53,8 +52,8 @@ export default function Home() {
 
   return (
     <InView onChange={(inView) => setShow(inView)} className={classNames(classes.main, "flex flex-col relative")}>
-      {/* <HomepageHeader /> */}
-      <CarouselComponent />
+      <HomepageHeader />
+      {/* <CarouselComponent /> */}
       <WelcomeSection />
       <SectionWrapper
         imageUrl="/gif/cubes/commune-single-block_blue.webp"

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import BubbleChart from '@weknow/react-bubble-chart-d3';
-import { ValidatorType } from '../api/staking/type';
 import { useRouter } from 'next/navigation';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 import { Select } from 'antd';
 import './commune-module.module.css'
 import { FaArrowRight } from 'react-icons/fa6';
 import ReactFlowBubbleChart from './bubbleReactFlowChart';
+import { ValidatorType } from '../api/staking/type';
 
 interface ReactBubbleChartProps {
     data: ValidatorType[];
@@ -36,7 +36,6 @@ const ReactBubbleChart: React.FC<ReactBubbleChartProps> = ({ data, darkMode = tr
             // Transform filtered data into the format expected by the BubbleChart component
             const transformedData = filteredData.map((validator) => {
                 if (selectedItem) {
-                    const subnetName = data.find(item => item.subnet_id === validator.subnet_id)?.name || `Subnet ${validator.subnet_id}`;
                     return {
                         label: `${validator.name}(id=${validator.subnet_id})`, // Concatenate name and subnet information
                         value: validator[selectedItem.property as keyof ValidatorType], // Use the selected property

@@ -1,6 +1,6 @@
-import { formatTokenPrice } from "@/utils/tokenPrice"
 import React, { useState } from "react"
 import { FaSearch } from "react-icons/fa"
+import { formatTokenPrice } from "@/utils/tokenPrice"
 
 const StakedUsersTable = ({ stakedUsers }: { stakedUsers: [] }) => {
   const [search, setSearch] = useState("")
