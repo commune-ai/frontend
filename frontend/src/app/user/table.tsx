@@ -1,5 +1,5 @@
-import { Checkbox, Table } from "flowbite-react"
 import React, { useState } from "react"
+import { Checkbox, Table } from "flowbite-react"
 import RegisterModal from "@/components/RegisterModal";
 
 export default function TableComponent({ isRegisterTable = true }) {

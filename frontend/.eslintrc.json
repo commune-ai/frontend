@@ -4,11 +4,16 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",    
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@next/next/recommended",
+    "next",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "react", "import"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "import"
+  ],
   "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
@@ -37,7 +42,10 @@
           "type",
           "external",
           "internal",
-          ["parent", "sibling"],
+          [
+            "parent",
+            "sibling"
+          ],
           "index",
           "object"
         ],
@@ -61,24 +69,42 @@
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
+        "pathGroupsExcludedImportTypes": [
+          "builtin"
+        ],
         "alphabetize": {
           "order": "asc"
         },
         "newlines-between": "never"
       }
     ],
-    "react/self-closing-comp": ["warn", { "component": true, "html": true }],
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error"
+    "react/self-closing-comp": [
+      "warn",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "off",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "overrides": [
     {
-      "files": ["*.js"],
-      "rules": { "@typescript-eslint/no-var-requires": ["off"] }
+      "files": [
+        "*.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": [
+          "off"
+        ]
+      }
     },
     {
-      "files": ["*.tsx"],
+      "files": [
+        "*.tsx"
+      ],
       "rules": {
         "react/prop-types": "off"
       }

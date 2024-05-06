@@ -29,8 +29,9 @@ export const statsApi = createApi({
                         return validator
                     },
                 )
-                return validatedResponse.toSorted((a, b) =>
+                return validatedResponse.toSorted((a,) =>
                     a.key === process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR ? -1 : 1,
+
                 )
             },
         }),
@@ -90,7 +91,7 @@ export const statsApi = createApi({
                         return validator
                     },
                 )
-                return validatedResponse.toSorted((a, b) =>
+                return validatedResponse.toSorted((a,) =>
                     a.key === process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR ? -1 : 1,
                 )
             },

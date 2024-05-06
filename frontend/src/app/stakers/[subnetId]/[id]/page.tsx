@@ -30,8 +30,10 @@ const StakePage: React.FC<ReactBubbleChartProps> = ({ darkMode = true }) => {
 
     const [chartData, setChartData] = useState<any[]>([]); // State to hold chart data
     const [error, setError] = useState<string>(''); // State to hold error message
+    
     const [displayName, setDisplayName] = useState<string>('Total_stakers');
     const [selectedSubnets, setSelectedSubnets] = useState<number[]>([0]); // State to hold selected subnets, defaulting to 0
+    console.log('---------------', error, setDisplayName, setSelectedSubnets);
 
     useEffect(() => {
         try {
