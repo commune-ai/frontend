@@ -5,8 +5,9 @@ import BubbleChart from '@weknow/react-bubble-chart-d3';
 import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import './commune-module.module.css'
 
-const StakePage = ({ darkMode = true }) => {
+const StakePage = () => {
 
+    const darkMode = true
     const params = useParams()
     const { data: validatorData, isLoading: validatorLoading } =
         useGetValidatorsByIdQuery(
