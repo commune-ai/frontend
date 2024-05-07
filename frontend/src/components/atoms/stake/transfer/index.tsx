@@ -1,6 +1,5 @@
 import React from "react"
 import { useForm } from "react-hook-form"
-import StakingDisclaimer from "../disclaimer"
 import { useGetBalanceQuery, useGetValidatorsQuery } from "@/app/api/staking/modulelist"
 import { ValidatorType } from "@/app/api/staking/type"
 import { Input } from "@/components/atoms/input"
@@ -8,6 +7,7 @@ import SelectComp from "@/components/atoms/select"
 import { usePolkadot } from "@/context"
 import Button from "@/utils/button"
 import { formatTokenPrice } from "@/utils/tokenPrice"
+import StakingDisclaimer from "../disclaimer"
 
 const TransferStakingForm = ({
   validator,
