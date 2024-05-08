@@ -96,7 +96,7 @@ const ReactFlowBubbleChart: React.FC<ReactFlowBubbleChartProps> = ({ data, darkM
 
     return (
         <div style={{ width: '100%', height: '100vh' }}>
-            <div className='flex items-center justify-center mx-auto'>
+            <div className='flex items-center justify-center mx-auto dark:text-[#32CD32]'>
                 <span style={{ color: darkMode ? '#fff' : '#000', fontSize: '32px' }}>{displayName.charAt(0).toUpperCase() + displayName.slice(1)} Bubble Chart</span>
                 {error && <div style={{ color: 'red', marginBottom: '20px' }}>{error}</div>}
 

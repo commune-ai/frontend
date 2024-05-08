@@ -60,7 +60,7 @@ const CustomNode: FC<NodeProps> = () => {
 						))}
 					</ul>
 				) : (
-					<span className="dark: text-white" style={{ height: "1500px" }}>There is no data to display</span>
+					<span className="dark:text-[#32CD32]" style={{ height: "1500px" }}>There is no data to display</span>
 				)
 			}
 		</>

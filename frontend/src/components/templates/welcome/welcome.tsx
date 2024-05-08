@@ -14,7 +14,7 @@ export default function WelcomeSection() {
             {
               show && (
                 <Bounce duration={1000} delay={300}>
-                <h1 className="text-6xl pb-3 dark:text-white text-center">
+                <h1 className="text-6xl pb-3 dark:text-[#32CD32] text-center">
                   Welcome to the{" "}
                   <span className="text-[#ffb4ed] dark:text-[#FFD6F5] hover:animate-pulse duration-500">
                     commune
@@ -25,7 +25,7 @@ export default function WelcomeSection() {
               )
           }
             
-            <p className="hero__subtitle text-4xl text-center dark:text-white">
+            <p className="hero__subtitle text-4xl text-center dark:text-[#32CD32]">
               A place for{" "}
               <span className="text-[#ffb4ed] dark:text-[#FFD6F5]">everyone</span>{" "}
               to{" "}
@@ -36,7 +36,7 @@ export default function WelcomeSection() {
             </p>
           </div>
           <div className="grid grid-cols-7 sm:h-[300px] lg:h-[500px] items-center justify-center px-3 gap-0">
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#blue" className="hover:no-underline">
                 <Image
                   src="/gif/cubes/commune-single-block_blue.webp"
@@ -48,7 +48,7 @@ export default function WelcomeSection() {
               </a>
               <p>Networking &amp; Wrapping</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#green" className="hover:no-underline">
                 <Image
                   src="/gif/cubes/commune-single-block_green.webp"
@@ -60,7 +60,7 @@ export default function WelcomeSection() {
               </a>
               <p>Reusability</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#yellow" className="hover:no-underline">
                 <Image
                   src="/gif/cubes/commune-single-block_yellow.webp"
@@ -72,7 +72,7 @@ export default function WelcomeSection() {
               </a>
               <p>Scalability</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#red" className="hover:no-underline">
                 <Image
                   alt='Image'
@@ -84,7 +84,7 @@ export default function WelcomeSection() {
               </a>
               <p>Namespaces</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#pink" className="hover:no-underline">
                 <Image
                   alt='Image'
@@ -96,7 +96,7 @@ export default function WelcomeSection() {
               </a>
               <p>Tokenomics</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#black" className="hover:no-underline">
                 <Image
                   alt='Image'
@@ -108,7 +108,7 @@ export default function WelcomeSection() {
               </a>
               <p>Application Validators</p>
             </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-white hover:text-black duration-300 font-sans font-semibold text-lg">
+            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
               <a href="#white" className="hover:no-underline">
                 <Image
                   alt='Image'

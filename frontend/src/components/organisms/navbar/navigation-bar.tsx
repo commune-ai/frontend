@@ -10,10 +10,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Modal } from 'antd';
 import { AiFillWallet } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa6';
-import classes from './navigation-bar.module.css';
-import LogoImage from '../../../../public/gif/logo/commune.gif'
-import CommuneAILogo from '../../../../public/img/frontpage/comai-logo.png'
-import HuggingfaceImage from '../../../../public/img/frontpage/huggingface.png'
 import HamburgerModal from '@/components/atoms/Hamburger/hamburger';
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
@@ -22,11 +18,16 @@ import ThemeToggler from "@/components/templates/theme-toggler";
 import { usePolkadot } from "@/context"
 import { truncateWalletAddress } from '@/utils';
 import Button from '@/utils/button';
+import classes from './navigation-bar.module.css';
+import LogoImage from '../../../../public/gif/logo/commune.gif'
+import CommuneAILogo from '../../../../public/img/frontpage/comai-logo.png'
+import HuggingfaceImage from '../../../../public/img/frontpage/huggingface.png'
 
 const navigation = [
+	{ name: '🚀Modules', href: '/commune-modules', current: false },
 	{ name: '⛓Telemetry', href: '/telemetry', current: false },
 	{ name: '📚Docs', href: '/docs/introduction', current: false },
-	{ name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
+	// { name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
 ]
 
 const community = [
@@ -102,7 +103,7 @@ export default function NavigationBar() {
 											/>
 										</Link>
 
-										<Menu as="div" className="flex relative ml-3">
+										{/* <Menu as="div" className="flex relative ml-3">
 											<div>
 												<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>🚀Modules</Menu.Button>
 											</div>
@@ -130,7 +131,7 @@ export default function NavigationBar() {
 													</Menu.Item>
 												</Menu.Items>
 											</Transition>
-										</Menu>
+										</Menu> */}
 
 										<div className="hidden xl:block">
 											<div className="flex">
@@ -139,7 +140,7 @@ export default function NavigationBar() {
 														<a
 															key={item.name}
 															href={item.href}
-															className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0 lg:pl-4')}
+															className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
 															aria-current={item.current ? 'page' : undefined}
 														>
 															<span className='flex items-center justify-center'>
@@ -152,7 +153,7 @@ export default function NavigationBar() {
 										</div>
 										<Menu as="div" className="flex relative ml-3">
 
-											<Menu.Button className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
+											<Menu.Button className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
 												🔗Community
 											</Menu.Button>
 
@@ -165,7 +166,7 @@ export default function NavigationBar() {
 												leaveFrom="transform opacity-100 scale-100"
 												leaveTo="transform opacity-0 scale-95"
 											>
-												<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+												<Menu.Items className="dark:bg-[#242556] dark:text-[#32CD32] absolute right-0 z-10 mt-8 w-39 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 													<Menu.Item>
 														<Link
 															className={classes.dropdownLink}
@@ -236,7 +237,7 @@ export default function NavigationBar() {
 													:
 													<Menu as="div" className="flex">
 														<div>
-															<Menu.Button style={{ marginLeft: '0.35rem', width: '200px' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>Choose wallet</Menu.Button>
+															<Menu.Button style={{ marginLeft: '0.35rem', width: '200px' }} className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')}>Choose wallet</Menu.Button>
 														</div>
 														<Transition
 															as={Fragment}
@@ -391,7 +392,7 @@ export default function NavigationBar() {
 
 											<ThemeToggler />
 
-											<div className='hidden xl:block'>
+											<div className='hidden xl:block dark:text-[#32CD32]'>
 												<HamburgerModal />
 											</div>
 

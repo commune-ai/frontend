@@ -12,15 +12,15 @@ import { GiProfit } from "react-icons/gi"
 import { RiAiGenerate } from "react-icons/ri"
 import { SiBlockchaindotcom } from "react-icons/si"
 import { TbWorld } from "react-icons/tb"
-import StakedUsersTable from "./staker"
-import Style from '../../commune-module.module.css'
-import Verified from "../../verified"
 import { useGetValidatorsByIdQuery } from "@/app/api/staking/modulelist"
 import StakingModal from "@/components/atoms/modal/stake"
 import { usePolkadot } from "@/context"
 import { numberWithCommas } from "@/utils/numberWithCommas"
 import { formatTokenPrice } from "@/utils/tokenPrice"
 import communeModels from '@/utils/validatorData.json'
+import StakedUsersTable from "./staker"
+import Style from '../../commune-module.module.css'
+import Verified from "../../verified"
 
 interface ModuleColors {
     [key: string]: string;
@@ -127,14 +127,14 @@ const ValidatorDetailPage = () => {
         <div className="w-[97%] px-3 md:px-0 mx-auto mb-4">
             <div className="flex py-5 items-center gap-x-3">
                 <button
-                    className="border-2 p-2 rounded-lg cursor-pointer dark:text-white "
+                    className="border-2 p-2 rounded-lg cursor-pointer dark:text-[#32CD32] "
                     onClick={() => router.push("/commune-modules")}
                 >
-                    <FaArrowLeft className="h-[53px] w-[50px] dark:text-white" />
+                    <FaArrowLeft className="h-[53px] w-[50px] dark:text-[#32CD32] cursor-pointer" />
                 </button>
 
                 <div className="flex border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[96%] items-center justify-around">
-                    <span className="font-semibold flex items-center gap-x-2 mr-2 dark:text-white" style={{ fontSize: '32px' }}>
+                    <span className="font-semibold flex items-center gap-x-2 mr-2 dark:text-[#32CD32]" style={{ fontSize: '32px' }}>
                         {
                             validatorData?.name
                         }{" "}
@@ -155,7 +155,7 @@ const ValidatorDetailPage = () => {
 
                     </span>
 
-                    <span className="card-validator-data truncate dark:text-white" style={{ fontSize: '32px' }}>
+                    <span className="card-validator-data truncate dark:text-[#32CD32]" style={{ fontSize: '32px' }}>
 
                         {
                             validatorData?.key
@@ -166,7 +166,7 @@ const ValidatorDetailPage = () => {
 
                     </span>
 
-                    <span className="card-validator-data mr-2 dark:text-white" style={{ fontSize: '32px' }}>
+                    <span className="card-validator-data mr-2 dark:text-[#32CD32]" style={{ fontSize: '32px' }}>
                         {
                             validatorData?.address
                         }
@@ -182,13 +182,13 @@ const ValidatorDetailPage = () => {
                     <div className={classnames(Style.cardClass, "h-64 w-64 flex flex-col justify-center items-center rounded-3xl mx-auto dark:text-black bg-[#1f2330] duration-300 transition-all hover:opacity-75 hover:border-primary shadow-xl border-[1px] border-[#f2f2f2] cursor-pointer")}
                         style={{ backgroundColor: validatorData && getColorForModule(validatorData.name), width: '100%', height: '320px' }}
                     >
-                        <span className="dark:text-white" style={{ fontSize: '46px' }}>{validatorData?.name}</span>
-                        <span className="dark:text-white" style={{ fontSize: '46px' }}>({validatorData?.weight})</span>
+                        <span className="dark:text-[#32CD32]" style={{ fontSize: '46px' }}>{validatorData?.name}</span>
+                        <span className="dark:text-[#32CD32]" style={{ fontSize: '46px' }}>({validatorData?.weight})</span>
                     </div>
                     {
                         validatorData?.key ===
                         process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR && (
-                            <p className="text-md mt-[1.5rem] text-center dark:text-white" style={{ fontSize: '25px' }}>
+                            <p className="text-md mt-[1.5rem] text-center dark:text-[#32CD32]" style={{ fontSize: '25px' }}>
                                 All Statistics of CommuneAI at one place. Staking
                                 infrastructure, prices, validators, miners, swap, bridge,
                                 exchange for $COMAI
@@ -196,7 +196,7 @@ const ValidatorDetailPage = () => {
                         )
                     }
 
-                    <div className="flex justify-center gap-x-4 mt-[0.5rem] dark:text-white">
+                    <div className="flex justify-center gap-x-4 mt-[0.5rem] dark:text-[#32CD32]">
                         <a href="" target="_blank">
                             <FaDiscord size={22} />
                         </a>
@@ -223,7 +223,7 @@ const ValidatorDetailPage = () => {
                                     setStakeModuleAmount(parseFloat(value));
                                 }
                             }} />
-                            <span style={{ fontSize: '24px' }}>COMAI</span>
+                            <span style={{ fontSize: '24px' }} className="dark: text-[#32CD32]">COMAI</span>
 
                         </div>
 
@@ -235,7 +235,7 @@ const ValidatorDetailPage = () => {
                             onClick={() => setStakingOpen(true)}
                             style={{ fontSize: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}
                         >
-                            <span className="font-[40px] dark:text-white">Stake Now</span>
+                            <span className="font-[40px] dark:text-[#32CD32]">Stake Now</span>
                         </Button>
                     </div>
 
@@ -246,31 +246,31 @@ const ValidatorDetailPage = () => {
                     <div className="flex lg:space-x-3 flex-wrap">
 
                         <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                            <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                            <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                 <GiProfit size={20} className="mr-2 text-red-300" style={{ fontSize: '40px' }} />
                                 <span style={{ fontSize: '40px' }} className="text-red-300">Subnet ID</span>
                             </p>
-                            <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                            <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                 {validatorData?.subnet_id}
                             </span>
                         </div>
 
                         <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                            <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                            <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                 <GiProfit size={20} className="mr-2 text-red-300" style={{ fontSize: '40px' }} />
                                 <span style={{ fontSize: '40px' }} className="text-red-300">Balance</span>
                             </p>
-                            <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                            <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                 {validatorData?.balance}
                             </span>
                         </div>
 
                         <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
-                            <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300 ">
+                            <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300 ">
                                 <GiProfit size={20} className="mr-2 text-red-300" style={{ fontSize: '40px' }} />
                                 <span style={{ fontSize: '40px' }} className="text-red-300">APY</span>
                             </p>
-                            <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                            <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                 {validatorData?.apy?.toFixed(2)}%
                             </span>
                         </div>
@@ -279,11 +279,11 @@ const ValidatorDetailPage = () => {
                     <div className="container mt-4">
                         <div className="flex lg:space-x-3 flex-wrap">
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                                <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                     <SiBlockchaindotcom size={20} className="mr-2 text-red-300" />
                                     <span style={{ fontSize: '40px' }} className="text-red-300">Total Staked</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {numberWithCommas(
                                         formatTokenPrice({
                                             amount: Number(validatorData?.stake),
@@ -293,21 +293,21 @@ const ValidatorDetailPage = () => {
                                 </span>
                             </div>
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                                <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                     <SiBlockchaindotcom size={20} className="mr-2 text-red-300" />
                                     <span style={{ fontSize: '40px' }} className="text-red-300">Registration Block</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {validatorData?.regblock}
                                 </span>
                             </div>
 
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                                <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                     <FaUsers size={20} className="mr-2 text-red-300" />
                                     <span style={{ fontSize: '40px' }} className="text-red-300">Total Stakers</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {validatorData?.total_stakers}
                                 </span>
                             </div>
@@ -317,20 +317,20 @@ const ValidatorDetailPage = () => {
                         <div className="flex flex-wrap lg:space-x-3 mt-6">
 
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center ml-1 dark:text-white text-red-300">
+                                <p className="card-validator-heading flex items-center justify-center ml-1 dark:text-[#32CD32] text-red-300">
                                     <RiAiGenerate size={20} className="text-red-300" />
                                     <span className="ml-2 text-red-300" style={{ fontSize: '40px' }}>Incentive</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {validatorData?.incentive}
                                 </span>
                             </div>
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[32%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center dark:text-white text-red-300">
+                                <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32] text-red-300">
                                     <RiAiGenerate size={20} className="mr-2 text-red-300" />
                                     <span style={{ fontSize: '35px' }} className="text-red-300">Emission per 100 blocks</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {numberWithCommas(
                                         formatTokenPrice({
                                             amount: Number(validatorData?.emission),
@@ -340,11 +340,11 @@ const ValidatorDetailPage = () => {
                             </div>
 
                             <div className="border-[1px] rounded-lg bg-[rgb(239 246 255)] p-3 w-[33%] h-[210px]">
-                                <p className="card-validator-heading flex items-center justify-center dark:text-white">
+                                <p className="card-validator-heading flex items-center justify-center dark:text-[#32CD32]">
                                     <RiAiGenerate size={20} className="mr-2 text-red-300" />
                                     <span style={{ fontSize: '40px' }} className="text-red-300">Dividends</span>
                                 </p>
-                                <span className="card-validator-data dark:text-white flex items-center justify-center" style={{ fontSize: '40px' }}>
+                                <span className="card-validator-data dark:text-[#32CD32] flex items-center justify-center" style={{ fontSize: '40px' }}>
                                     {validatorData?.dividends}
                                 </span>
                             </div>

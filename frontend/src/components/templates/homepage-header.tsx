@@ -415,9 +415,9 @@ export default function HomepageHeader() {
         <div className='flex lg:flex-row flex-col mt-[100px]'>
           <div className='m-auto w-full lg:w-1/2 flex flex-col items-center justify-center'>
             <div className='w-auto sm:w-[710px] sm:h-[250px]'>
-              <h1 className="text-4xl sm:text-6xl sm:pb-3 dark:text-white">{TITLE}</h1>
+              <h1 className="text-4xl sm:text-6xl sm:pb-3 dark:text-[#32CD32]">{TITLE}</h1>
               <div className='hidden sm:block'>
-                <p className="hero__subtitle text-xl sm:text-4xl dark:text-white">{TAGLINE}
+                <p className="hero__subtitle text-xl sm:text-4xl dark:text-[#32CD32]">{TAGLINE}
                   <br />
                   <span
                     className={`hero__subtitle text-4xl ${colour[index]} font-semibold mb-5`}

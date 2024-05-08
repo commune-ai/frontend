@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { Fade, Bounce } from 'react-awesome-reveal';
 import { InView } from "react-intersection-observer";
-import classes from "./home.module.css";
 import HomepageHeader from '@/components/templates/homepage-header';
 import WelcomeSection from '@/components/templates/welcome/welcome';
+import classes from "./home.module.css";
 
 function SectionWrapper({
   imageUrl,
@@ -65,7 +65,7 @@ export default function Home() {
             {
               show && (
                 <Fade direction='down' cascade>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">
                     Networking & Wrapping <br />Over Everything 🌐
                   </h1>
                 </Fade>
@@ -89,7 +89,7 @@ export default function Home() {
                   {
                     show && (
                       <Fade direction='right' cascade>
-                        <ul className='text-left list-disc dark:text-white'>
+                        <ul className='text-left list-disc dark:text-[#32CD32]'>
                           <li>Our current economic landscape is characterized by fragmentation, with various sectors and industries operating independently.</li>
                           <li>Developers face challenges in integrating and working across different tools, leading to inefficiencies and time wastage.</li>
                           <li>Lack of interoperability limits innovation and collaboration within the development community</li>
@@ -105,7 +105,7 @@ export default function Home() {
                   {
                     show && (
                       <Fade direction='left' cascade>
-                        <ul className='text-left list-disc dark:text-white'>
+                        <ul className='text-left list-disc dark:text-[#32CD32]'>
                           <li>Commune is a revolutionary protocol that connects developer tools, fostering collaboration, interoperability, and innovation within the development community.</li>
                           <li>Designed to break down barriers and unlock the potential of shared resources, Commune revolutionizes the way developers work and collaborate.</li>
                         </ul>
@@ -139,12 +139,12 @@ export default function Home() {
             {
               show && (
                 <Bounce duration={1000} delay={300}>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Reusability ♻️</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Reusability ♻️</h1>
                 </Bounce>
               )
             }
             <div className='flex flex-col text-center space-y-4 items-center justify-center px-1'>
-              <div className='grid grid-row md:grid-cols-3 gap-1 text-center font-semibold dark:text-white'>
+              <div className='grid grid-row md:grid-cols-3 gap-1 text-center font-semibold dark:text-[#32CD32]'>
                 {
                   show && (
                     <Fade direction='right' cascade>
@@ -211,12 +211,12 @@ export default function Home() {
             {
               show && (
                 <Bounce duration={1000} delay={300}>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Scalability ⚖️</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Scalability ⚖️</h1>
                 </Bounce>
               )
             }
             <div className='flex md:flex-row flex-col gap-2 items-center justify-center px-1'>
-              <div className='flex flex-col text-center font-semibold dark:text-white'>
+              <div className='flex flex-col text-center font-semibold dark:text-[#32CD32]'>
                 {
                   show && (
                     <Fade direction='up' cascade>
@@ -264,7 +264,7 @@ export default function Home() {
             {
               show && (
                 <Fade direction='right' cascade>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Namespaces 🖥️</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Namespaces 🖥️</h1>
 
                 </Fade>
               )
@@ -274,7 +274,7 @@ export default function Home() {
               {
                 show && (
                   <Fade direction='left' cascade>
-                    <div className='flex flex-col text-center font-semibold dark:text-white '>
+                    <div className='flex flex-col text-center font-semibold dark:text-[#32CD32] '>
                       <h1 className="text-3xl"> Module Namespaces </h1>
                       <ul className='text-left list-disc space-y-4 text-xl md:text-2xl'>
                         <li>We do not want to work with IP and ports as it can get confusing.</li>
@@ -313,7 +313,7 @@ export default function Home() {
             {
               show && (
                 <Bounce duration={1000} delay={300}>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Tokenomics 📊</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Tokenomics 📊</h1>
                 </Bounce>
               )
             }
@@ -323,7 +323,7 @@ export default function Home() {
                 show && (
                   <Fade direction='down' cascade>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-5 text-center items-center justify-center px-2'>
-                      <div className=' mx-auto font-bold dark:text-white'>
+                      <div className=' mx-auto font-bold dark:text-[#32CD32]'>
                         <h1 className="text-3xl"> Staked Voting </h1>
                         <ul className='text-left list-disc space-y-4 text-xl md:text-2xl'>
                           <li>The modules will vote on each block at regular intervals.</li>
@@ -344,7 +344,7 @@ export default function Home() {
                 show && (
                   <Fade direction='up' cascade>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-5 text-center items-center justify-center px-2'>
-                      <div className='mx-auto dark:text-white'>
+                      <div className='mx-auto dark:text-[#32CD32]'>
                         <h1 className="text-3xl"> Rewarding Honest Voters </h1>
                         <ul className='text-left list-disc space-y-4 text-xl md:text-2xl'>
                           <li>Voters are incentivized to be Honest by Receiving Part of the Reward</li>
@@ -369,12 +369,12 @@ export default function Home() {
         imageUrl="/gif/cubes/commune-single-block_gray.webp"
         backgroundClassName="bg-white dark:bg-gray-800"
       >
-        <div className=' text-black dark:text-white'>
+        <div className=' text-black dark:text-[#32CD32]'>
           <div className='text-right w-full pb-10'>
             {
               show && (
                 <Fade direction='left' cascade>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Application Validators ✅</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Application Validators ✅</h1>
                 </Fade>
               )
             }
@@ -389,7 +389,7 @@ export default function Home() {
                         <Image src="/img/frontpage/6.png" alt='Image' width={550}
                           height={400} style={{ width: '600px' }} />
                       </div>
-                      <div className='mx-auto dark:text-white'>
+                      <div className='mx-auto dark:text-[#32CD32]'>
                         <ul className='text-left list-disc space-y-4 text-xl md:text-2xl'>
                           <li>Application validators validate modules that best performs that application</li>
                           <li>Each validator has its own objective and is responsible for calculating an appropriate reward it can vote based on</li>
@@ -410,12 +410,12 @@ export default function Home() {
         imageUrl="/gif/cubes/commune-single-block_white.webp"
         backgroundClassName="bg-white"
       >
-        <div className='text-black dark:text-white'>
+        <div className='text-black dark:text-[#32CD32]'>
           <div className='text-right w-full pb-10'>
             {
               show && (
                 <Bounce duration={1000} delay={300}>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-white">Read Our Whitepaper 📄</h1>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl py-10 md:py-15 lg:py-20 px-3 text-center dark:text-[#32CD32]">Read Our Whitepaper 📄</h1>
                 </Bounce>
               )
             }
@@ -444,7 +444,7 @@ export default function Home() {
 
               <div className='flex justify-center rounded-xl lg:mb-4'>
                 <a href='https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' className='hover:no-underline '>
-                  <div className='w-[15rem] h-[3rem] flex flex-row gap-2 bg-[#FF8F8F] hover:bg-[#fd6868] dark:bg-[#FF8F8F] dark:hover:bg-[#fc7f7f] text-white text-xl font-bold py-2 px-4 mt-10 rounded-lg shadow-md hover:shadow-xl duration-300 '>
+                  <div className='w-[15rem] h-[3rem] flex flex-row gap-2 bg-[#FF8F8F] hover:bg-[#fd6868] dark:bg-[#FF8F8F] dark:hover:bg-[#fc7f7f] text-white dark:text-[#32CD32] text-xl font-bold py-2 px-4 mt-10 rounded-lg shadow-md hover:shadow-xl duration-300 '>
                     <Image src="/svg/Drive.svg" className="mr-2 w-7 h-7" alt='Image' width={272}
                       height={272} />
                     Read Whitepaper

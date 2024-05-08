@@ -104,8 +104,8 @@ const ReactBubbleChart: React.FC<ReactBubbleChartProps> = ({ data, darkMode = tr
                 <ReactFlowBubbleChart data={data} />
                 :
                 <div style={chartStyles}>
-                    <div className='flex items-center justify-center mx-auto'>
-                        <span style={{ color: darkMode ? '#fff' : '#000', fontSize: '32px' }}>{displayName.charAt(0).toUpperCase() + displayName.slice(1)} Bubble Chart</span>
+                    <div className='flex items-center justify-center mx-auto dark:text-[#32CD32]'>
+                        <span style={{ color: darkMode ? '#fff' : '#000', fontSize: '32px' }} className='dark:text-[#32CD32]'>{displayName.charAt(0).toUpperCase() + displayName.slice(1)} Bubble Chart</span>
                         {error && <div style={{ color: 'red', marginBottom: '20px' }}>{error}</div>}
 
                         <Select
@@ -128,15 +128,15 @@ const ReactBubbleChart: React.FC<ReactBubbleChartProps> = ({ data, darkMode = tr
                         />
 
                         <button
-                            className="border-2 p-2 rounded-lg cursor-pointer dark:text-white ml-4 flex items-center justify-center w-[300px]"
+                            className="border-2 p-2 rounded-lg cursor-pointer dark:text-[#32CD32] ml-4 flex items-center justify-center w-[300px]"
                             onClick={handleReactFlowBubbleChart}
                         >
-                            <FaArrowRight className="h-[53px] w-[50px] dark:text-white" />
+                            <FaArrowRight className="h-[53px] w-[50px] dark:text-[#32CD32]" />
                             <span style={{ fontSize: '30px' }} className='ml-4'> to ReactFlow</span>
                         </button>
 
                     </div>
-                    
+
                     <div className='flex items-center justify-center'>
                         <BubbleChart
                             graph={{

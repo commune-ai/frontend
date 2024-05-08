@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Card } from "antd";
 import { FaAngleRight } from "react-icons/fa";
-import BubbleChartComponent from "./bubbleChart";
-import Verified from "./verified";
-import { ValidatorType } from "../api/staking/type";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import communeModels from '@/utils/validatorData.json'
+import BubbleChartComponent from "./bubbleChart";
+import Verified from "./verified";
+import { ValidatorType } from "../api/staking/type";
 
 const CommuneModulePage = () => {
 
@@ -58,16 +58,16 @@ const CommuneModulePage = () => {
 
                     <span className="text-2xl text-left font-semibold flex gap-x-2 leading-10 text-purple tracking-tighter items-center">
                         <Image src="/img/frontpage/comai-webp.webp" alt="comm" height={30} width={50} />
-                        <span className="dark:text-white" style={{ fontSize: '45px' }}>COMAI Modules</span>
+                        <span className="dark:text-[#32CD32]" style={{ fontSize: '45px' }}>COMAI Modules</span>
                     </span>
 
-                    <Button className="flex ml-2 mt-1 animate-bounce bg-pink-400 border-pink-400 hover:bg-pink-600" onClick={handleModuleDisplayType}>Visualize</Button>
+                    <Button size="large" className="flex ml-2 mt-1 animate-bounce bg-pink-400 border-pink-400 hover:bg-pink-600 dark:text-[#32CD32]" onClick={handleModuleDisplayType}>Visualize</Button>
                 </div>
 
                 <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                     <input
                         type="text"
-                        className="custom-hover relative border-[1px] p-4 dark:bg-gray-900 dark:text-white dark:border-gray-600 focus:border-gold-500 focus:ring-gold-500 w-full h-[90px] rounded-xl text-sm pl-10"
+                        className="custom-hover relative border-[1px] p-4 dark:bg-gray-900 dark:text-[#32CD32] dark:border-gray-600 focus:border-gold-500 focus:ring-gold-500 w-full h-[90px] rounded-xl text-sm pl-10"
                         placeholder="Search"
                         data-sider-insert-id="db9b811e-18d7-4015-81fa-717d6caf33a9"
                         data-sider-select-id="2fc427bc-1699-4819-a3c8-1b98408e11c5"
@@ -78,8 +78,8 @@ const CommuneModulePage = () => {
                         }}
                     />
 
-                    <div className="absolute left-4 z-10 mr-2 ml-2" style={{ color: 'white' }}>
-                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="text-textSecondary" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
+                    <div className="absolute left-4 z-10 mr-2 ml-2" style={{ color: '[#32CD32]' }}>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" className="text-textSecondary" height="16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" /></svg>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@ const CommuneModulePage = () => {
                                             borderTopRightRadius: '21px'
                                         }}
                                         title={
-                                            <span className={classnames('text-black text-[44px] flex items-center justify-center mr-4 h-[100px]')}
+                                            <span className={classnames('text-black text-[44px] flex items-center justify-center mr-4 h-[100px] dark:text-[#32CD32]')}
                                             >
                                                 {module.name} {module.isVerified && (
                                                     <Verified
@@ -116,19 +116,19 @@ const CommuneModulePage = () => {
                                             fontStyle: 'BlinkMacSystemFont'
                                         }}
                                         className={"flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[1px] border-[#e8dc86] text-[#f2f2f2] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"} key={module.address + 1}>
-                                        <p className='text-black' style={{ fontSize: '26px' }}>Stake: {numberWithCommas(
+                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Stake: {numberWithCommas(
                                             formatTokenPrice({ amount: module.stake }),
                                         )}{" "}
                                             COMAI
                                         </p>
-                                        <p className='text-black' style={{ fontSize: '26px' }}>Incentive: {module.incentive}</p>
-                                        <p className='text-black' style={{ fontSize: '26px' }}>Dividends: {module.dividends}</p>
+                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Incentive: {module.incentive}</p>
+                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Dividends: {module.dividends}</p>
 
-                                        <div className="flex items-center justify-evenly">
+                                        <div className="flex items-center justify-evenly dark:text-[#32CD32]">
 
                                             <Link
                                                 href={`/commune-modules/${module.subnet_id}/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Details <FaAngleRight />
@@ -136,7 +136,7 @@ const CommuneModulePage = () => {
 
                                             <Link
                                                 href={`/workSpace/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Workspace <FaAngleRight />
@@ -144,7 +144,7 @@ const CommuneModulePage = () => {
 
                                             <Link
                                                 href={`/stakers/${module.subnet_id}/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Stakers <FaAngleRight />

@@ -17,9 +17,9 @@ import ReactFlow, {
 	isNode,
 	isEdge,
 } from 'reactflow';
+import communeModels from '@/utils/validatorData.json'
 import styles from '../Flow.module.css';
 import CustomNode from '../components/organisms/CustomNode';
-import communeModels from '@/utils/validatorData.json'
 
 const nodeTypes = {
 	custom: CustomNode,
@@ -172,15 +172,15 @@ const WorkSpace = () => {
 		<>
 			<div className={styles.flow} ref={reactFlowWrapper}>
 
-				<div className='flex items-center justify-center mt-2'>
-					<Button onClick={onAdd}>Add a node</Button>
+				<div className='flex items-center justify-center mt-2 dark:text-[#32CD32]'>
+					<Button onClick={onAdd} className='dark:text-[#32CD32]'>Add a node</Button>
 
 					<div className="label-editor ml-4">
 						<label>
-							<span className='dark:text-white mr-2' style={{ fontSize: '18px' }}>Element Label:</span>
+							<span className='dark:text-[#32CD32] mr-2' style={{ fontSize: '18px' }}>Element Label:</span>
 							<input
 								type="text"
-								className='p-2 font-[16px] rounded-sm'
+								className='p-2 font-[16px] rounded-sm dark:text-[#32CD32]'
 								value={selectedElementId ? (selectedElementType === 'node' ? nodes.find((node) => node.id === selectedElementId)?.data.label : edges.find((edge) => edge.id === selectedElementId)?.label) : ''}
 								onChange={(e) => handleChangeElementLabel(e.target.value)}
 							/>

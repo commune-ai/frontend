@@ -17,21 +17,21 @@ export default function Footer() {
 								<div className={classes.logo}>
 									<Image style={{ width: "auto", height: "10rem" }} src="/gif/logo/commune.gif" alt="My Site Logo" width={160} height={160}/>
 								</div>
-								<b className="text-[2rem] font-bold footer-main hover:underline">Commune AI</b>
+								<b className="text-[2rem] font-bold footer-main hover:underline dark:text-[#32CD32]">Commune AI</b>
 							</div>
 						</Link>
 					</div>
 					<div className="flex flex-col gap-3 relative">
-						<p className="text-[22px] font-bold footer-main">📚 Docs</p>
-						<a className="text-[1rem] font-bold footer-main hover:underline" href="/docs/introduction">
+						<p className="text-[22px] font-bold footer-main dark:text-[#32CD32]">📚 Docs</p>
+						<a className="text-[1rem] font-bold footer-main hover:underline dark:text-[#32CD32]" href="/docs/introduction">
 							Introduction
 						</a>
-						<a className="text-[1rem] font-bold footer-main hover:underline" href="/docs/setup-commune">
+						<a className="text-[1rem] font-bold footer-main hover:underline dark:text-[#32CD32]" href="/docs/setup-commune">
 							Installation
  						</a>
 					</div>
-					<div className="flex flex-col gap-3 items-center relative">
-						<p className="text-[22px] font-bold footer-main">🔗 Community</p>
+					<div className="flex flex-col gap-3 items-center relative dark:text-[#32CD32]">
+						<p className="text-[22px] font-bold footer-main dark:text-[#32CD32]">🔗 Community</p>
 						<a
 							href="https://discord.gg/communeai"
 							target="_blank"
@@ -57,7 +57,7 @@ export default function Footer() {
 							<GitHubIcon />
 						</a>
 					</div>
-					<div className="flex flex-col gap-3 relative">
+					<div className="flex flex-col gap-3 relative dark:text-[#32CD32]">
 						<p className="text-[22px] font-bold footer-main">➕ More</p>
 						<a
 							href={externalLinks.whitepaper}
@@ -70,7 +70,7 @@ export default function Footer() {
 					</div>
 				</div>
 			</div>
-			<p className="text-[16px] font-medium dark:text-white text-center mb-[2rem] px-3">
+			<p className="text-[16px] font-medium dark:text-[#32CD32] text-center mb-[2rem] px-3">
 				Copyright © {new Date().getFullYear()} Commune, Inc. Built with Docusaurus.
 			</p>
 		</footer>
