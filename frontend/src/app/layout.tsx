@@ -14,6 +14,7 @@ import {
   ledgerWallet,
   metaMaskWallet
 } from '@rainbow-me/rainbowkit/wallets';
+import localFont from 'next/font/local'
 import { Provider } from "react-redux";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,7 +31,6 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import "@fontsource/source-code-pro";
-import { projectId } from "../config"
 import Providers from "@/app/provider"
 import Loading from '@/components/molecules/bittensor/loading';
 import NavigationBar from '@/components/organisms/navbar/navigation-bar';
@@ -40,6 +40,7 @@ import ThemeProvider from '@/context/toggle-theme-provider';
 import './globals.css';
 import 'reactflow/dist/style.css';
 import { store } from "@/store/index"
+import { projectId } from "../config"
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
@@ -74,6 +75,8 @@ export const wagmiConfig = createConfig({
   connectors,
   publicClient,
 });
+
+const myFont = localFont({ src: '../../public/fonts/BlanksscriptpersonaluseBdit-jEM6O.otf' })
 
 export default function RootLayout({
   children,
@@ -111,8 +114,10 @@ export default function RootLayout({
                 <Providers>
                   <Provider store={store}>
                     <ThemeProvider>
-                      <NavigationBar />
-                      {children}
+                      <main className={myFont.className}>
+                        <NavigationBar />
+                        {children}
+                      </main>
                       <Footer />
                     </ThemeProvider>
                   </Provider>

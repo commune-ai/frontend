@@ -61,7 +61,10 @@ const CommuneModulePage = () => {
                         <span className="dark:text-[#32CD32]" style={{ fontSize: '45px' }}>COMAI Modules</span>
                     </span>
 
-                    <Button size="large" className="flex ml-2 mt-1 animate-bounce bg-pink-400 border-pink-400 hover:bg-pink-600 dark:text-[#32CD32]" onClick={handleModuleDisplayType}>Visualize</Button>
+                    <Button size="large" className="flex ml-2 mt-1 animate-bounce hover:bg-pink-600 dark:text-[#32CD32]" onClick={handleModuleDisplayType}>
+                        Visualize
+                    </Button>
+
                 </div>
 
                 <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
@@ -92,11 +95,12 @@ const CommuneModulePage = () => {
                                 module => {
                                     return <Card id="card"
                                         headStyle={{
-                                            background: 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)', borderTopLeftRadius: '21px',
+                                            // background: 'radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%), radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%)', 
+                                            borderTopLeftRadius: '21px',
                                             borderTopRightRadius: '21px'
                                         }}
                                         title={
-                                            <span className={classnames('text-black text-[44px] flex items-center justify-center mr-4 h-[100px] dark:text-[#32CD32]')}
+                                            <span className={classnames('text-black text-[44px] retro-font flex items-center justify-center mr-4 h-[100px] dark:text-[#32CD32]')}
                                             >
                                                 {module.name} {module.isVerified && (
                                                     <Verified
@@ -111,24 +115,24 @@ const CommuneModulePage = () => {
                                         style={{
                                             width: 500,
                                             marginBottom: 20,
-                                            boxShadow: '1px 1px 2px 2px #d8e4e0',
-                                            background: '#4c4341',
+                                            boxShadow: '3px 3px 3px 3px #32CD32',
+                                            background: 'black',
                                             fontStyle: 'BlinkMacSystemFont'
                                         }}
-                                        className={"flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[1px] border-[#e8dc86] text-[#f2f2f2] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"} key={module.address + 1}>
-                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Stake: {numberWithCommas(
+                                        className={"flex retro-font flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#32CD32] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"} key={module.address + 1}>
+                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Stake: {numberWithCommas(
                                             formatTokenPrice({ amount: module.stake }),
                                         )}{" "}
                                             COMAI
                                         </p>
-                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Incentive: {module.incentive}</p>
-                                        <p className='text-black dark:text-[#32CD32]' style={{ fontSize: '26px' }}>Dividends: {module.dividends}</p>
+                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Incentive: {module.incentive}</p>
+                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Dividends: {module.dividends}</p>
 
-                                        <div className="flex items-center justify-evenly dark:text-[#32CD32]">
+                                        <div className="flex retro-font items-center justify-evenly dark:text-[#32CD32]">
 
                                             <Link
                                                 href={`/commune-modules/${module.subnet_id}/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32] retro-font"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Details <FaAngleRight />
@@ -136,7 +140,7 @@ const CommuneModulePage = () => {
 
                                             <Link
                                                 href={`/workSpace/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32] retro-font"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Workspace <FaAngleRight />
@@ -144,7 +148,7 @@ const CommuneModulePage = () => {
 
                                             <Link
                                                 href={`/stakers/${module.subnet_id}/${module.key}`}
-                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32]"
+                                                className="flex items-center gap-x-1 underline text-black dark:text-[#32CD32] retro-font"
                                                 style={{ fontSize: '24px' }}
                                             >
                                                 Stakers <FaAngleRight />

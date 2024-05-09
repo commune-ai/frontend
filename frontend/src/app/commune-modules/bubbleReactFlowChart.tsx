@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ValidatorType } from '../api/staking/type';
 import { useRouter } from 'next/navigation';
+import { Select } from 'antd';
 import './commune-module.module.css';
 import ReactFlow, {
     ConnectionLineType,
     Background,
 } from 'reactflow';
-import { Select } from 'antd';
+import { ValidatorType } from '../api/staking/type';
 
 interface ReactFlowBubbleChartProps {
     data: ValidatorType[];

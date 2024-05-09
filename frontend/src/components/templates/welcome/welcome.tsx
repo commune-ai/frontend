@@ -35,90 +35,66 @@ export default function WelcomeSection() {
               <span className="text-[#ffef40] dark:text-[#FFF7A1]">create</span>.
             </p>
           </div>
-          <div className="grid grid-cols-7 sm:h-[300px] lg:h-[500px] items-center justify-center px-3 gap-0">
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#blue" className="hover:no-underline">
-                <Image
-                  src="/gif/cubes/commune-single-block_blue.webp"
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
+          <div className="flex sm:h-[300px] lg:h-[500px] items-center justify-evenly px-3 gap-0 w-full">
+            <div className="flex flex-col items-center justify-evenly text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
+              <Image
+                  src="/img/products/discord-bot.jpg"
+                  className="rounded-lg"
                   alt='Image'
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={220}
                 />
-              </a>
-              <p>Networking &amp; Wrapping</p>
+              <p className="mt-1">Commune Discord Bot</p>
             </div>
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#green" className="hover:no-underline">
-                <Image
-                  src="/gif/cubes/commune-single-block_green.webp"
+              <Image
+                  src="/img/products/telegram.jpg"
+                  className="rounded-lg h-[250px]"
                   alt='Image'
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={250}
                 />
-              </a>
-              <p>Reusability</p>
+              <p className="mt-1">Commune Telegram Bot</p>
             </div>
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#yellow" className="hover:no-underline">
-                <Image
-                  src="/gif/cubes/commune-single-block_yellow.webp"
+              <Image
+                  src="/img/products/trading.jpg"
+                  className="rounded-lg h-[250px]"
                   alt='Image'
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={200}
                 />
-              </a>
-              <p>Scalability</p>
+              <p className="mt-1">Commune Trading Bot</p>
             </div>
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#red" className="hover:no-underline">
-                <Image
+              <Image
+                  src="/img/products/scrapping.jpg"
+                  className="rounded-lg h-[250px]"
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_red.webp"
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={200}
                 />
-              </a>
-              <p>Namespaces</p>
+              <p className="mt-1">Commune Scrapping Bot</p>
             </div>
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#pink" className="hover:no-underline">
-                <Image
+              <Image
+                  src="/img/products/rust.jpeg"
+                  className="rounded-lg h-[250px]"
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_purple.webp"
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={200}
                 />
-              </a>
-              <p>Tokenomics</p>
+              <p className="mt-1">Commune Rust</p>
             </div>
             <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#black" className="hover:no-underline">
-                <Image
+              <Image
+                  src="/img/products/wasm.png"
+                  className="rounded-lg h-[250px]"
                   alt='Image'
-                  src="/gif/cubes/commune-single-block_gray.webp"
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
+                  width={250}
+                  height={200}
                 />
-              </a>
-              <p>Application Validators</p>
-            </div>
-            <div className="flex flex-col items-center justify-center text-transparent hover:dark:text-[#32CD32] hover:text-black duration-300 font-sans font-semibold text-lg">
-              <a href="#white" className="hover:no-underline">
-                <Image
-                  alt='Image'
-                  src="/gif/cubes/commune-single-block_white.webp"
-                  className="w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] lg:w-[15rem] lg:h-[15rem] hover:w-[20rem] hover:h-[19rem] duration-300"
-                  width={30}
-                  height={30}
-                />
-              </a>
-              <p>Whitepaper 📄</p>
+              <p className="mt-1">Commune Wasm</p>
             </div>
           </div>
         </div>

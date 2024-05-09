@@ -69,8 +69,8 @@ const StakePage = () => {
     return (
         <>{validatorData ? <div style={chartStyles} className='mt-4'>
             <div className='flex items-center justify-center mx-auto flex-col mt-4'>
-                <span style={{ color: darkMode ? '#fff' : '#000', fontSize: '32px' }}>Staker Bubble Chart</span>
-                <span style={{ fontSize: '35px' }} className='ml-4'>{validatorData?.name}</span>
+                <span style={{ fontSize: '32px' }} className='dark: text-[#32CD32]'>Staker Bubble Chart</span>
+                <span style={{ fontSize: '35px' }} className='ml-4 dark: text-[#32CD32]'>{validatorData?.name}</span>
             </div>
 
             <div className='flex items-center justify-center'>
@@ -84,11 +84,11 @@ const StakePage = () => {
                     padding={1} // Adjust padding as needed
                     valueFont={{
                         size: 20,
-                        color: darkMode ? '#fff' : '#000', // Value font color based on darkMode
+                        color: darkMode ? '#32CD32' : '#000', // Value font color based on darkMode
                     }}
                     labelFont={{
                         size: 24,
-                        color: darkMode ? '#fff' : '#000', // Label font color based on darkMode
+                        color: darkMode ? '#32CD32' : '#000', // Label font color based on darkMode
                     }}
                     data={chartData}
                     colorLegend

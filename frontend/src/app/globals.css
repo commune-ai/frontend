@@ -6,6 +6,12 @@
   box-shadow: inset 0px 0px 8px 11px #ddcb75;
 }
 
+.retro-font {
+  font-family: 'Retro Font', cursive;
+  src: local('retro font'),
+    url('../../public/fonts/good-times-rg.otf') format('otf'),
+}
+
 .custom-hover:hover {
   box-shadow: inset 0px 2px 9px 10px #ddcb75, 0 6px 20px 0 #ddcb75;
   cursor: pointer;

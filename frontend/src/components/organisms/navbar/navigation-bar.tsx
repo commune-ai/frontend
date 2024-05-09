@@ -19,14 +19,17 @@ import { usePolkadot } from "@/context"
 import { truncateWalletAddress } from '@/utils';
 import Button from '@/utils/button';
 import classes from './navigation-bar.module.css';
-import LogoImage from '../../../../public/gif/logo/commune.gif'
-import CommuneAILogo from '../../../../public/img/frontpage/comai-logo.png'
-import HuggingfaceImage from '../../../../public/img/frontpage/huggingface.png'
+import LogoImage from '../../../../public/img/frontpage/comai-logo.png'
+import CommunityImage from '../../../../public/img/icon/communtiy.png'
+import DocsImage from '../../../../public/img/icon/docs.png'
+import ModuleImage from '../../../../public/img/icon/module.png'
+import SatelliteImage from '../../../../public/img/icon/satellite.png'
+
 
 const navigation = [
-	{ name: '🚀Modules', href: '/commune-modules', current: false },
-	{ name: '⛓Telemetry', href: '/telemetry', current: false },
-	{ name: '📚Docs', href: '/docs/introduction', current: false },
+	{ name: 'Modules', href: '/commune-modules', current: false, icon: ModuleImage },
+	{ name: 'Telemetry', href: '/telemetry', current: false, icon: SatelliteImage },
+	{ name: 'Docs', href: '/docs/introduction', current: false, icon: DocsImage },
 	// { name: '📄Whitepaper', href: 'https://ai-secure.github.io/DMLW2022/assets/papers/7.pdf' },
 ]
 
@@ -140,9 +143,10 @@ export default function NavigationBar() {
 														<a
 															key={item.name}
 															href={item.href}
-															className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
+															className={classNames(classes.link, 'flex dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
 															aria-current={item.current ? 'page' : undefined}
 														>
+															<Image src={item.icon} alt='communityimage' width={37} height={30} className='ml-3 mr-1' />
 															<span className='flex items-center justify-center'>
 																{item.name}
 															</span>
@@ -153,8 +157,9 @@ export default function NavigationBar() {
 										</div>
 										<Menu as="div" className="flex relative ml-3">
 
-											<Menu.Button className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
-												🔗Community
+											<Menu.Button className={classNames(classes.link, 'flex items-center justify-center dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
+												<Image src={CommunityImage} alt='communityimage' width={30} height={30} className='ml-3 mr-1' />
+												Community
 											</Menu.Button>
 
 											<Transition

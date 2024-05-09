@@ -148,11 +148,11 @@ const ReactBubbleChart: React.FC<ReactBubbleChartProps> = ({ data, darkMode = tr
                             padding={1} // Adjust padding as needed
                             valueFont={{
                                 size: 20,
-                                color: darkMode ? '#fff' : '#000', // Value font color based on darkMode
+                                color: darkMode ? '#32CD32' : '#000', // Value font color based on darkMode
                             }}
                             labelFont={{
                                 size: 24,
-                                color: darkMode ? '#fff' : '#000', // Label font color based on darkMode
+                                color: darkMode ? '#32CD32' : '#000', // Label font color based on darkMode
                             }}
                             bubbleClickFun={customBubbleClickFunc}
                             data={chartData}
