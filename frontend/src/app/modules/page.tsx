@@ -1,5 +1,5 @@
-import Modules from "./modules";
 import { PolkadotProvider } from "@/context";
+import Modules from "./modules";
 
 const ModulePage = () => {
 

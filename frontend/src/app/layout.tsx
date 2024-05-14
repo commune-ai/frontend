@@ -36,6 +36,7 @@ import Loading from '@/components/molecules/bittensor/loading';
 import NavigationBar from '@/components/organisms/navbar/navigation-bar';
 import Footer from '@/components/templates/footer/footer';
 import Head from '@/components/templates/head';
+import { ColorProvider } from '@/context/color-widget-provider';
 import ThemeProvider from '@/context/toggle-theme-provider';
 import './globals.css';
 import 'reactflow/dist/style.css';
@@ -76,7 +77,7 @@ export const wagmiConfig = createConfig({
   publicClient,
 });
 
-const myFont = localFont({ src: '../../public/fonts/BlanksscriptpersonaluseBdit-jEM6O.otf' })
+const myFont = localFont({ src: '../../public/fonts/VCR_OSD_MONO_1.001.ttf' })
 
 export default function RootLayout({
   children,
@@ -114,10 +115,12 @@ export default function RootLayout({
                 <Providers>
                   <Provider store={store}>
                     <ThemeProvider>
-                      <main className={myFont.className}>
+                      <ColorProvider>
+                        {/* <main className={myFont.className}> */}
                         <NavigationBar />
                         {children}
-                      </main>
+                      </ColorProvider>
+                      {/* </main> */}
                       <Footer />
                     </ThemeProvider>
                   </Provider>

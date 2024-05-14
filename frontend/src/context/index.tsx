@@ -5,8 +5,8 @@ import {
   InjectedAccountWithMeta,
   InjectedExtension,
 } from "@polkadot/extension-inject/types"
-import { WalletModal } from "@/components/atoms/utils/walletModal/index"
 import { errorToast, successToast } from "@/components/atoms/toast"
+import { WalletModal } from "@/components/atoms/utils/walletModal/index"
 import { NET_ID } from "@/constants"
 import { IAddStaking, ITransfer, ITransferStaking } from "@/types"
 

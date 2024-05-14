@@ -2,17 +2,19 @@
 import React from "react";
 import classnames from "classnames";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button, Card } from "antd";
-import { FaAngleRight } from "react-icons/fa";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import communeModels from '@/utils/validatorData.json'
 import BubbleChartComponent from "./bubbleChart";
+import styles from './commune-module.module.css'
 import Verified from "./verified";
 import { ValidatorType } from "../api/staking/type";
 
 const CommuneModulePage = () => {
+
+    const router = useRouter()
 
     const [searchString, setSearchString] = React.useState('')
     const [isShowModuleAsCard, setIsShowModuleAsCard] = React.useState(true)
@@ -50,27 +52,31 @@ const CommuneModulePage = () => {
         setIsShowModuleAsCard(!isShowModuleAsCard)
     }
 
+    const handleShowModulePage = (subnet_id: number, key: string) => {
+        router.push(`/module-page/${subnet_id}/${key}`)
+    }
+
     return (
         <section className="my-10 mx-auto w-[95%]">
             <div className="flex justify-center mb-4 items-center flex-col sm:flex-col">
 
                 <div className="flex items-center justify-center">
 
-                    <span className="text-2xl text-left font-semibold flex gap-x-2 leading-10 text-purple tracking-tighter items-center">
+                    {/* <span className="text-2xl text-left font-semibold flex gap-x-2 leading-10 text-purple tracking-tighter items-center">
                         <Image src="/img/frontpage/comai-webp.webp" alt="comm" height={30} width={50} />
-                        <span className="dark:text-[#32CD32]" style={{ fontSize: '45px' }}>COMAI Modules</span>
+                        <span className="dark:text-[#f9d7d2]" style={{ fontSize: '45px' }}>COMAI Modules</span>
                     </span>
 
-                    <Button size="large" className="flex ml-2 mt-1 animate-bounce hover:bg-pink-600 dark:text-[#32CD32]" onClick={handleModuleDisplayType}>
+                    <Button size="large" className="flex ml-2 mt-1 hover:bg-pink-600 dark:text-[#c06d60]" onClick={handleModuleDisplayType}>
                         Visualize
-                    </Button>
+                    </Button> */}
 
                 </div>
 
                 <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                     <input
                         type="text"
-                        className="custom-hover relative border-[1px] p-4 dark:bg-gray-900 dark:text-[#32CD32] dark:border-gray-600 focus:border-gold-500 focus:ring-gold-500 w-full h-[90px] rounded-xl text-sm pl-10"
+                        className="custom-hover relative border-[1px] p-4 dark:bg-gray-900 dark:text-[#f9d7d2] dark:border-[gray-600] focus:border-[#f9d7d2] focus:ring-[#f9d7d2] w-full h-[90px] rounded-xl text-sm pl-10"
                         placeholder="Search"
                         data-sider-insert-id="db9b811e-18d7-4015-81fa-717d6caf33a9"
                         data-sider-select-id="2fc427bc-1699-4819-a3c8-1b98408e11c5"
@@ -100,9 +106,10 @@ const CommuneModulePage = () => {
                                             borderTopRightRadius: '21px'
                                         }}
                                         title={
-                                            <span className={classnames('text-black text-[44px] retro-font flex items-center justify-center mr-4 h-[100px] dark:text-[#32CD32]')}
+                                            <span className={classnames(`text-black text-[44px] retro-font flex items-center justify-center mr-4 h-[65px] dark:text-[#f9d7d2] ${styles.fontStyle}`)}
                                             >
-                                                {module.name} {module.isVerified && (
+                                                {module.name} 
+                                                {module.isVerified && (
                                                     <Verified
                                                         isGold={
                                                             module.key ===
@@ -115,20 +122,29 @@ const CommuneModulePage = () => {
                                         style={{
                                             width: 500,
                                             marginBottom: 20,
-                                            boxShadow: '3px 3px 3px 3px #32CD32',
+                                            boxShadow: '3px 3px 3px 3px #f9d7d2',
                                             background: 'black',
-                                            fontStyle: 'BlinkMacSystemFont'
+                                            fontFamily: 'VCR_OSD_MONO'
                                         }}
-                                        className={"flex retro-font flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#32CD32] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"} key={module.address + 1}>
-                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Stake: {numberWithCommas(
-                                            formatTokenPrice({ amount: module.stake }),
-                                        )}{" "}
-                                            COMAI
-                                        </p>
-                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Incentive: {module.incentive}</p>
-                                        <p className='text-black dark:text-[#32CD32] retro-font' style={{ fontSize: '26px' }}>Dividends: {module.dividends}</p>
+                                        onClick={() => handleShowModulePage(module.subnet_id, module.key)}
+                                        className={"flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"} key={module.address + 1}>
+                                        <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                            <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
+                                                stake:
+                                            </span>
+                                            {numberWithCommas(
+                                                formatTokenPrice({ amount: module.stake }),
+                                            )}
+                                        </div>
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                            <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>incentive:</span>  {module.incentive}
+                                        </div>
 
-                                        <div className="flex retro-font items-center justify-evenly dark:text-[#32CD32]">
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                            <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>dividends:</span>  {module.dividends}
+                                        </div>
+
+                                        {/* <div className="flex retro-font items-center justify-evenly dark:text-[#32CD32]">
 
                                             <Link
                                                 href={`/commune-modules/${module.subnet_id}/${module.key}`}
@@ -154,7 +170,7 @@ const CommuneModulePage = () => {
                                                 Stakers <FaAngleRight />
                                             </Link>
 
-                                        </div>
+                                        </div> */}
 
                                     </Card>
                                 }

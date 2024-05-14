@@ -7,7 +7,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Modal } from 'antd';
+import { Modal, Popover } from 'antd';
 import { AiFillWallet } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa6';
 import HamburgerModal from '@/components/atoms/Hamburger/hamburger';
@@ -16,15 +16,18 @@ import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
 import ThemeToggler from "@/components/templates/theme-toggler";
 import { usePolkadot } from "@/context"
+import { useColorContext } from '@/context/color-widget-provider';
 import { truncateWalletAddress } from '@/utils';
 import Button from '@/utils/button';
+import ColorPicker from '@/utils/colorWidget';
 import classes from './navigation-bar.module.css';
+import styles from './navigation-bar.module.css'
 import LogoImage from '../../../../public/img/frontpage/comai-logo.png'
+import ColorPickImage from '../../../../public/img/icon/colorWidget.jpg'
 import CommunityImage from '../../../../public/img/icon/communtiy.png'
 import DocsImage from '../../../../public/img/icon/docs.png'
 import ModuleImage from '../../../../public/img/icon/module.png'
 import SatelliteImage from '../../../../public/img/icon/satellite.png'
-
 
 const navigation = [
 	{ name: 'Modules', href: '/commune-modules', current: false, icon: ModuleImage },
@@ -79,18 +82,24 @@ export default function NavigationBar() {
 		}
 	};
 
-	const handleHuggingfaceModuleRouter = () => {
-		router.push('/modules')
-	}
+	const [currentColor, setCurrentColor] = useState<string>('#000000');
 
-	const handleCommuneAIModuleRouter = () => {
-		router.push('/commune-modules')
-	}
+	const handleColorChange = (color: string) => {
+		setCurrentColor(color);
+	};
+
+	const [openColorWidgetPopOver, setColorWidgetOpen] = useState(false);
+
+	const handleOpenColorWidgetChange = (newOpen: boolean) => {
+		setColorWidgetOpen(newOpen);
+	};
+
+	const { color, changeColor } = useColorContext();
 
 	return (
 		<>
 			<div className="min-h-full">
-				<Disclosure as="nav" className="dark:bg-gray-900 border-b-2 border-slate-500 shadow-md py-6">
+				<Disclosure as="nav" className={`dark:bg-[${color}] border-b-2 border-slate-500 shadow-md py-6`} style={{ backgroundColor: color }}>
 					{({ open }) => (
 						<>
 							<div className="mx-auto px-4 lg:px-8">
@@ -106,36 +115,6 @@ export default function NavigationBar() {
 											/>
 										</Link>
 
-										{/* <Menu as="div" className="flex relative ml-3">
-											<div>
-												<Menu.Button style={{ marginLeft: '0.35rem' }} className={classNames(classes.link, 'dark:text-white dark:hover:text-[#25c2a0] p-0')}>🚀Modules</Menu.Button>
-											</div>
-											<Transition
-												as={Fragment}
-												enter="transition ease-out duration-100"
-												enterFrom="transform opacity-0 scale-95"
-												enterTo="transform opacity-100 scale-100"
-												leave="transition ease-in duration-75"
-												leaveFrom="transform opacity-100 scale-100"
-												leaveTo="transform opacity-0 scale-95"
-											>
-												<Menu.Items className="dark:bg-[#242556] dark:text-white absolute right-0 z-10 mt-8 w-[11rem] origin-top-right rounded-md bg-white py-1 px-5 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none flex items-start justify-center flex-col">
-													<Menu.Item>
-														<button rel="noopener noreferrer" onClick={handleCommuneAIModuleRouter} className="flex items-center mt-2" >
-															CommuneAI
-															<Image src={CommuneAILogo} alt="CommuneAIImage" width={24} height={24} className="rounded-md ml-5" />
-														</button>
-													</Menu.Item>
-													<Menu.Item>
-														<button rel="noopener noreferrer" onClick={handleHuggingfaceModuleRouter} className="flex items-center cursor-pointer" >
-															Huggingface
-															<Image src={HuggingfaceImage} alt="HuggingfaceImage" width={64} height={64} className="rounded-md" />
-														</button>
-													</Menu.Item>
-												</Menu.Items>
-											</Transition>
-										</Menu> */}
-
 										<div className="hidden xl:block">
 											<div className="flex">
 												{
@@ -147,7 +126,7 @@ export default function NavigationBar() {
 															aria-current={item.current ? 'page' : undefined}
 														>
 															<Image src={item.icon} alt='communityimage' width={37} height={30} className='ml-3 mr-1' />
-															<span className='flex items-center justify-center'>
+															<span className={`flex items-center justify-center ${styles.fontStyle}`}>
 																{item.name}
 															</span>
 														</a>
@@ -157,7 +136,7 @@ export default function NavigationBar() {
 										</div>
 										<Menu as="div" className="flex relative ml-3">
 
-											<Menu.Button className={classNames(classes.link, 'flex items-center justify-center dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
+											<Menu.Button className={classNames(classes.link, classes.fontStyle, 'flex items-center justify-center dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
 												<Image src={CommunityImage} alt='communityimage' width={30} height={30} className='ml-3 mr-1' />
 												Community
 											</Menu.Button>
@@ -221,7 +200,6 @@ export default function NavigationBar() {
 									<div className="hidden md:block">
 										<div className="flex items-center relative">
 
-
 											{
 												isInitialized && selectedAccount ? (
 
@@ -242,7 +220,7 @@ export default function NavigationBar() {
 													:
 													<Menu as="div" className="flex">
 														<div>
-															<Menu.Button style={{ marginLeft: '0.35rem', width: '200px' }} className={classNames(classes.link, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')}>Choose wallet</Menu.Button>
+															<Menu.Button style={{ marginLeft: '0.35rem', width: '300px' }} className={classNames(classes.link, classes.fontStyle, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 w-full')}>Choose wallet</Menu.Button>
 														</div>
 														<Transition
 															as={Fragment}
@@ -392,8 +370,16 @@ export default function NavigationBar() {
 															</Menu.Items>
 														</Transition>
 													</Menu>
-
 											}
+
+											<Popover
+												title={<ColorPicker onChange={handleColorChange} />}
+												trigger="click"
+												open={openColorWidgetPopOver}
+												onOpenChange={handleOpenColorWidgetChange}
+											>
+												<Image src={ColorPickImage} alt='image' className='rounded-xl cursor-pointer' style={{ width: '100px', height: '60px' }} />
+											</Popover>
 
 											<ThemeToggler />
 

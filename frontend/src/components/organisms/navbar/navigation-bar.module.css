@@ -163,3 +163,14 @@
     width: 2rem;
     height: 2rem;
 }
+
+@font-face {
+    font-family: 'VCR_OSD_MONO';
+    src: local('VCR_OSD_MONO'), url('../../../../public/fonts/VCR_OSD_MONO.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fontStyle {
+    font-family: 'VCR_OSD_MONO', sans-serif;
+}

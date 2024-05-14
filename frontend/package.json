@@ -54,6 +54,8 @@
     "react-awesome-reveal": "^4.2.8",
     "react-bubble-chart": "^0.4.0",
     "react-chartkick": "^0.5.3",
+    "react-color": "^2.19.3",
+    "react-color-palette": "^7.1.1",
     "react-dom": "^18",
     "react-flow-renderer": "^10.3.17",
     "react-github-login": "^1.0.3",
@@ -87,6 +89,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-color": "^3.0.12",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "autoprefixer": "^10.0.1",
