@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import { useRouter } from "next/navigation";
 import { Card } from "antd";
@@ -7,7 +7,14 @@ import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import communeModels from '@/utils/validatorData.json';
 import styles from './commune-module.module.css';
+import { useGetValidatorsQuery } from "../api/staking/modulelist";
 import { ValidatorType } from "../api/staking/type";
+
+enum ValidatorFilterType {
+    ALL,
+    MINERS,
+    VALIDATORS,
+}
 
 const CommuneModulePage = () => {
 
@@ -15,6 +22,18 @@ const CommuneModulePage = () => {
 
     const [searchString, setSearchString] = React.useState('');
     const [filteredData, setFilteredData] = React.useState<ValidatorType[]>(communeModels);
+
+    const { data: allValidatorsData, isLoading: fetchLoading } =
+        useGetValidatorsQuery(undefined, {
+            pollingInterval: 300000,
+        });
+
+    const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
+        ValidatorFilterType.ALL
+    );
+    const [validatorData, setValidatorData] = useState<ValidatorType[]>([]);
+
+    console.log('------------This is the react component-----', allValidatorsData);
 
     React.useEffect(() => {
         if (searchString.trim() === '') {

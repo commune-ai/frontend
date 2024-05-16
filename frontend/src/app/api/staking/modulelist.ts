@@ -1,5 +1,4 @@
 import { createApi } from "@reduxjs/toolkit/query/react"
-import apiWrapper from "./wrapper/httpapi"
 import {
     IBalanceType,
     IStats,
@@ -8,6 +7,7 @@ import {
     SubnetInterface,
     ValidatorType,
 } from "@/types"
+import apiWrapper from "./wrapper/httpapi"
 export const statsApi = createApi({
     reducerPath: "statsApi",
     baseQuery: apiWrapper,

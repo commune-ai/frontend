@@ -20,6 +20,11 @@ export type ValidatorType = {
   expire_at?: number
   verified_type: string
   subnet_id: number
+  discord?: string
+  twitter?: string
+  website?: string
+  description?: string
+  image?: string
 }
 
 export interface InterfacePagination<Data> {
@@ -36,6 +41,7 @@ export interface InterfacePaginationSubnet<Data> {
 }
 
 export type IAddStaking = {
+  subnetId: number
   validator: string
   amount: string
   callback?: () => void
@@ -47,6 +53,7 @@ export type ITransfer = {
   callback?: () => void
 }
 export type ITransferStaking = {
+  subnetId: number
   validatorFrom: string
   amount: string
   validatorTo: string
