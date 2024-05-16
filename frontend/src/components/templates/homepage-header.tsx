@@ -172,6 +172,7 @@ export default function HomepageHeader() {
         text-center 
         overflow-hidden 
         duration-500
+        bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]
         `}
     >          
       <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">

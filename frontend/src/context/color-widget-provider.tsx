@@ -24,7 +24,7 @@ type ColorProviderProps = {
 };
 
 export const ColorProvider: React.FC<ColorProviderProps> = ({ children }) => {
-    const [color, setColor] = useState<string>('#FFFFFF'); // Initial color state
+    const [color, setColor] = useState<string>('#161C3B'); // Initial color state
 
     const changeColor = (newColor: string) => {
         setColor(newColor);

@@ -8,7 +8,7 @@ export default function WelcomeSection() {
     const [show, setShow] = useState(false);
 
     return (
-      <InView onChange={(inView) => setShow(inView)} id="welcome" className="h-full pt-20 dark:bg-gray-900 overflow-hidden">
+      <InView onChange={(inView) => setShow(inView)} id="welcome" className="h-full pt-20 dark:bg-gray-900 overflow-hidden bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]">
         <div className="flex flex-col items-center justify-center">
           <div className="pt-6 w-full">
             {
