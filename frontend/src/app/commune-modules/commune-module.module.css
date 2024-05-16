@@ -24,3 +24,7 @@
 .fontStyle {
     font-family: 'VCR_OSD_MONO', sans-serif;
 }
+
+.ant-card-head .ant-card {
+    background-color: #f9d7d2 !important;
+}

@@ -2,11 +2,11 @@
 import React from "react"
 import Link from "next/link"
 import { FaAngleRight } from "react-icons/fa6"
-import Verified from "./verified"
-import { ValidatorType } from "../api/staking/type"
 import { numberWithCommas } from "@/utils/numberWithCommas"
 import { formatTokenPrice } from "@/utils/tokenPrice"
 import communeModels from '@/utils/validatorData.json'
+import Verified from "./verified"
+import { ValidatorType } from "../api/staking/type"
 
 interface ValidatorTableProps {
     searchString: string

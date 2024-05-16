@@ -382,10 +382,10 @@ export default function NavigationBar() {
 											</Popover>
 
 											<ThemeToggler />
-
+{/* 
 											<div className='hidden xl:block dark:text-[#32CD32]'>
 												<HamburgerModal />
-											</div>
+											</div> */}
 
 										</div>
 									</div>

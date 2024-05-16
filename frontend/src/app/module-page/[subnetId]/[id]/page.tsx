@@ -16,17 +16,17 @@ export default function Component() {
     const renderInput = (type: string, defaultValue: any) => {
         switch (type) {
             case "str":
-                return <input type="text" defaultValue={defaultValue} />;
+                return <input type="text" defaultValue={defaultValue} className=' dark:text-white dark:bg-black mt-1 px-2 py-2 block w-full border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none' />;
             case "float":
-                return <input type="number" step="any" defaultValue={defaultValue} />;
+                return <input type="number" step="any" defaultValue={defaultValue} className='dark:text-white dark:bg-black mt-1 px-2 py-2 block w-full border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none' />;
             case "int":
-                return <input type="number" step="1" defaultValue={defaultValue} />;
+                return <input type="number" step="1" defaultValue={defaultValue} className='dark:text-white dark:bg-black mt-1 px-2 py-2 block w-full border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none' />;
             case "bool":
-                return <input type="checkbox" defaultChecked={defaultValue} />;
+                return <input type="checkbox" defaultChecked={defaultValue} className='dark:text-white dark:bg-black mt-1 px-2 py-2 block border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none' />;
             case "list":
                 return <textarea defaultValue={defaultValue} />;
             default:
-                return <input type="text" defaultValue={defaultValue} />;
+                return <input type="text" defaultValue={defaultValue} className='dark:text-white dark:bg-black mt-1 px-2 py-2 block w-full border border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 outline-none' />;
         }
     };
 
@@ -83,7 +83,7 @@ export default function Component() {
                     </span>
                 </Tabs.Item>
                 <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer w-full`}>Schema</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <div className="flex dark: bg-black rounded-2xl p-4">
+                    <div className="flex dark: bg-[#131B2A] rounded-2xl p-4">
 
                         {/* <div className="flex flex-col items-center justify-start p-4 rounded-2xl mr-5 w-1/3">
                             <div className="flex flex-col w-full justify-start">
@@ -128,7 +128,7 @@ export default function Component() {
                             </div>
 
                         </div> */}
-                        <div className="flex w-1/3 ml-3">
+                        {/* <div className="flex w-1/3 ml-3">
                             {
                                 (modulesList[1]?.description ? (
                                     <div className="flex justify-start mt-2">
@@ -146,25 +146,22 @@ export default function Component() {
                                     </div>
                                 )
                             }
-                        </div>
-                        <div className="schema flex justify-start flex-col w-2/3">
+                        </div> */}
+                        <div className="schema flex justify-start flex-col w-full">
                             <span className={`dark:text-[#c06d60] mr-2 mt-2 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
                                 Schema:
                             </span>
-                            <AntdTabs className="w-full">
-                                {
-                                    functions?.map((func, index) => {
-
-                                        if (!schema) {
-                                            return
-                                        }
-                                        // Check if `func` exists in `schema` and if `input` exists in the corresponding schema entry
-                                        const funcSchema = schema[func as keyof typeof schema];
-                                        if (!funcSchema || !funcSchema.input) {
-                                            // Handle the case when `func` doesn't exist in `schema` or `input` is missing
-                                            return null; // or whatever appropriate for your use case
-                                        }
-                                        return <TabPane key={index} tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '30px' }}>{func}</span>}>
+                            <AntdTabs className="w-full h-[480px]">
+                                {functions?.map((func, index) => {
+                                    if (!schema) {
+                                        return null;
+                                    }
+                                    const funcSchema = schema[func as keyof typeof schema];
+                                    if (!funcSchema || !funcSchema.input) {
+                                        return null;
+                                    }
+                                    return (
+                                        <TabPane key={index} tab={<span className={`text-[24px] h-full cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '30px' }}>{func}</span>}>
                                             <div key={index} className="flex flex-col">
                                                 <div className="function-details ml-1">
                                                     <AntdTabs defaultActiveKey="1">
@@ -175,53 +172,30 @@ export default function Component() {
                                                                         {Object.entries(funcSchema.input).map(([key, value], index) => (
                                                                             <li key={key} className={`mb-2 flex items-start flex-col ${styles.fontStyle}`}>
                                                                                 <label className={`text-white text-lg ${styles.fontStyle}`}>{key}</label>
-                                                                                <div className="">{renderInput(value, (funcSchema.default as any)[key])}</div>
+                                                                                <div className="w-full">
+                                                                                    {renderInput(value, (funcSchema.default as any)[key] === null ? undefined : (funcSchema.default as any)[key])}
+                                                                                </div>
                                                                             </li>
                                                                         ))}
                                                                     </ul>
                                                                 </div>
                                                             )}
-
-                                                        </TabPane>
-                                                        <TabPane tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Output</span>} key="2">
-                                                            {schema && schema[func as keyof typeof schema]?.output && (
-                                                                <p className={`dark:text-white ${styles.fontStyle}`}>{schema[func as keyof typeof schema]?.output.toString()}</p>
-                                                            )}
-                                                        </TabPane>
-                                                        <TabPane tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Default Values</span>} key="3">
-                                                            <ul>
-                                                                {schema && schema[func as keyof typeof schema]?.default && Object.entries(funcSchema.default).map(([key, value]) => (
-                                                                    <li key={key}>
-                                                                        <span className="text-white mr-3" style={{ fontSize: '20px' }}>{key}:</span>
-                                                                        {
-                                                                            value === null ?
-                                                                                <span className="text-white" style={{ fontSize: '20px' }}>null</span>
-                                                                                :
-                                                                                <span className="text-white" style={{ fontSize: '20px' }}>{value?.toString()}</span>
-                                                                        }
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
                                                         </TabPane>
                                                     </AntdTabs>
                                                 </div>
                                             </div>
                                         </TabPane>
-                                    })
-                                }
+                                    );
+                                })}
                             </AntdTabs>
-
                         </div>
-
-
 
                     </div>
 
                 </Tabs.Item>
-                <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white`}>This is Profile tab's associated .
-                        Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                        control the content visibility and styling.content
+                <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer bg-[#131B2A]`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                    <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
+                        Cooming soon...
                     </span>
                 </Tabs.Item>
             </Tabs>
