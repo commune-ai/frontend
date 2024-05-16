@@ -33,59 +33,60 @@ export default function Component() {
     const { TabPane } = AntdTabs;
 
     return (
-        <div className={`h-[700px] mx-auto mt-4 w-[1600px] ${styles.fontStyle}`}>
-            <div className="flex items-center mr-2 justify-evenly w-full">
-                {
-                    keys.includes('name') && (modulesList[1]?.name ? (
-                        <div className="flex items-center justify-start">
-                            <span className={`dark:text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
-                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                {modulesList[1].name}
-                            </span>
-                        </div>
-                    )
-                        :
-                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
+        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]'>
+            <div className={`h-[700px] mx-auto mt-4 w-[1600px] ${styles.fontStyle}`}>
+                <div className="flex items-center mr-2 justify-evenly w-full">
+                    {
+                        keys.includes('name') && (modulesList[1]?.name ? (
+                            <div className="flex items-center justify-start">
+                                <span className={`dark:text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
+                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                    {modulesList[1].name}
+                                </span>
+                            </div>
+                        )
+                            :
+                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
 
-                    )
-                }
-                {
-                    keys.includes('address') && (modulesList[1]?.address ? (
-                        <div className="flex items-center justify-start">
-                            <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
-                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                {modulesList[1].address}
-                            </span>
-                        </div>
-                    )
-                        :
-                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
-                    )
-                }
+                        )
+                    }
+                    {
+                        keys.includes('address') && (modulesList[1]?.address ? (
+                            <div className="flex items-center justify-start">
+                                <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
+                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                    {modulesList[1].address}
+                                </span>
+                            </div>
+                        )
+                            :
+                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
+                        )
+                    }
 
-                <div className="flex items-center justify-start">
-                    <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
-                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                        5H9YPS9FJX6nbFXkm9zVhoySJBX9RRfWF36abisNz5Ps9YaX
-                    </span>
+                    <div className="flex items-center justify-start">
+                        <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
+                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                            5H9YPS9FJX6nbFXkm9zVhoySJBX9RRfWF36abisNz5Ps9YaX
+                        </span>
+                    </div>
+
                 </div>
+                <Tabs aria-label="Default tabs" style="default" className="w-full mt-4">
+                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                        <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
+                            Cooming soon...
+                        </span>
+                    </Tabs.Item>
+                    <Tabs.Item active title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Chain</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                        <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
+                            Cooming soon...
+                        </span>
+                    </Tabs.Item>
+                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer w-full`}>Schema</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                        <div className="flex dark: bg-[#131B2A] rounded-2xl p-4">
 
-            </div>
-            <Tabs aria-label="Default tabs" style="default" className="w-full mt-4">
-                <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
-                        Cooming soon...
-                    </span>
-                </Tabs.Item>
-                <Tabs.Item active title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Chain</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
-                        Cooming soon...
-                    </span>
-                </Tabs.Item>
-                <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer w-full`}>Schema</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <div className="flex dark: bg-[#131B2A] rounded-2xl p-4">
-
-                        {/* <div className="flex flex-col items-center justify-start p-4 rounded-2xl mr-5 w-1/3">
+                            {/* <div className="flex flex-col items-center justify-start p-4 rounded-2xl mr-5 w-1/3">
                             <div className="flex flex-col w-full justify-start">
                                 {
                                     keys.includes('image_url') && (
@@ -128,7 +129,7 @@ export default function Component() {
                             </div>
 
                         </div> */}
-                        {/* <div className="flex w-1/3 ml-3">
+                            {/* <div className="flex w-1/3 ml-3">
                             {
                                 (modulesList[1]?.description ? (
                                     <div className="flex justify-start mt-2">
@@ -147,58 +148,60 @@ export default function Component() {
                                 )
                             }
                         </div> */}
-                        <div className="schema flex justify-start flex-col w-full">
-                            <span className={`dark:text-[#c06d60] mr-2 mt-2 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                Schema:
-                            </span>
-                            <AntdTabs className="w-full h-[480px]">
-                                {functions?.map((func, index) => {
-                                    if (!schema) {
-                                        return null;
-                                    }
-                                    const funcSchema = schema[func as keyof typeof schema];
-                                    if (!funcSchema || !funcSchema.input) {
-                                        return null;
-                                    }
-                                    return (
-                                        <TabPane key={index} tab={<span className={`text-[24px] h-full cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '30px' }}>{func}</span>}>
-                                            <div key={index} className="flex flex-col">
-                                                <div className="function-details ml-1">
-                                                    <AntdTabs defaultActiveKey="1">
-                                                        <TabPane tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Input</span>} key="1">
-                                                            {schema && schema[func as keyof typeof schema]?.input && (
-                                                                <div className="flex flex-col">
-                                                                    <ul className="flex flex-col justify-start">
-                                                                        {Object.entries(funcSchema.input).map(([key, value], index) => (
-                                                                            <li key={key} className={`mb-2 flex items-start flex-col ${styles.fontStyle}`}>
-                                                                                <label className={`text-white text-lg ${styles.fontStyle}`}>{key}</label>
-                                                                                <div className="w-full">
-                                                                                    {renderInput(value, (funcSchema.default as any)[key] === null ? undefined : (funcSchema.default as any)[key])}
-                                                                                </div>
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                            )}
-                                                        </TabPane>
-                                                    </AntdTabs>
+                            <div className="schema flex justify-start flex-col w-full">
+                                <span className={`dark:text-[#c06d60] mr-2 mt-2 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                    Schema:
+                                </span>
+                                <AntdTabs className="w-full h-[480px]">
+                                    {functions?.map((func, index) => {
+                                        if (!schema) {
+                                            return null;
+                                        }
+                                        const funcSchema = schema[func as keyof typeof schema];
+                                        if (!funcSchema || !funcSchema.input) {
+                                            return null;
+                                        }
+                                        return (
+                                            <TabPane key={index} tab={<span className={`text-[24px] h-full cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '30px' }}>{func}</span>}>
+                                                <div key={index} className="flex flex-col">
+                                                    <div className="function-details ml-1">
+                                                        <AntdTabs defaultActiveKey="1">
+                                                            <TabPane tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Input</span>} key="1">
+                                                                {schema && schema[func as keyof typeof schema]?.input && (
+                                                                    <div className="flex flex-col">
+                                                                        <ul className="flex flex-col justify-start">
+                                                                            {Object.entries(funcSchema.input).map(([key, value], index) => (
+                                                                                <li key={key} className={`mb-2 flex items-start flex-col ${styles.fontStyle}`}>
+                                                                                    <label className={`text-white text-lg ${styles.fontStyle}`}>{key}</label>
+                                                                                    <div className="w-full">
+                                                                                        {renderInput(value, (funcSchema.default as any)[key] === null ? undefined : (funcSchema.default as any)[key])}
+                                                                                    </div>
+                                                                                </li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    </div>
+                                                                )}
+                                                            </TabPane>
+                                                        </AntdTabs>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </TabPane>
-                                    );
-                                })}
-                            </AntdTabs>
+                                            </TabPane>
+                                        );
+                                    })}
+                                </AntdTabs>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                </Tabs.Item>
-                <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer bg-[#131B2A]`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                    <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
-                        Cooming soon...
-                    </span>
-                </Tabs.Item>
-            </Tabs>
+                    </Tabs.Item>
+                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer bg-[#131B2A]`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                        <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
+                            Cooming soon...
+                        </span>
+                    </Tabs.Item>
+                </Tabs>
+            </div>
         </div>
+
     );
 }
