@@ -7,9 +7,6 @@ import { useGetBalanceQuery, useGetValidatorsByIdQuery } from "@/app/api/staking
 import Verified from "@/app/commune-modules/verified"
 import { usePolkadot } from "@/context"
 import { numberWithCommas } from "@/utils/numberWithCommas"
-import AddStakingForm from "../stake/add/index"
-import TransferStakingForm from "../stake/transfer"
-import UnstakingForm from "../stake/unstake/index"
 
 type IStakingModal = {
     open: boolean
