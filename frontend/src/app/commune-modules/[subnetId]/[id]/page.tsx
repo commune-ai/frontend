@@ -44,8 +44,6 @@ const ValidatorDetailPage = () => {
             },
         )
 
-    console.log('------------------here------------', validatorLoading)
-
     const [copiedValidatorKey, setCopiedValidatorKey] = useState(false);
     const [copiedNetworkUrl, setCopiedNetworkUrl] = useState(false)
     const [copiedModuleName, setCopiedModuleName] = useState(false)

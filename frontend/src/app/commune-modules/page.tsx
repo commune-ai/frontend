@@ -8,6 +8,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { ValidatorType } from "@/types";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
+import {CommuneModules} from '@/utils/validatorsData'
 import styles from './commune-module.module.css';
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
@@ -24,11 +25,6 @@ const CommuneModulePage = () => {
     const [subnetId, setSubnetId] = React.useState<string>("0")
     const { data, isLoading: isLoadingGetSubnetsQuery } = statsApi.useGetSubnetsQuery()
 
-    const { data: allValidatorsData, isLoading: fetchLoading } =
-        useGetValidatorsQuery(undefined, {
-            pollingInterval: 300000,
-        });
-
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
     );
@@ -42,7 +38,7 @@ const CommuneModulePage = () => {
     ];
 
     const [searchString, setSearchString] = useState('');
-    const [filteredData, setFilteredData] = useState<ValidatorType[] | undefined>(allValidatorsData);
+    const [filteredData, setFilteredData] = useState<ValidatorType[]>(CommuneModules);
 
     const handleShowModulePage = (subnet_id: number, key: string) => {
         router.push(`/module-page/${subnet_id}/${key}`);
@@ -63,13 +59,13 @@ const CommuneModulePage = () => {
     )
 
     useEffect(() => {
-        if (allValidatorsData) {
+        if (CommuneModules) {
             setIsLoading(true);
             setFilteredData([]);
 
             setTimeout(() => {
                 setFilteredData(
-                    allValidatorsData
+                    CommuneModules
                         ?.filter((val) =>
                             String(val.key)
                                 .toLowerCase()
@@ -89,15 +85,13 @@ const CommuneModulePage = () => {
             }, 2000);
         }
     }, [
-        allValidatorsData,
-        fetchLoading,
         validatorFilter,
         searchString,
     ])
 
     const validatorLoading = useMemo(() => {
-        return fetchLoading || isLoading;
-    }, [isLoading, fetchLoading])
+        return isLoading;
+    }, [isLoading])
 
     return (
         <>
@@ -119,7 +113,7 @@ const CommuneModulePage = () => {
                                 </button>
                             ))}{" "}
                         </div>
-                        {
+                        {/* {
                             !isLoadingGetSubnetsQuery && (
                                 <div className="py-3 flex flex-wrap gap-2 items-center">
                                     {data?.map((item) => (
@@ -149,7 +143,7 @@ const CommuneModulePage = () => {
                                     ))}
                                 </div>
                             )
-                        }
+                        } */}
                         <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                             <input
                                 type="text"
@@ -167,7 +161,7 @@ const CommuneModulePage = () => {
                         </div>
                     </div>
                     <div className="flex justify-center flex-wrap gap-[4px] mt-5">
-                        <div className="flex flex-nowrap gap-x-3 mb-3 w-[100%] md:flex-wrap hide-scrollbar">
+                        {/* <div className="flex flex-nowrap gap-x-3 mb-3 w-[100%] md:flex-wrap hide-scrollbar">
                             {verifiedValidators?.map((item, key) => (
                                 <Link href={`/validator/${item.subnet_id}/${item.key}`} key={key}>
                                     <div className="p-3 border-[1px] flex rounded-2xl gap-x-1 items-center my-1 text-[16px] dark:text-white">
@@ -176,7 +170,7 @@ const CommuneModulePage = () => {
                                     </div>
                                 </Link>
                             ))}
-                        </div>
+                        </div> */}
                         {
                             validatorLoading &&
                             new Array(10).fill(0).map((_, index) => (

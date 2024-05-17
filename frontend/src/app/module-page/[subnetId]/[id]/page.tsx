@@ -8,6 +8,7 @@ import { FaDiscord, FaXTwitter } from 'react-icons/fa6';
 import { TbWorld } from "react-icons/tb"
 import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import { modulesList } from "@/services/modules-service";
+import { CommuneModules } from '@/utils/validatorsData';
 import styles from './commune-module.module.css'
 
 const detailInfo = [
@@ -33,6 +34,8 @@ export default function Component() {
 
     const params = useParams()
 
+    const _validatorData = CommuneModules.find((module) => module.key === params.id)
+
     const { data: validatorData, isLoading: validatorLoading } =
         useGetValidatorsByIdQuery(
             {
@@ -48,7 +51,7 @@ export default function Component() {
     const [isValidImage, setIsValidImage] = useState(false);
 
     useEffect(() => {
-        const imgLink = `${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image}`;
+        const imgLink = `${process.env.NEXT_PUBLIC_ENDPOINT}/${_validatorData?.image}`;
         const img = new Image();
         img.src = imgLink;
         img.onload = () => {
@@ -58,7 +61,7 @@ export default function Component() {
             setIsValidImage(false);
         };
 
-    }, [validatorData]);
+    }, [_validatorData]);
 
     const isValidLinkD = (link: string, type: 'discord' | 'twitter' | 'website') => {
         if (link === "") return false;
@@ -69,10 +72,10 @@ export default function Component() {
     }
 
     const isValidLink = useCallback(isValidLinkD, [
-        validatorData?.discord,
-        validatorData?.twitter,
-        detailInfo.find(each => each.key === validatorData?.key)?.discord,
-        detailInfo.find(each => each.key === validatorData?.key)?.twitter
+        _validatorData?.discord,
+        _validatorData?.twitter,
+        detailInfo.find(each => each.key === _validatorData?.key)?.discord,
+        detailInfo.find(each => each.key === _validatorData?.key)?.twitter
     ]);
 
     const keys = Object.keys(modulesList[1]);
@@ -102,14 +105,14 @@ export default function Component() {
 
     return (
         <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]'>
-            <div className={`flex flex-col items-center h-[750px] mx-auto mt-4 p-8 ${styles.fontStyle}`}>
+            <div className={`flex flex-col items-center h-[750px] mb-8 mx-auto mt-4 p-8 ${styles.fontStyle}`}>
                 <div className="flex items-center mr-2 justify-center w-full">
                     {
-                        validatorData?.name ? (
+                        _validatorData?.name ? (
                             <div className="flex items-center justify-start">
                                 <span className={`text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
                                 <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {validatorData?.name}
+                                    {_validatorData?.name}
                                 </span>
                             </div>
                         )
@@ -118,11 +121,11 @@ export default function Component() {
 
                     }
                     {
-                        validatorData?.address ? (
+                        _validatorData?.address ? (
                             <div className="flex items-center justify-start">
                                 <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
                                 <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {validatorData?.address}
+                                    {_validatorData?.address}
                                 </span>
                             </div>
                         )
@@ -133,7 +136,7 @@ export default function Component() {
                     <div className="flex items-center justify-start">
                         <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
                         <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                            {validatorData?.key}
+                            {_validatorData?.key}
                         </span>
                     </div>
 
@@ -144,36 +147,39 @@ export default function Component() {
                             <div className='flex flex-col w-1/2'>
                                 <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl mx-auto`}
                                     style={{
-                                        backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image})`,
+                                        backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${_validatorData?.image})`,
                                         backgroundSize: "cover",
                                         backgroundPosition: "center",
                                     }}
                                 >
-                                    {!isValidImage && validatorData?.name}
+                                    {!isValidImage && _validatorData?.name}
                                 </div>
                                 <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
-                                    {validatorData?.name ?? detailInfo.find(each => each.key === validatorData?.key)?.name}
+                                    {_validatorData?.name ?? detailInfo.find(each => each.key === _validatorData?.key)?.name}
+                                </p>
+                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
+                                    {_validatorData?.address}
                                 </p>
                                 <p className="text-sm mt-6 text-center dark:text-white" style={{ fontSize: '28px', lineHeight: '35px' }}>
-                                    {validatorData?.description ?? detailInfo.find(each => each.key === validatorData?.key)?.description}
+                                    {_validatorData?.description ?? detailInfo.find(each => each.key === _validatorData?.key)?.description}
                                 </p>
 
                                 <div className="flex justify-center gap-x-4 my-4 dark:text-white">
                                     <a href={
-                                        isValidLink(validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "", "discord") ?
-                                            (validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "") : "#"
+                                        isValidLink(_validatorData?.discord || detailInfo.find(each => each.key === _validatorData?.key)?.discord || "", "discord") ?
+                                            (_validatorData?.discord || detailInfo.find(each => each.key === _validatorData?.key)?.discord || "") : "#"
                                     } target="_blank">
                                         <FaDiscord size={32} />
                                     </a>
                                     <a href={
-                                        isValidLink(validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "", "twitter") ?
-                                            (validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "") : "#"
+                                        isValidLink(_validatorData?.twitter || detailInfo.find(each => each.key === _validatorData?.key)?.twitter || "", "twitter") ?
+                                            (_validatorData?.twitter || detailInfo.find(each => each.key === _validatorData?.key)?.twitter || "") : "#"
                                     } target="_blank">
                                         <FaXTwitter size={32} />
                                     </a>
                                     <a href={
-                                        isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
-                                            (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"
+                                        isValidLink(_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "", "website") ?
+                                            (_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "") : "#"
 
                                     } target="_blank">
                                         <TbWorld size={32} />
@@ -181,8 +187,8 @@ export default function Component() {
                                 </div>
                             </div>
                             <div className='w-1/2 flex items-center justify-center'>
-                                <iframe src={isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
-                                    (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"} frameBorder="0" className='w-full rounded-xl h-full bg-white' />
+                                <iframe src={isValidLink(_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "", "website") ?
+                                    (_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "") : "#"} frameBorder="0" className='w-full rounded-xl h-full bg-white' />
                             </div>
                         </div>
 
