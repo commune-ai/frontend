@@ -177,7 +177,8 @@ const CommuneModulePage = () => {
                                 </Link>
                             ))}
                         </div>
-                        {validatorLoading &&
+                        {
+                            validatorLoading &&
                             new Array(10).fill(0).map((_, index) => (
                                 <tr key={index}>
                                     <td className="py-6 pl-3 mx-3">

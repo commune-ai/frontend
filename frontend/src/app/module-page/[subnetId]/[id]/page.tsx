@@ -10,7 +10,6 @@ import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import { modulesList } from "@/services/modules-service";
 import styles from './commune-module.module.css'
 
-
 const detailInfo = [
     {
         key: process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR,
@@ -141,49 +140,58 @@ export default function Component() {
                 </div>
                 <Tabs aria-label="Default tabs" style="default" className="mt-4 w-full">
                     <Tabs.Item active key="item-1" title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                        <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl mx-auto`}
-                            style={{
-                                backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image})`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                            }}
-                        >
-                            {!isValidImage && validatorData?.name}
-                        </div>
-                        <p className="text-xl my-10 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
-                            {validatorData?.name ?? detailInfo.find(each => each.key === validatorData?.key)?.name}
-                        </p>
-                        <p className="text-sm my-10 text-center dark:text-white" style={{ fontSize: '28px' }}>
-                            {validatorData?.description ?? detailInfo.find(each => each.key === validatorData?.key)?.description}
-                        </p>
+                        <div className='flex'>
+                            <div className='flex flex-col w-1/2'>
+                                <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl mx-auto`}
+                                    style={{
+                                        backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                    }}
+                                >
+                                    {!isValidImage && validatorData?.name}
+                                </div>
+                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
+                                    {validatorData?.name ?? detailInfo.find(each => each.key === validatorData?.key)?.name}
+                                </p>
+                                <p className="text-sm mt-6 text-center dark:text-white" style={{ fontSize: '28px', lineHeight: '35px' }}>
+                                    {validatorData?.description ?? detailInfo.find(each => each.key === validatorData?.key)?.description}
+                                </p>
 
-                        <div className="flex justify-center gap-x-4 my-4 dark:text-white">
-                            <a href={
-                                isValidLink(validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "", "discord") ?
-                                    (validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "") : "#"
-                            } target="_blank">
-                                <FaDiscord size={32} />
-                            </a>
-                            <a href={
-                                isValidLink(validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "", "twitter") ?
-                                    (validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "") : "#"
-                            } target="_blank">
-                                <FaXTwitter size={32} />
-                            </a>
-                            <a href={
-                                isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
-                                    (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"
+                                <div className="flex justify-center gap-x-4 my-4 dark:text-white">
+                                    <a href={
+                                        isValidLink(validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "", "discord") ?
+                                            (validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "") : "#"
+                                    } target="_blank">
+                                        <FaDiscord size={32} />
+                                    </a>
+                                    <a href={
+                                        isValidLink(validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "", "twitter") ?
+                                            (validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "") : "#"
+                                    } target="_blank">
+                                        <FaXTwitter size={32} />
+                                    </a>
+                                    <a href={
+                                        isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
+                                            (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"
 
-                            } target="_blank">
-                                <TbWorld size={32} />
-                            </a>
+                                    } target="_blank">
+                                        <TbWorld size={32} />
+                                    </a>
+                                </div>
+                            </div>
+                            <div className='w-1/2 flex items-center justify-center'>
+                                <iframe src={isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
+                                    (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"} frameBorder="0" className='w-full rounded-xl h-full bg-white' />
+                            </div>
                         </div>
+
                     </Tabs.Item>
-                    <Tabs.Item active title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Chain</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                    {/* <Tabs.Item active title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Chain</span>} className={`dark:text-white ${styles.fontStyle}`}>
                         <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
                             Cooming soon...
                         </span>
-                    </Tabs.Item>
+                    </Tabs.Item> */}
                     <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer w-full`}>Schema</span>} className={`dark:text-white ${styles.fontStyle}`}>
                         <div className="flex dark: bg-[#131B2A] rounded-2xl p-4">
 
