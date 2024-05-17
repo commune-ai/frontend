@@ -53,9 +53,9 @@ export const statsApi = createApi({
                     isVerified: response.expire_at === -1 || (response.expire_at || 0) > Date.now() / 1000,
                 }
                 console.log(validatedResponse)
-                validatedResponse.stake_from = validatedResponse?.stake_from?.sort(
-                    (a, b) => b[1] - a[1],
-                )
+                // validatedResponse.stake_from = validatedResponse?.stake_from?.sort(
+                //     (a, b) => b[1] - a[1],
+                // )
                 return validatedResponse
             },
         }),
