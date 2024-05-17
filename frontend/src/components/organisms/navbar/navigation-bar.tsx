@@ -122,7 +122,7 @@ export default function NavigationBar() {
 														<a
 															key={item.name}
 															href={item.href}
-															className={classNames(classes.link, 'flex dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
+															className={classNames(classes.link, 'flex text-white dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
 															aria-current={item.current ? 'page' : undefined}
 														>
 															<Image src={item.icon} alt='communityimage' width={37} height={30} className='ml-3 mr-1' />
@@ -136,7 +136,7 @@ export default function NavigationBar() {
 										</div>
 										<Menu as="div" className="flex relative ml-3">
 
-											<Menu.Button className={classNames(classes.link, classes.fontStyle, 'flex items-center justify-center dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
+											<Menu.Button className={classNames(classes.link, classes.fontStyle, 'text-white flex items-center justify-center dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0')} aria-haspopup="true" aria-expanded="false" role="button" >
 												<Image src={CommunityImage} alt='communityimage' width={30} height={30} className='ml-3 mr-1' />
 												Community
 											</Menu.Button>
@@ -220,7 +220,7 @@ export default function NavigationBar() {
 													:
 													<Menu as="div" className="flex">
 														<div>
-															<Menu.Button style={{ marginLeft: '0.35rem', width: '300px' }} className={classNames(classes.link, classes.fontStyle, 'dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 w-full')}>Choose wallet</Menu.Button>
+															<Menu.Button style={{ marginLeft: '0.35rem', width: '300px' }} className={classNames(classes.link, classes.fontStyle, 'text-white dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 w-full')}>Choose wallet</Menu.Button>
 														</div>
 														<Transition
 															as={Fragment}
@@ -382,7 +382,7 @@ export default function NavigationBar() {
 											</Popover>
 
 											<ThemeToggler />
-{/* 
+											{/* 
 											<div className='hidden xl:block dark:text-[#32CD32]'>
 												<HamburgerModal />
 											</div> */}
