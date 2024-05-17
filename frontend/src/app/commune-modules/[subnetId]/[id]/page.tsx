@@ -359,11 +359,11 @@ const ValidatorDetailPage = () => {
                 </div>
 
             </div>
-            <div className="my-6">
+            {/* <div className="my-6">
                 {validatorDataForStakers && validatorDataForStakers?.stake_from && (
                     <StakedUsersTable stakedUsers={validatorDataForStakers?.stake_from} />
                 )}
-            </div>
+            </div> */}
         </div>
     )
 }
