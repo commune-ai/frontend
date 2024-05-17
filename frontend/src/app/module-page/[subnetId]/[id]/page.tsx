@@ -1,11 +1,80 @@
 
 'use client'
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { Tabs as AntdTabs } from 'antd';
 import { Tabs } from "flowbite-react";
+import { FaDiscord, FaXTwitter } from 'react-icons/fa6';
+import { TbWorld } from "react-icons/tb"
+import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import { modulesList } from "@/services/modules-service";
 import styles from './commune-module.module.css'
 
+
+const detailInfo = [
+    {
+        key: process.env.NEXT_PUBLIC_COMSTAT_VALIDATOR,
+        name: "ComStats",
+        description: "All Statistics of CommuneAI at one place. Staking infrastructure, prices, validators, miners, swap, bridge, exchange for $COMAI",
+        twitter: "https://twitter.com/comstatsorg",
+        website: "https://comstats.org",
+        discord: ""
+    },
+    {
+        key: "5DtTeoNjcN19qTpoFgyW9iQaiRsYtBPF5FarjoxPEy4k4ieJ",
+        name: "Project Eden",
+        description: "Education, validation, mining & more for CommuneAI",
+        twitter: "https://twitter.com/project_eden_ai",
+        website: "https://projecteden.ai",
+        discord: ""
+    }
+]
+
 export default function Component() {
+
+    const params = useParams()
+
+    const { data: validatorData, isLoading: validatorLoading } =
+        useGetValidatorsByIdQuery(
+            {
+                key: String(params.id),
+                wallet: "",
+                subnet_id: Number(params.subnetId),
+            },
+            {
+                skip: !params.id,
+            },
+        )
+
+    const [isValidImage, setIsValidImage] = useState(false);
+
+    useEffect(() => {
+        const imgLink = `${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image}`;
+        const img = new Image();
+        img.src = imgLink;
+        img.onload = () => {
+            setIsValidImage(true);
+        };
+        img.onerror = () => {
+            setIsValidImage(false);
+        };
+
+    }, [validatorData]);
+
+    const isValidLinkD = (link: string, type: 'discord' | 'twitter' | 'website') => {
+        if (link === "") return false;
+        if (type === 'discord' && !link.includes('discord.gg')) return false;
+        if (type === 'twitter' && !link.includes('twitter.com')) return false;
+        if (type === 'website' && !link.includes('http')) return false;
+        return true;
+    }
+
+    const isValidLink = useCallback(isValidLinkD, [
+        validatorData?.discord,
+        validatorData?.twitter,
+        detailInfo.find(each => each.key === validatorData?.key)?.discord,
+        detailInfo.find(each => each.key === validatorData?.key)?.twitter
+    ]);
 
     const keys = Object.keys(modulesList[1]);
 
@@ -34,49 +103,81 @@ export default function Component() {
 
     return (
         <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]'>
-            <div className={`h-[700px] mx-auto mt-4 w-[1600px] ${styles.fontStyle}`}>
-                <div className="flex items-center mr-2 justify-evenly w-full">
+            <div className={`flex flex-col items-center h-[750px] mx-auto mt-4 p-8 ${styles.fontStyle}`}>
+                <div className="flex items-center mr-2 justify-center w-full">
                     {
-                        keys.includes('name') && (modulesList[1]?.name ? (
+                        validatorData?.name ? (
                             <div className="flex items-center justify-start">
-                                <span className={`dark:text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
+                                <span className={`text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
                                 <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {modulesList[1].name}
+                                    {validatorData?.name}
                                 </span>
                             </div>
                         )
                             :
                             <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
 
-                        )
                     }
                     {
-                        keys.includes('address') && (modulesList[1]?.address ? (
+                        validatorData?.address ? (
                             <div className="flex items-center justify-start">
-                                <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
+                                <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
                                 <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {modulesList[1].address}
+                                    {validatorData?.address}
                                 </span>
                             </div>
                         )
                             :
                             <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
-                        )
                     }
 
                     <div className="flex items-center justify-start">
-                        <span className={`dark:text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
+                        <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
                         <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                            5H9YPS9FJX6nbFXkm9zVhoySJBX9RRfWF36abisNz5Ps9YaX
+                            {validatorData?.key}
                         </span>
                     </div>
 
                 </div>
-                <Tabs aria-label="Default tabs" style="default" className="w-full mt-4">
-                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                        <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
-                            Cooming soon...
-                        </span>
+                <Tabs aria-label="Default tabs" style="default" className="mt-4 w-full">
+                    <Tabs.Item active key="item-1" title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                        <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl mx-auto`}
+                            style={{
+                                backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${validatorData?.image})`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                            }}
+                        >
+                            {!isValidImage && validatorData?.name}
+                        </div>
+                        <p className="text-xl my-10 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
+                            {validatorData?.name ?? detailInfo.find(each => each.key === validatorData?.key)?.name}
+                        </p>
+                        <p className="text-sm my-10 text-center dark:text-white" style={{ fontSize: '28px' }}>
+                            {validatorData?.description ?? detailInfo.find(each => each.key === validatorData?.key)?.description}
+                        </p>
+
+                        <div className="flex justify-center gap-x-4 my-4 dark:text-white">
+                            <a href={
+                                isValidLink(validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "", "discord") ?
+                                    (validatorData?.discord || detailInfo.find(each => each.key === validatorData?.key)?.discord || "") : "#"
+                            } target="_blank">
+                                <FaDiscord size={32} />
+                            </a>
+                            <a href={
+                                isValidLink(validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "", "twitter") ?
+                                    (validatorData?.twitter || detailInfo.find(each => each.key === validatorData?.key)?.twitter || "") : "#"
+                            } target="_blank">
+                                <FaXTwitter size={32} />
+                            </a>
+                            <a href={
+                                isValidLink(validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "", "website") ?
+                                    (validatorData?.website || detailInfo.find(each => each.key === validatorData?.key)?.website || "") : "#"
+
+                            } target="_blank">
+                                <TbWorld size={32} />
+                            </a>
+                        </div>
                     </Tabs.Item>
                     <Tabs.Item active title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>Chain</span>} className={`dark:text-white ${styles.fontStyle}`}>
                         <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
@@ -194,7 +295,7 @@ export default function Component() {
                         </div>
 
                     </Tabs.Item>
-                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer bg-[#131B2A]`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
+                    <Tabs.Item title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer w-full`}>Code</span>} className={`dark:text-white ${styles.fontStyle}`}>
                         <span className={`${styles.fontStyle} font-medium text-gray-800 dark:text-white flex items-center justify-center`}>
                             Cooming soon...
                         </span>

@@ -1,14 +1,14 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import classnames from "classnames";
 import { useRouter } from "next/navigation";
-import { Card } from "antd";
+import { Card, Skeleton } from "antd";
+import Loading from "@/components/molecules/bittensor/loading";
+import { ValidatorType } from "@/types";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
-import communeModels from '@/utils/validatorData.json';
 import styles from './commune-module.module.css';
 import { useGetValidatorsQuery } from "../api/staking/modulelist";
-import { ValidatorType } from "../api/staking/type";
 
 enum ValidatorFilterType {
     ALL,
@@ -20,9 +20,6 @@ const CommuneModulePage = () => {
 
     const router = useRouter();
 
-    const [searchString, setSearchString] = React.useState('');
-    const [filteredData, setFilteredData] = React.useState<ValidatorType[]>(communeModels);
-
     const { data: allValidatorsData, isLoading: fetchLoading } =
         useGetValidatorsQuery(undefined, {
             pollingInterval: 300000,
@@ -31,29 +28,80 @@ const CommuneModulePage = () => {
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
     );
-    const [validatorData, setValidatorData] = useState<ValidatorType[]>([]);
 
-    console.log('------------This is the react component-----', allValidatorsData);
+    const [isLoading, setIsLoading] = useState(false);
 
-    React.useEffect(() => {
-        if (searchString.trim() === '') {
-            setFilteredData(communeModels);
-        } else {
-            const filtered = communeModels.filter(item =>
-                item.name.toLowerCase().includes(searchString.toLowerCase())
-            );
-            setFilteredData(filtered);
-        }
-    }, [searchString]);
+    const options = [
+        { value: ValidatorFilterType.ALL, label: "All" },
+        { value: ValidatorFilterType.MINERS, label: "Miners" },
+        { value: ValidatorFilterType.VALIDATORS, label: "Validators" },
+    ];
+
+    const [searchString, setSearchString] = useState('');
+    const [filteredData, setFilteredData] = useState<ValidatorType[] | undefined>(allValidatorsData);
 
     const handleShowModulePage = (subnet_id: number, key: string) => {
         router.push(`/module-page/${subnet_id}/${key}`);
     };
 
-    return (
+    useEffect(() => {
+        if (allValidatorsData) {
+            setIsLoading(true);
+            setFilteredData([]);
+
+            setTimeout(() => {
+                setFilteredData(
+                    allValidatorsData
+                        ?.filter((val) =>
+                            String(val.key)
+                                .toLowerCase()
+                                .includes(searchString.toLowerCase()) || val.name.toLowerCase().includes(searchString.toLowerCase())
+                        )
+                        ?.filter((val) => {
+                            if (validatorFilter === ValidatorFilterType.ALL) {
+                                return val;
+                            } else if (validatorFilter === ValidatorFilterType.MINERS) {
+                                return val.type === "miner";
+                            } else {
+                                return val.type === "validator";
+                            }
+                        })
+                );
+                setIsLoading(false);
+            }, 2000);
+        }
+    }, [
+        allValidatorsData,
+        fetchLoading,
+        validatorFilter,
+        searchString,
+    ])
+
+    const validatorLoading = useMemo(() => {
+        return fetchLoading || isLoading;
+    }, [isLoading, fetchLoading])
+
+    return (<>
         <div className="bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]">
+
             <section className="my-10 mx-auto w-[95%] bg-[url(/img/dots-bg.svg)]">
                 <div className="flex justify-center mb-4 items-center flex-col sm:flex-col">
+                    <div className="mb-5 flex gap-x-5 py-3">
+                        {options.map((opt) => (
+                            <button
+                                key={opt.value}
+                                onClick={() => setValidatorFilter(opt.value)}
+                                className={`
+            px-3 py-1
+              ${validatorFilter === opt.value
+                                        ? "px-6 border rounded-3xl dark:bg-[#f9d7d2] dark: text-black"
+                                        : "dark:text-white"
+                                    }`}
+                            >
+                                {opt.label}
+                            </button>
+                        ))}{" "}
+                    </div>
                     <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                         <input
                             type="text"
@@ -71,12 +119,41 @@ const CommuneModulePage = () => {
                     </div>
                 </div>
                 <div className="flex justify-center flex-wrap gap-[4px] mt-5">
+                    {validatorLoading &&
+                        new Array(10).fill(0).map((_, index) => (
+                            <tr key={index}>
+                                <td className="py-6 pl-3 mx-3">
+                                    <Skeleton className="w-[40px]" />
+                                </td>
+                                <td>
+                                    <div className="">
+                                        <Skeleton className="w-[100px]" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <Skeleton className="w-[40px]" />
+                                </td>
+                                <td>
+                                    <Skeleton className="w-[50px]" />
+                                </td>
+
+                                <td>
+                                    <Skeleton className="w-[10px]" />
+                                </td>
+                                <td>
+                                    <Skeleton className="w-[10px]" />
+                                </td>
+                                <td>
+                                    <Skeleton className="w-[20px]" />
+                                </td>
+                            </tr>
+                        ))}
                     {
-                        filteredData.map(module => (
+                        !validatorLoading && filteredData && filteredData.map(module => (
                             <Card
                                 key={`${module.address}_${module.key}`} // Ensure unique key
                                 title={
-                                    <span className={classnames(`dark:bg-[#f9d7d2] text-black text-[28px] retro-font flex items-center justify-center mr-4 h-[65px] dark:text-black ${styles.fontStyle}`)}>
+                                    <span className={classnames(` dark:bg-[#f9d7d2] text-black text-[28px] retro-font flex items-center justify-center mr-4 h-[65px] dark:text-black ${styles.fontStyle}`)}>
                                         {module.name}
                                     </span>
                                 }
@@ -84,12 +161,11 @@ const CommuneModulePage = () => {
                                     width: 500,
                                     marginBottom: 20,
                                     boxShadow: '3px 3px 3px 3px #f9d7d2',
-                                    background: 'black',
                                     fontFamily: 'VCR_OSD_MONO'
                                 }}
                                 headStyle={{ background: '#f9d7d2', borderRadius: '19px 19px 0 0' }}
                                 onClick={() => handleShowModulePage(module.subnet_id, module.key)}
-                                className="flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"
+                                className="bg-white dark:bg-black flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"
                             >
                                 <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
                                     <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
@@ -109,7 +185,7 @@ const CommuneModulePage = () => {
                 </div>
             </section>
         </div>
-
+    </>
     );
 };
 
