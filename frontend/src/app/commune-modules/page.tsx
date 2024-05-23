@@ -3,13 +3,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Card, Skeleton } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Badge, Card, Popover, Skeleton } from "antd";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import { useInView } from 'react-intersection-observer';
 import { ValidatorType } from "@/types";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
-import {CommuneModules} from '@/utils/validatorsData'
+import { CommuneModules } from '@/utils/validatorsData'
 import styles from './commune-module.module.css';
+import ImageGeneratorComponent from "./imageGenerator";
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
 
@@ -19,11 +22,14 @@ enum ValidatorFilterType {
     VALIDATORS,
 }
 
+const ITEMS_PER_PAGE = 10;
+
 const CommuneModulePage = () => {
 
     const router = useRouter();
     const [subnetId, setSubnetId] = React.useState<string>("0")
     const { data, isLoading: isLoadingGetSubnetsQuery } = statsApi.useGetSubnetsQuery()
+    const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
 
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
@@ -82,7 +88,7 @@ const CommuneModulePage = () => {
                         })
                 );
                 setIsLoading(false);
-            }, 2000);
+            }, 0);
         }
     }, [
         validatorFilter,
@@ -93,18 +99,32 @@ const CommuneModulePage = () => {
         return isLoading;
     }, [isLoading])
 
+    const loadMoreItems = () => {
+        setVisibleItems((prev) => prev + ITEMS_PER_PAGE);
+    };
+
+    const { ref, inView } = useInView({
+        threshold: 0,
+        triggerOnce: false,
+    });
+
+    useEffect(() => {
+        if (inView) {
+            loadMoreItems();
+        }
+    }, [inView]);
+
     return (
         <>
             <div className="bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]">
-
                 <section className="my-4 mx-auto w-[95%] bg-[url(/img/dots-bg.svg)]">
                     <div className="flex justify-center mb-4 items-center flex-col sm:flex-col">
-                        <div className="mb-5 flex gap-x-5 py-3">
+                        <div className="flex gap-x-5 py-3">
                             {options.map((opt) => (
                                 <button
                                     key={opt.value}
                                     onClick={() => setValidatorFilter(opt.value)}
-                                    className={`px-3 py-1 ${validatorFilter === opt.value
+                                    className={`px-3 py-1 text-[22px] ${validatorFilter === opt.value
                                         ? "px-6 border rounded-3xl dark:bg-[#f9d7d2] dark: text-black"
                                         : "dark:text-white"
                                         }`}
@@ -161,20 +181,10 @@ const CommuneModulePage = () => {
                         </div>
                     </div>
                     <div className="flex justify-center flex-wrap gap-[4px] mt-5">
-                        {/* <div className="flex flex-nowrap gap-x-3 mb-3 w-[100%] md:flex-wrap hide-scrollbar">
-                            {verifiedValidators?.map((item, key) => (
-                                <Link href={`/validator/${item.subnet_id}/${item.key}`} key={key}>
-                                    <div className="p-3 border-[1px] flex rounded-2xl gap-x-1 items-center my-1 text-[16px] dark:text-white">
-                                        <Verified isGold={item.verified_type === "golden"} />
-                                        {item.name}
-                                    </div>
-                                </Link>
-                            ))}
-                        </div> */}
                         {
                             validatorLoading &&
                             new Array(10).fill(0).map((_, index) => (
-                                <tr key={index}>
+                                <tr key={index} className="h-screen">
                                     <td className="py-6 pl-3 mx-3">
                                         <Skeleton className="w-[40px]" />
                                     </td>
@@ -202,11 +212,11 @@ const CommuneModulePage = () => {
                                 </tr>
                             ))}
                         {
-                            !validatorLoading && filteredData && filteredData.map(module => (
+                            !validatorLoading && filteredData && filteredData.slice(0, visibleItems).map((module, index) => (
                                 <Card
-                                    key={`${module.address}_${module.key}`} // Ensure unique key
+                                    key={index} // Ensure unique key
                                     title={
-                                        <span className={classnames(` dark:bg-[#f9d7d2] text-black text-[28px] retro-font flex items-center justify-center mr-4 h-[65px] dark:text-black ${styles.fontStyle}`)}>
+                                        <span className={classnames(` dark:bg-[#f9d7d2] text-black text-[28px] retro-font flex items-center justify-center mr-4 h-[57px] dark:text-black ${styles.fontStyle}`)}>
                                             {module.name}
                                         </span>
                                     }
@@ -216,26 +226,52 @@ const CommuneModulePage = () => {
                                         boxShadow: '3px 3px 3px 3px #f9d7d2',
                                         fontFamily: 'VCR_OSD_MONO'
                                     }}
-                                    headStyle={{ background: '#f9d7d2', borderRadius: '19px 19px 0 0' }}
+                                    headStyle={{ background: '#f9d7d2', borderRadius: '19px 19px 0 0', height: '65px' }}
                                     onClick={() => handleShowModulePage(module.subnet_id, module.key)}
-                                    className="bg-white dark:bg-black flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] w-[280px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[300px]"
+                                    className="bg-white dark:bg-black flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[500px]"
                                 >
-                                    <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                        <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
-                                            stake:
-                                        </span>
-                                        {numberWithCommas(formatTokenPrice({ amount: module.stake }))}
+                                    <ImageGeneratorComponent module={module} />
+
+                                    <div className="flex mt-2 items-center justify-center">
+                                        <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                            <Popover content={<span>{numberWithCommas(formatTokenPrice({ amount: module.stake }))}</span>}>
+                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
+                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                                        stake
+                                                    </span>
+                                                </Badge>
+                                            </Popover>
+                                            {/* {numberWithCommas(formatTokenPrice({ amount: module.stake }))} */}
+                                        </div>
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                            {/* <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>incentive</span> */}
+                                            <Popover content={<span> {module.incentive}</span>}>
+                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
+                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                                        incentive
+                                                    </span>
+                                                </Badge>
+                                            </Popover>
+                                            {/* {module.incentive} */}
+                                        </div>
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                            {/* <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>dividends</span> */}
+                                            {/* {module.dividends} */}
+                                            <Popover content={<span> {module.dividends}</span>}>
+                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
+                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                                        dividends
+                                                    </span>
+                                                </Badge>
+                                            </Popover>
+                                        </div>
                                     </div>
-                                    <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                        <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>incentive:</span>  {module.incentive}
-                                    </div>
-                                    <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                        <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>dividends:</span>  {module.dividends}
-                                    </div>
+
                                 </Card>
                             ))
                         }
                     </div>
+                    <div ref={ref} />
                 </section>
             </div>
         </>

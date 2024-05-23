@@ -99,7 +99,7 @@ export default function NavigationBar() {
 	return (
 		<>
 			<div className="min-h-full">
-				<Disclosure as="nav" className={`dark:bg-[${color}] border-b-2 border-slate-500 shadow-md py-6`} style={{ backgroundColor: color }}>
+				<Disclosure as="nav" className={`dark:bg-[${color}] border-b-2 border-slate-500 shadow-md py-4`} style={{ backgroundColor: color }}>
 					{({ open }) => (
 						<>
 							<div className="mx-auto px-4 lg:px-8">

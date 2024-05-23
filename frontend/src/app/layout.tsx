@@ -1,6 +1,7 @@
 "use client";
 import '@rainbow-me/rainbowkit/styles.css';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import {
   RainbowKitProvider,
   darkTheme,
@@ -100,6 +101,11 @@ export default function RootLayout({
     };
   }, []);
 
+  const pathName = usePathname()
+
+  console.log('-----------This is the react component---------', pathName);
+
+
   return (
     <html lang="en">
 
@@ -121,7 +127,7 @@ export default function RootLayout({
                         {children}
                       </ColorProvider>
                       {/* </main> */}
-                      <Footer />
+                      {/* <Footer /> */}
                     </ThemeProvider>
                   </Provider>
                 </Providers>

@@ -1,8 +1,6 @@
 "use client";
-
-import Image from "next/image";
 import React, { useContext, useState } from "react";
-
+import Image from "next/image";
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { type InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { toast } from "react-toastify";

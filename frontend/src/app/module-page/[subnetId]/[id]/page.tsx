@@ -35,6 +35,7 @@ export default function Component() {
     const params = useParams()
 
     const _validatorData = CommuneModules.find((module) => module.key === params.id)
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data: validatorData, isLoading: validatorLoading } =
         useGetValidatorsByIdQuery(
@@ -103,45 +104,58 @@ export default function Component() {
 
     const { TabPane } = AntdTabs;
 
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
+
+    const website = _validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "";
+    const isValidWebsite = isValidLink(website, "website");
+
     return (
-        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]'>
-            <div className={`flex flex-col items-center h-[750px] mb-8 mx-auto mt-4 p-8 ${styles.fontStyle}`}>
-                <div className="flex items-center mr-2 justify-center w-full">
-                    {
-                        _validatorData?.name ? (
-                            <div className="flex items-center justify-start">
-                                <span className={`text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span>
-                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {_validatorData?.name}
-                                </span>
-                            </div>
-                        )
-                            :
-                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
+        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] h-screen'>
+            <div className={`flex flex-col items-center mx-auto p-4 ${styles.fontStyle}`}>
+                <div className="flex flex-col items-center mr-2 justify-center w-full">
+                    <div className='flex items-center justify-center'>
+                        {
+                            _validatorData?.name ? (
+                                <div className="flex items-center justify-start">
+                                    {/* <span className={`text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span> */}
+                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '50px' }}>
+                                        {_validatorData?.name}
+                                    </span>
+                                </div>
+                            )
+                                :
+                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
 
-                    }
-                    {
-                        _validatorData?.address ? (
-                            <div className="flex items-center justify-start">
-                                <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
-                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                    {_validatorData?.address}
-                                </span>
-                            </div>
-                        )
-                            :
-                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
-                    }
+                        }
+                    </div>
 
-                    <div className="flex items-center justify-start">
-                        <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
-                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                            {_validatorData?.key}
-                        </span>
+                    <div className='flex items-center justify-center'>
+                        {
+                            _validatorData?.address ? (
+                                <div className="flex items-center justify-start">
+                                    <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
+                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                        {_validatorData?.address}
+                                    </span>
+                                </div>
+                            )
+                                :
+                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
+                        }
+
+                        <div className="flex items-center justify-start">
+                            <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
+                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
+                                {_validatorData?.key}
+                            </span>
+                        </div>
                     </div>
 
                 </div>
-                <Tabs aria-label="Default tabs" style="default" className="mt-4 w-full">
+                <Tabs aria-label="Default tabs" style="default" className="mt-2 w-full">
                     <Tabs.Item active key="item-1" title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
                         <div className='flex'>
                             <div className='flex flex-col w-1/2'>
@@ -154,10 +168,10 @@ export default function Component() {
                                 >
                                     {!isValidImage && _validatorData?.name}
                                 </div>
-                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
+                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '40px' }}>
                                     {_validatorData?.name ?? detailInfo.find(each => each.key === _validatorData?.key)?.name}
                                 </p>
-                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '32px' }}>
+                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '30px' }}>
                                     {_validatorData?.address}
                                 </p>
                                 <p className="text-sm mt-6 text-center dark:text-white" style={{ fontSize: '28px', lineHeight: '35px' }}>
@@ -186,9 +200,13 @@ export default function Component() {
                                     </a>
                                 </div>
                             </div>
-                            <div className='w-1/2 flex items-center justify-center'>
-                                <iframe src={isValidLink(_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "", "website") ?
-                                    (_validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "") : "#"} frameBorder="0" className='w-full rounded-xl h-full bg-white' />
+                            <div className='w-1/2 flex items-center justify-center cursor-zoom-in' onClick={toggleModal}>
+                                <iframe
+                                    src={isValidWebsite ? website : "#"}
+                                    frameBorder="0"
+                                    className='w-full cursor-zoom-in rounded-xl h-full bg-white'
+                                    onClick={toggleModal}
+                                />
                             </div>
                         </div>
 
@@ -316,6 +334,25 @@ export default function Component() {
                     </Tabs.Item>
                 </Tabs>
             </div>
+            {
+                isModalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 w-full">
+                        <div className="bg-white rounded-xl p-4 relative w-3/4 h-3/4">
+                            <button
+                                onClick={toggleModal}
+                                className="absolute top-2 right-2 text-xl font-bold"
+                            >
+                                &times;
+                            </button>
+                            <iframe
+                                src={isValidWebsite ? website : "#"}
+                                frameBorder="0"
+                                className='w-full h-full bg-white rounded-xl'
+                            />
+                        </div>
+                    </div>
+                )
+            }
         </div>
 
     );
