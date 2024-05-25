@@ -14,7 +14,7 @@ import { formatTokenPrice } from "@/utils/tokenPrice";
 import { CommuneModules } from '@/utils/validatorsData'
 import styles from './commune-module.module.css';
 import ImageGeneratorComponent from "./imageGenerator";
-// import RegisterComponent from "./registerModule";
+import RegisterComponent from "./registerModule";
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
 
@@ -289,11 +289,11 @@ const CommuneModulePage = () => {
                     </div>
                     <div ref={ref} />
                 </section>
-                {/* {isShowRegisterModule &&
+                {isShowRegisterModule &&
                     <Modal onCancel={handleCloseModal} open={isShowRegisterModule} footer={null} title='RegisterModule' className="bg-black">
                         <RegisterComponent />
                     </Modal>
-                } */}
+                }
             </div>
         </>
     );
