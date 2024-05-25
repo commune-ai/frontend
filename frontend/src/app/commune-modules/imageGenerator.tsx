@@ -15,6 +15,7 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module }) => {
     const [error, setError] = useState<string | null>(null);
     const [description, setDescription] = useState<string | null>(module?.description || null);
     const [prediction, setPrediction] = useState<Prediction | null>(null);
+    const [isHovered, setIsHovered] = useState<boolean>(false);
 
     const fetchDescription = useCallback(async (name: string) => {
         try {
@@ -87,14 +88,22 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module }) => {
         : imageUrl;
 
     return (
-        <div className={`h-[340px] w-[340px] ${finalImageUrl ? '' : 'bg-slate-200'} flex justify-center items-center rounded-3xl mx-auto`}
+        <div className={`h-[380px] w-[420px] ${finalImageUrl ? '' : 'bg-[#0a0e11]'} flex justify-center items-center rounded-3xl mx-auto`}
             style={{
                 backgroundImage: finalImageUrl ? `url(${finalImageUrl})` : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
-            {!finalImageUrl && module?.name}
+            {
+                !finalImageUrl &&
+                <span className='flex items-center justify-center p-2 text-center'>
+                    {(!finalImageUrl && !isHovered) ? module?.name : module?.description}
+                </span>
+            }
+
         </div>
     );
 };

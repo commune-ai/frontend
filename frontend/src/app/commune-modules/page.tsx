@@ -4,15 +4,17 @@ import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Badge, Card, Popover, Skeleton } from "antd";
+import { Badge, Button, Card, Modal, Popover, Skeleton } from "antd";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { useInView } from 'react-intersection-observer';
+import RegisterModal from "@/components/RegisterModal";
 import { ValidatorType } from "@/types";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import { CommuneModules } from '@/utils/validatorsData'
 import styles from './commune-module.module.css';
 import ImageGeneratorComponent from "./imageGenerator";
+// import RegisterComponent from "./registerModule";
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
 
@@ -30,6 +32,8 @@ const CommuneModulePage = () => {
     const [subnetId, setSubnetId] = React.useState<string>("0")
     const { data, isLoading: isLoadingGetSubnetsQuery } = statsApi.useGetSubnetsQuery()
     const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
+
+    const [isShowRegisterModule, setIsShowRegisterModule] = useState<boolean>(false)
 
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
@@ -114,12 +118,20 @@ const CommuneModulePage = () => {
         }
     }, [inView]);
 
+    const handleShowRegisterModule = () => {
+        setIsShowRegisterModule(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsShowRegisterModule(false)
+    }
+
     return (
         <>
-            <div className="bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]">
+            <div className="bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] min-h-[100vh]">
                 <section className="my-4 mx-auto w-[95%] bg-[url(/img/dots-bg.svg)]">
                     <div className="flex justify-center mb-4 items-center flex-col sm:flex-col">
-                        <div className="flex gap-x-5 py-3">
+                        <div className="flex gap-x-5 py-3 items-center">
                             {options.map((opt) => (
                                 <button
                                     key={opt.value}
@@ -132,6 +144,11 @@ const CommuneModulePage = () => {
                                     {opt.label}
                                 </button>
                             ))}{" "}
+
+                            <div className="register-button" onClick={handleShowRegisterModule}>
+                                <Button>Register</Button>
+                            </div>
+
                         </div>
                         {/* {
                             !isLoadingGetSubnetsQuery && (
@@ -164,6 +181,7 @@ const CommuneModulePage = () => {
                                 </div>
                             )
                         } */}
+
                         <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                             <input
                                 type="text"
@@ -221,49 +239,47 @@ const CommuneModulePage = () => {
                                         </span>
                                     }
                                     style={{
-                                        width: 500,
+                                        width: 570,
                                         marginBottom: 20,
                                         boxShadow: '3px 3px 3px 3px #f9d7d2',
                                         fontFamily: 'VCR_OSD_MONO'
                                     }}
                                     headStyle={{ background: '#f9d7d2', borderRadius: '19px 19px 0 0', height: '65px' }}
                                     onClick={() => handleShowModulePage(module.subnet_id, module.key)}
-                                    className="bg-white dark:bg-black flex flex-col mx-5 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[500px]"
+                                    className="bg-white dark:bg-black flex flex-col mx-2 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[550px]"
                                 >
                                     <ImageGeneratorComponent module={module} />
 
-                                    <div className="flex mt-2 items-center justify-center">
-                                        <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                            <Popover content={<span>{numberWithCommas(formatTokenPrice({ amount: module.stake }))}</span>}>
-                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
-                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                                        stake
-                                                    </span>
-                                                </Badge>
-                                            </Popover>
-                                            {/* {numberWithCommas(formatTokenPrice({ amount: module.stake }))} */}
+                                    <div className="flex mt-2 items-center justify-evenly">
+
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start mr-2 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
+                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>inc:</span>
+                                            {module.incentive}
+
+                                            {/* <Popover content={<span> {module.incentive}</span>}>
+                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
+                                                    inc
+                                                </span>
+                                            </Popover> */}
                                         </div>
-                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                            {/* <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>incentive</span> */}
-                                            <Popover content={<span> {module.incentive}</span>}>
-                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
-                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                                        incentive
-                                                    </span>
-                                                </Badge>
-                                            </Popover>
-                                            {/* {module.incentive} */}
+                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start mr-2 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
+                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>div:</span>
+                                            {module.dividends}
+                                            {/* <Popover content={<span> {module.dividends}</span>}>
+                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
+                                                    div
+                                                </span>
+                                            </Popover> */}
                                         </div>
-                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                            {/* <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>dividends</span> */}
-                                            {/* {module.dividends} */}
-                                            <Popover content={<span> {module.dividends}</span>}>
-                                                <Badge count={<QuestionCircleOutlined className="dark: text-white" />} className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`}>
-                                                    <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                                        dividends
-                                                    </span>
-                                                </Badge>
+                                        <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
+                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>stake:</span>
+                                            {numberWithCommas(formatTokenPrice({ amount: module.stake }))}
+                                            {/* <Popover content={<span>{numberWithCommas(formatTokenPrice({ amount: module.stake }))}</span>}>
+                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
+                                                    stake
+                                                </span>
                                             </Popover>
+                                            {numberWithCommas(formatTokenPrice({ amount: module.stake }))} */}
                                         </div>
                                     </div>
 
@@ -273,6 +289,11 @@ const CommuneModulePage = () => {
                     </div>
                     <div ref={ref} />
                 </section>
+                {/* {isShowRegisterModule &&
+                    <Modal onCancel={handleCloseModal} open={isShowRegisterModule} footer={null} title='RegisterModule' className="bg-black">
+                        <RegisterComponent />
+                    </Modal>
+                } */}
             </div>
         </>
     );
