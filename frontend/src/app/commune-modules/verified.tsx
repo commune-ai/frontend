@@ -1,21 +1,22 @@
 import React from "react"
 import { Tooltip } from "react-tooltip"
 
-function Verified({ isGold = false }: { isGold?: boolean }) {
+function Verified({ isGold = false, isOfComStats = false }: { isGold?: boolean, isOfComStats?: boolean}) {
   return (
     <div
       data-tooltip-id="verified-tooltip"
-      data-tooltip-content={`${isGold ? "ComStats Validator" : "Verified Validator"
-        }`}
+      data-tooltip-content={`${
+        isGold ? `${isOfComStats ? "Comstats": "Golden"} Bagde` : "Verified Badge"
+      }`}
       data-tooltip-place="top"
-      className="z-50 flex items-center justify-center"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className={`w-5 h-5 ${isGold ? "text-[#DAA520]" : "text-blue-500"
-          } cursor-pointer`}
+        className={`w-5 h-5 ${
+          isGold ? "text-[#DAA520]" : "text-blue-500"
+        } cursor-pointer`}
       >
         <path
           fillRule="evenodd"
@@ -23,7 +24,11 @@ function Verified({ isGold = false }: { isGold?: boolean }) {
           clipRule="evenodd"
         />
       </svg>
-      <Tooltip id="verified-tooltip" />
+      <Tooltip
+        id="verified-tooltip"
+        className="z-[999]"
+        data-tooltip-id={Math.random().toString(36).substr(2, 5)}
+      />
     </div>
   )
 }

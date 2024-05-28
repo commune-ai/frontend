@@ -113,7 +113,7 @@ export default function Component() {
     const isValidWebsite = isValidLink(website, "website");
 
     return (
-        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] h-screen'>
+        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] h-[865px]'>
             <div className={`flex flex-col items-center mx-auto p-4 ${styles.fontStyle}`}>
                 <div className="flex flex-col items-center mr-2 justify-center w-full">
                     <div className='flex items-center justify-center'>

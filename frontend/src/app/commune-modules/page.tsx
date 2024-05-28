@@ -3,8 +3,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Badge, Button, Card, Modal, Popover, Skeleton } from "antd";
+import { LinkOutlined } from "@ant-design/icons";
+import { Button, Card, Modal, Popover, Skeleton } from "antd";
+import axios from "axios";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { useInView } from 'react-intersection-observer';
 import RegisterModal from "@/components/RegisterModal";
@@ -24,7 +25,11 @@ enum ValidatorFilterType {
     VALIDATORS,
 }
 
-const ITEMS_PER_PAGE = 10;
+interface Description {
+    name: string;
+    description: string;
+}
+const ITEMS_PER_PAGE = 12;
 
 const CommuneModulePage = () => {
 
@@ -32,6 +37,9 @@ const CommuneModulePage = () => {
     const [subnetId, setSubnetId] = React.useState<string>("0")
     const { data, isLoading: isLoadingGetSubnetsQuery } = statsApi.useGetSubnetsQuery()
     const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
+    const [allDescriptions, setAllDescriptions] = useState<Description[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [allDataImage, setAllDataImage] = useState<any[]>([]); // Adjust type based on your data structure
 
     const [isShowRegisterModule, setIsShowRegisterModule] = useState<boolean>(false)
 
@@ -67,6 +75,48 @@ const CommuneModulePage = () => {
     const verifiedValidators = subnetValidators?.filter(
         (validator) => validator.isVerified,
     )
+
+    // Function to fetch all descriptions
+    const fetchAllDescriptions = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/get-all-descriptions');
+            if (response.status === 200) {
+                const descriptions: Description[] = response.data.map((item: any) => ({
+                    name: item.name,
+                    description: item.description
+                }));
+                setAllDescriptions(descriptions);
+            } else {
+                setError('Failed to fetch descriptions');
+            }
+        } catch (error) {
+            console.error('Error fetching descriptions:', error);
+            setError('Error fetching descriptions');
+        }
+    };
+
+    const fetchallDataImage = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/get-all-data');
+            if (response.status === 200) {
+                setAllDataImage(response.data);
+            } else {
+                setError('Failed to fetch data');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            setError('Error fetching data');
+        }
+    };
+
+    useEffect(() => {
+        fetchallDataImage();
+    }, []);
+
+    // useEffect to fetch descriptions on component mount
+    useEffect(() => {
+        fetchAllDescriptions();
+    }, []);
 
     useEffect(() => {
         if (CommuneModules) {
@@ -198,7 +248,7 @@ const CommuneModulePage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center flex-wrap gap-[4px] mt-5">
+                    <div className=" flex flex-wrap justify-center gap-x-[20px] gap-y-[20px]">
                         {
                             validatorLoading &&
                             new Array(10).fill(0).map((_, index) => (
@@ -231,65 +281,76 @@ const CommuneModulePage = () => {
                             ))}
                         {
                             !validatorLoading && filteredData && filteredData.slice(0, visibleItems).map((module, index) => (
-                                <Card
-                                    key={index} // Ensure unique key
-                                    title={
-                                        <span className={classnames(` dark:bg-[#f9d7d2] text-black text-[28px] retro-font flex items-center justify-center mr-4 h-[57px] dark:text-black ${styles.fontStyle}`)}>
-                                            {module.name}
-                                        </span>
-                                    }
-                                    style={{
-                                        width: 570,
-                                        marginBottom: 20,
-                                        boxShadow: '3px 3px 3px 3px #f9d7d2',
-                                        fontFamily: 'VCR_OSD_MONO'
-                                    }}
-                                    headStyle={{ background: '#f9d7d2', borderRadius: '19px 19px 0 0', height: '65px' }}
-                                    onClick={() => handleShowModulePage(module.subnet_id, module.key)}
-                                    className="bg-white dark:bg-black flex flex-col mx-2 cursor-pointer shadow-xl card-class border-[2px] border-[#f9d7d2] text-[#e56800] rounded-[24px] duration-300 transition-all hover:opacity-75 hover:border-primary h-[550px]"
-                                >
-                                    <ImageGeneratorComponent module={module} />
+                                <div className="border-[1px] border-[#f2f2f2] text-[#f2f2f2] rounded-[20px] w-[400px] bg-[#1f2330]
+                                cursor-pointer duration-300 transition-all hover:opacity-75 hover:border-primary"
+                                    key={index}
+                                    onClick={() => handleShowModulePage(module.subnet_id, module.key)}>
+                                    <div className="relative space-y-2 rounded-lg transition-all duration-150 ease-out overflow-hidden">
 
-                                    <div className="flex mt-2 items-center justify-evenly">
+                                        <ImageGeneratorComponent
+                                            module={module}
+                                            savedDescription={allDescriptions.find(desc => desc.name === module.name)?.description ?? ''}
+                                            savedImageUrl={allDataImage.find(data => data.name === module.name)?.imageUrl ?? ''} />
 
-                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start mr-2 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
-                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>inc:</span>
-                                            {module.incentive}
+                                        <div className="p-5">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex space-x-3 items-center ">
+                                                    <span className="font-large text-white" style={{ fontSize: '24px' }}>{module?.name}</span>
+                                                    {module.isVerified && (
+                                                        <Verified
+                                                            isGold={
+                                                                module.verified_type === "golden"
+                                                            }
+                                                            isOfComStats={
+                                                                module?.expire_at === -1
+                                                            }
+                                                        />
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <p className="mt-2 min-h-[60px] text-xs md:text-[15px] text-white opacity-70 overflow-hidden line-clamp-3">
+                                                {module?.description ? module.description : 'Cooming soon...'}
+                                            </p>
 
-                                            {/* <Popover content={<span> {module.incentive}</span>}>
-                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
-                                                    inc
-                                                </span>
-                                            </Popover> */}
+                                            <div className="flex items-center justify-center">
+                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '22px' }}>
+                                                    <span className={`dark:text-white`}>inc:&nbsp;</span>
+                                                    {/* <span className={`dark:text-white`}>inc:</span> */}
+                                                    {module.incentive}
+
+                                                </div>
+                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '22px' }}>
+                                                    <span className={`dark:text-white`}>div:&nbsp;</span>
+                                                    {module.dividends}
+
+                                                </div>
+                                                <div className={`text-black dark:text-white`} style={{ fontSize: '22px' }}>
+                                                    <span className={`dark:text-white`}>stake:&nbsp;</span>
+                                                    {numberWithCommas(formatTokenPrice({ amount: module.stake }))}
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div className={`text-black retro-font dark:text-white flex items-center justify-start mr-2 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
-                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>div:</span>
-                                            {module.dividends}
-                                            {/* <Popover content={<span> {module.dividends}</span>}>
-                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
-                                                    div
+
+                                        <div className={`absolute top-[12px] right-2 px-4 py-2 rounded-3xl text-xs text-white border flex`} style={{ backgroundColor: module.verified_type === "golden" ? "#13a115" : '#f59042' }}>
+                                            <span className="flex items-center">
+                                                <a onClick={() => handleShowModulePage(module.subnet_id, module.key)}>
+                                                    <LinkOutlined className="hover:animate-bounce" style={{ fontSize: '22px' }} />&nbsp;
+                                                </a>
+                                                <span style={{ fontSize: '14px' }} >
+                                                    {module.verified_type === "golden" ? "Verified App" : 'Verifying'}
                                                 </span>
-                                            </Popover> */}
-                                        </div>
-                                        <div className={`text-black dark:text-white ${styles.fontStyle}`} style={{ fontSize: '27px' }}>
-                                            <span className={`dark:text-[#f9d7d2] ${styles.fontStyle}`}>stake:</span>
-                                            {numberWithCommas(formatTokenPrice({ amount: module.stake }))}
-                                            {/* <Popover content={<span>{numberWithCommas(formatTokenPrice({ amount: module.stake }))}</span>}>
-                                                <span className={`dark:text-[#f9d7d2] mr-3 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
-                                                    stake
-                                                </span>
-                                            </Popover>
-                                            {numberWithCommas(formatTokenPrice({ amount: module.stake }))} */}
+                                            </span>
                                         </div>
                                     </div>
-
-                                </Card>
+                                </div>
                             ))
                         }
                     </div>
                     <div ref={ref} />
                 </section>
-                {isShowRegisterModule &&
+                {
+                    isShowRegisterModule &&
                     <Modal onCancel={handleCloseModal} open={isShowRegisterModule} footer={null} title='RegisterModule' className="bg-black">
                         <RegisterComponent />
                     </Modal>
