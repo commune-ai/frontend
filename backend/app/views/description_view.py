@@ -37,7 +37,7 @@ async def save_description(
     return await create_description(session, request.name, request.description)
 
 
-@router.get("/all-descriptions/")
+@router.get("/get-all-descriptions/")
 async def fetch_all_descriptions(
     session: AsyncSession = Depends(get_session),
 ) -> List[str]:

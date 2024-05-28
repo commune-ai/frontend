@@ -1,19 +1,14 @@
 "use client"
 import React, { useEffect, useMemo, useState } from "react";
-import classnames from "classnames";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LinkOutlined } from "@ant-design/icons";
-import { Button, Card, Modal, Popover, Skeleton } from "antd";
+import { Button, Modal, Skeleton } from "antd";
 import axios from "axios";
-import { FaRegCircleCheck } from "react-icons/fa6";
 import { useInView } from 'react-intersection-observer';
-import RegisterModal from "@/components/RegisterModal";
 import { ValidatorType } from "@/types";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import { CommuneModules } from '@/utils/validatorsData'
-import styles from './commune-module.module.css';
 import ImageGeneratorComponent from "./imageGenerator";
 import RegisterComponent from "./registerModule";
 import Verified from "./verified";
@@ -79,7 +74,7 @@ const CommuneModulePage = () => {
     // Function to fetch all descriptions
     const fetchAllDescriptions = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/get-all-descriptions');
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/get-all-descriptions`);
             if (response.status === 200) {
                 const descriptions: Description[] = response.data.map((item: any) => ({
                     name: item.name,
@@ -97,7 +92,7 @@ const CommuneModulePage = () => {
 
     const fetchallDataImage = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/get-all-data');
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/get-all-data`);
             if (response.status === 200) {
                 setAllDataImage(response.data);
             } else {

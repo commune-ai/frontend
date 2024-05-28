@@ -45,6 +45,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ description });
     } catch (error) {
         console.error('Error generating description:', error);
-        return NextResponse.json({ error: 'Error generating description' }, { status: 500 });
+        return NextResponse.json({ error: `Error generating description${error}` }, { status: 500 });
     }
 }

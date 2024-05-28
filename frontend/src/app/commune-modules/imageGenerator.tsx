@@ -38,7 +38,7 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module, savedDescription, sa
 
     const saveDescription = async (description: string, name: string) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/save-description/', { description, name });
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/save-description/`, { description, name });
             if (response.status !== 200) {
                 setError('Failed to save description');
             }
@@ -105,7 +105,7 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module, savedDescription, sa
     //save imageurl and module name
     const saveDataToBackend = async (moduleName: string, imageUrl: string | null) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/save-data', { moduleName, imageUrl });
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}api/save-data`, { moduleName, imageUrl });
             if (response.status !== 200) {
                 setError('Failed to save data to backend');
             }
