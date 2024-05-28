@@ -309,7 +309,11 @@ const CommuneModulePage = () => {
                                                 </div>
                                             </div>
                                             <p className="mt-2 min-h-[60px] text-xs md:text-[15px] text-white opacity-70 overflow-hidden line-clamp-3">
-                                                {module?.description ? module.description : 'Cooming soon...'}
+                                                {
+                                                    module?.description
+                                                        ? module.description
+                                                        : (allDescriptions.find(desc => desc.name === module.name)?.description || 'Coming soon...')
+                                                }
                                             </p>
 
                                             <div className="flex items-center justify-center">
