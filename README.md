@@ -162,3 +162,52 @@ docker run -p 3000:3000 commune-frontend.
 
     ```bash
     exit
+    ```
+## What can I do with Commune
+### SignUp 👈
+
+<a href="https://communeaiportal.tech/signup">
+  <img src="./frontend/public/SignUp.PNG" />
+</a>
+
+### SignIn 👈
+
+<a href="https://communeaiportal.tech/signin">
+  <img src="./frontend/public/SignIn.PNG" />
+</a>
+
+### Key Features
+
+<b>Inclusive Design Philosophy:</b> Commune is built to be maximally unopinionated. This means you have the freedom to use Commune alongside your existing projects, integrating seamlessly with the tools you already know and love.
+
+<b>Versatility:</b> Developers can leverage Commune as a versatile set of tools, adapting it to their specific needs and workflows.
+
+<b>Interoperability:</b> Easily incorporate additional tools you find valuable, expanding the capabilities of your projects without friction.
+
+### Join our community
+
+We invite you to join our community of developers who are passionate about creating a more interconnected and efficient developer ecosystem. Together, we can drive innovation and collaboration in ways never before possible.
+
+## With CommuneAI 💻
+
+<a href="https://communeaiportal.tech">
+  <video controls autoplay>
+  <source src="./frontend/public/dashboard.mp4" type="video/mp4">
+  </video>
+</a>
+
+
+## Flexibility 👋
+
+Commune Frontend is a flexible framework designed for developers to share, connect, and enhance their tools, promoting collaboration and innovation within the community.
+
+## Modules 🚀
+
+<a href="https://communeaiportal.tech/modules">
+  <img src="./frontend/public/modules.png" />
+</a>
+
+We can register any modules in CommuneAI and use them with Comtensor.
+
+
+

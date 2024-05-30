@@ -13,6 +13,8 @@ import ImageGeneratorComponent from "./imageGenerator";
 import RegisterComponent from "./registerModule";
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/reducers";
 
 enum ValidatorFilterType {
     ALL,
@@ -41,6 +43,16 @@ const CommuneModulePage = () => {
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
     );
+
+    const isLogged = useSelector((state: RootState) => state.authReducer);
+
+    console.log('-------------This is the auth status----------', isLogged);
+
+    useEffect(() => {
+        if (!isLogged) {
+            router.push('/signin')
+        }
+    }, [isLogged])
 
     const [isLoading, setIsLoading] = useState(false);
 

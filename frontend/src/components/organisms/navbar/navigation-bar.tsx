@@ -10,7 +10,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Modal, Popover } from 'antd';
 import { AiFillWallet } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa6';
-import HamburgerModal from '@/components/atoms/Hamburger/hamburger';
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
