@@ -173,7 +173,7 @@ docker run -p 3000:3000 commune-frontend.
 ### SignIn 👈
 
 <a href="https://communeaiportal.tech/signin">
-  <img src="./frontend/public/SignIn.PNG" />
+  <img src="./frontend/public/Signin.PNG" />
 </a>
 
 ### Key Features
@@ -207,7 +207,6 @@ Commune Frontend is a flexible framework designed for developers to share, conne
   <img src="./frontend/public/modules.png" />
 </a>
 
+
 We can register any modules in CommuneAI and use them with Comtensor.
-
-
 
