@@ -2,10 +2,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LinkOutlined } from "@ant-design/icons";
-import { Button, Modal, Skeleton } from "antd";
+import { Modal, Skeleton, ConfigProvider } from "antd";
 import axios from "axios";
 import { useInView } from 'react-intersection-observer';
 import { ValidatorType } from "@/types";
+import Button from "@/utils/button";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { formatTokenPrice } from "@/utils/tokenPrice";
 import { CommuneModules } from '@/utils/validatorsData'
@@ -13,8 +14,7 @@ import ImageGeneratorComponent from "./imageGenerator";
 import RegisterComponent from "./registerModule";
 import Verified from "./verified";
 import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/reducers";
+import './custom-modal.module.css';
 
 enum ValidatorFilterType {
     ALL,
@@ -44,15 +44,15 @@ const CommuneModulePage = () => {
         ValidatorFilterType.ALL
     );
 
-    const isLogged = useSelector((state: RootState) => state.authReducer);
+    // const isLogged = useSelector((state: RootState) => state.authReducer);
 
-    console.log('-------------This is the auth status----------', isLogged);
+    // console.log('-------------this is the -----------', isLogged);
 
-    useEffect(() => {
-        if (!isLogged) {
-            router.push('/signin')
-        }
-    }, [isLogged])
+    // useEffect(() => {
+    //     if (!isLogged) {
+    //         router.push('/signin')
+    //     }
+    // }, [isLogged])
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -202,10 +202,13 @@ const CommuneModulePage = () => {
                                 </button>
                             ))}{" "}
 
-                            <div className="register-button" onClick={handleShowRegisterModule}>
-                                <Button>Register</Button>
-                            </div>
-
+                            {/* <Button onClick={handleShowRegisterModule} className="text-[22px] px-6 border rounded-3xl dark:bg-[#f9d7d2] dark:text-black">Register</Button> */}
+                            <button
+                                onClick={handleShowRegisterModule}
+                                className={"py-1 text-[20px] px-4 flex items-center justify-center border border-[#f9d7d2] rounded-3xl dark:bg-[#f9d7d2] dark: text-black hover:dark:bg-[#faebe8]"}
+                            >
+                                Register
+                            </button>
                         </div>
                         {/* {
                             !isLoadingGetSubnetsQuery && (
@@ -302,20 +305,22 @@ const CommuneModulePage = () => {
                                         <div className="p-5">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex space-x-3 items-center ">
-                                                    <span className="font-large text-white" style={{ fontSize: '24px' }}>{module?.name}</span>
-                                                    {module.isVerified && (
-                                                        <Verified
-                                                            isGold={
-                                                                module.verified_type === "golden"
-                                                            }
-                                                            isOfComStats={
-                                                                module?.expire_at === -1
-                                                            }
-                                                        />
-                                                    )}
+                                                    <span className="font-large text-white" style={{ fontSize: '32px' }}>{module?.name}</span>
+                                                    {
+                                                        module.isVerified && (
+                                                            <Verified
+                                                                isGold={
+                                                                    module.verified_type === "golden"
+                                                                }
+                                                                isOfComStats={
+                                                                    module?.expire_at === -1
+                                                                }
+                                                            />
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
-                                            <p className="mt-2 min-h-[60px] text-xs md:text-[15px] text-white opacity-70 overflow-hidden line-clamp-3">
+                                            <p className="mt-2 min-h-[60px] text-xs md:text-[16px] text-white opacity-70 overflow-hidden" style={{ lineHeight: 'normal' }}>
                                                 {
                                                     module?.description
                                                         ? module.description
@@ -324,18 +329,18 @@ const CommuneModulePage = () => {
                                             </p>
 
                                             <div className="flex items-center justify-center">
-                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '22px' }}>
+                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '24px' }}>
                                                     <span className={`dark:text-white`}>inc:&nbsp;</span>
                                                     {/* <span className={`dark:text-white`}>inc:</span> */}
                                                     {module.incentive}
 
                                                 </div>
-                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '22px' }}>
+                                                <div className={`text-black dark:text-white flex items-center mr-2`} style={{ fontSize: '24px' }}>
                                                     <span className={`dark:text-white`}>div:&nbsp;</span>
                                                     {module.dividends}
 
                                                 </div>
-                                                <div className={`text-black dark:text-white`} style={{ fontSize: '22px' }}>
+                                                <div className={`text-black dark:text-white`} style={{ fontSize: '24px' }}>
                                                     <span className={`dark:text-white`}>stake:&nbsp;</span>
                                                     {numberWithCommas(formatTokenPrice({ amount: module.stake }))}
                                                 </div>
@@ -362,11 +367,27 @@ const CommuneModulePage = () => {
                 </section>
                 {
                     isShowRegisterModule &&
-                    <Modal onCancel={handleCloseModal} open={isShowRegisterModule} footer={null} title='RegisterModule' className="bg-black">
-                        <RegisterComponent />
-                    </Modal>
+                    <ConfigProvider
+                        theme={{
+                            components: {
+                                Button: {
+                                    colorPrimary: '#00b96b',
+                                    algorithm: true, // Enable algorithm
+                                },
+                                Input: {
+                                    // colorText:'red',
+                                    algorithm: true, // Enable algorithm
+                                },
+                            },
+                        }}
+                    >
+                        <Modal onCancel={handleCloseModal} open={isShowRegisterModule} footer={null} title='RegisterModule' className="custom-modal">
+
+                            <RegisterComponent />
+                        </Modal>
+                    </ConfigProvider>
                 }
-            </div>
+            </div >
         </>
     );
 };

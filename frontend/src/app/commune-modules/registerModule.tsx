@@ -35,6 +35,7 @@ const RegisterForm: React.FC = () => {
             initialValues={{
                 image: '/img/frontpage/comai-logo.png',
                 verified: false,
+                registerKey: '5H9YPS9FJX6nbFXkm9zVhoySJBX9RRfWF36abisNz5Ps9YaX',
                 tags: [],
             }}
         >
@@ -42,6 +43,7 @@ const RegisterForm: React.FC = () => {
                 label="Name"
                 name="name"
                 rules={[{ required: true, message: 'Please input the name!' }]}
+                className='rounded-lg'
             >
                 <Input />
             </Form.Item>
@@ -49,6 +51,7 @@ const RegisterForm: React.FC = () => {
             <Form.Item
                 label="URL"
                 name="url"
+                className='rounded-lg'
                 rules={[{ required: true, message: 'Please input the URL!' }]}
             >
                 <Input />
@@ -57,6 +60,7 @@ const RegisterForm: React.FC = () => {
             <Form.Item
                 label="Image"
                 name="image"
+                className='rounded-lg'
                 rules={[{ required: true, message: 'Please input the image URL!' }]}
             >
                 <Input />
@@ -89,7 +93,7 @@ const RegisterForm: React.FC = () => {
                 label="Tags"
                 name="tags"
             >
-                <Select mode="multiple" placeholder="Select tags">
+                <Select mode="multiple" placeholder="Select tags" className='dark:bg-black' style={{ color: 'black' }}>
                     <Option value="stats">stats</Option>
                     <Option value="staking">staking</Option>
                     <Option value="wallet">wallet</Option>

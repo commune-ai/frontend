@@ -28,3 +28,7 @@
 .ant-card-head .ant-card {
     background-color: #f9d7d2 !important;
 }
+
+.ant-modal-content {
+    background-color: #14313F !important;
+}

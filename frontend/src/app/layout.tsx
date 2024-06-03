@@ -15,6 +15,7 @@ import {
   ledgerWallet,
   metaMaskWallet
 } from '@rainbow-me/rainbowkit/wallets';
+import { ConfigProvider} from 'antd';
 import localFont from 'next/font/local'
 import { Provider } from "react-redux";
 import { ToastContainer } from 'react-toastify';
@@ -43,6 +44,7 @@ import './globals.css';
 import 'reactflow/dist/style.css';
 import { store } from "@/store/index"
 import { projectId } from "../config"
+
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
@@ -123,8 +125,33 @@ export default function RootLayout({
                     <ThemeProvider>
                       <ColorProvider>
                         {/* <main className={myFont.className}> */}
+                        <ConfigProvider
+                            theme={{
+                              token: {
+                                colorBgElevated: "#111838",
+                                colorText:"white"
+
+                              },
+                              
+                              components: {
+                                Input: {
+                                  colorPrimary: '#eb2f96',
+                                  colorBgElevated:'#eeeeee',
+                                  colorBgContainer:'#eeeeee',
+                                  colorBgBase:'#eeeeee',
+                                  colorBgLayout:'#eeeeee',
+                                },
+                                Button:{
+                                  colorText:'#111838'
+                                }
+                              },
+                              
+                              
+                            }}
+                          >
                         <NavigationBar />
                         {children}
+                        </ConfigProvider>
                       </ColorProvider>
                       {/* </main> */}
                       {/* <Footer /> */}
