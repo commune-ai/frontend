@@ -1,11 +1,9 @@
 
 'use client'
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { Tabs as AntdTabs } from 'antd';
 import { Tabs } from "flowbite-react";
-import { FaDiscord, FaXTwitter } from 'react-icons/fa6';
-import { TbWorld } from "react-icons/tb"
 import { useGetValidatorsByIdQuery } from '@/app/api/staking/modulelist';
 import { modulesList } from "@/services/modules-service";
 import { CommuneModules } from '@/utils/validatorsData';
@@ -34,6 +32,10 @@ export default function Component() {
 
     const params = useParams()
 
+    const searchParams = useSearchParams()
+
+    const imageUrl = searchParams.get('imageurl');
+
     const _validatorData = CommuneModules.find((module) => module.key === params.id)
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,6 +50,8 @@ export default function Component() {
                 skip: !params.id,
             },
         )
+
+    console.log('----------------------------this is an Image Url-----------', imageUrl);
 
     const [isValidImage, setIsValidImage] = useState(false);
 
@@ -112,66 +116,71 @@ export default function Component() {
     const website = _validatorData?.website || detailInfo.find(each => each.key === _validatorData?.key)?.website || "";
     const isValidWebsite = isValidLink(website, "website");
 
+
     return (
-        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] h-[865px]'>
-            <div className={`flex flex-col items-center mx-auto p-4 ${styles.fontStyle}`}>
-                <div className="flex flex-col items-center mr-2 justify-center w-full">
-                    <div className='flex items-center justify-center'>
-                        {
-                            _validatorData?.name ? (
-                                <div className="flex items-center justify-start">
-                                    {/* <span className={`text-[#c06d60] mr-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>name:</span> */}
-                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '50px' }}>
-                                        {_validatorData?.name}
-                                    </span>
-                                </div>
-                            )
-                                :
-                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Name</span>
-
-                        }
+        <div className='bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] h-screen'>
+            <div className={`flex flex-col items-center p-4 w-full ${styles.fontStyle}`}>
+                <div className='flex items-center w-full justify-evenly'>
+                    <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl`}
+                        style={{
+                            backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${_validatorData?.image})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
+                    >
+                        {!isValidImage && _validatorData?.name}
                     </div>
+                    <div className='flex flex-col ml-4'>
+                        <div className='flex items-center justify-center'>
+                            {
+                                _validatorData?.name ? (
+                                    <div className="flex items-center justify-center">
+                                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '90px' }}>
+                                            {_validatorData?.name}
+                                        </span>
+                                    </div>
+                                )
+                                    :
+                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '36px' }}>No Name</span>
 
-                    <div className='flex items-center justify-center'>
-                        {
-                            _validatorData?.address ? (
-                                <div className="flex items-center justify-start">
-                                    <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>address:</span>
-                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                        {_validatorData?.address}
-                                    </span>
-                                </div>
-                            )
-                                :
-                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>No Address</span>
-                        }
-
-                        <div className="flex items-center justify-start">
-                            <span className={`text-[#c06d60] mr-2 ml-2 ${styles.fontStyle}`} style={{ fontSize: '32px' }}>key:</span>
-                            <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '32px' }}>
-                                {_validatorData?.key}
-                            </span>
+                            }
                         </div>
+
+                        <div className='flex flex-col items-center justify-center'>
+                            {
+                                _validatorData?.address ? (
+                                    <div className="flex items-center justify-start">
+                                        <span className={`text-[#c06d60] ${styles.fontStyle}`} style={{ fontSize: '38px' }}>address:</span>
+                                        <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '38px' }}>
+                                            {_validatorData?.address}
+                                        </span>
+                                    </div>
+                                )
+                                    :
+                                    <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '38px' }}>No Address</span>
+                            }
+
+                            <div className="flex items-center justify-start mt-4">
+                                <span className={`text-[#c06d60] ${styles.fontStyle}`} style={{ fontSize: '38px' }}>key:</span>
+                                <span className={`dark:text-white ${styles.fontStyle}`} style={{ fontSize: '38px' }}>
+                                    {_validatorData?.key}
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
-                <Tabs aria-label="Default tabs" style="default" className="mt-2 w-full">
-                    <Tabs.Item active key="item-1" title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white ${styles.fontStyle}`}>
-                        <div className='flex'>
-                            <div className='flex flex-col w-1/2'>
-                                <div className={`h-64 w-[256px] ${isValidImage ? '' : "bg-slate-200"} flex justify-center items-center rounded-3xl mx-auto`}
-                                    style={{
-                                        backgroundImage: `url(${process.env.NEXT_PUBLIC_ENDPOINT}/${_validatorData?.image})`,
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                    }}
-                                >
-                                    {!isValidImage && _validatorData?.name}
-                                </div>
+
+                <Tabs aria-label="Default tabs" style="default" className="w-full h-full">
+                    <Tabs.Item active key="item-1" title={<span className={`${styles.fontStyle} text-[34px] cursor-pointer`}>App</span>} className={`dark:text-white flex items-center ${styles.fontStyle}`}>
+                        <div className='flex w-full items-center h-full' style={{ height: 'calc(100vh - 380px)' }}>
+                            {/* <div className='flex flex-col w-1/2'>
+                                
                                 <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '40px' }}>
                                     {_validatorData?.name ?? detailInfo.find(each => each.key === _validatorData?.key)?.name}
                                 </p>
-                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '30px' }}>
+                                <p className="text-xl mt-6 text-center font-bold dark:text-white" style={{ fontSize: '26px' }}>
                                     {_validatorData?.address}
                                 </p>
                                 <p className="text-sm mt-6 text-center dark:text-white" style={{ fontSize: '28px', lineHeight: '35px' }}>
@@ -207,7 +216,15 @@ export default function Component() {
                                     className='w-full cursor-zoom-in rounded-xl h-full bg-white'
                                     onClick={toggleModal}
                                 />
+                            </div> */}
+                            <div className=' flex items-center justify-center w-full h-full cursor-zoom-in' onClick={toggleModal}>
+                                <iframe
+                                    src={isValidWebsite ? website : "#"}
+                                    frameBorder="0"
+                                    className='w-full cursor-zoom-in rounded-xl h-full bg-white'
+                                />
                             </div>
+
                         </div>
 
                     </Tabs.Item>
@@ -285,7 +302,7 @@ export default function Component() {
                                 <span className={`dark:text-[#c06d60] mr-2 mt-2 ${styles.fontStyle}`} style={{ fontSize: '28px' }}>
                                     Schema:
                                 </span>
-                                <AntdTabs className="w-full h-[480px]">
+                                <AntdTabs className="w-full h-[450px]">
                                     {functions?.map((func, index) => {
                                         if (!schema) {
                                             return null;
@@ -295,11 +312,11 @@ export default function Component() {
                                             return null;
                                         }
                                         return (
-                                            <TabPane key={index} tab={<span className={`text-[24px] h-full cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '30px' }}>{func}</span>}>
+                                            <TabPane key={index} tab={<span className={`text-[22px] h-full cursor-pointer dark:text-white ${styles.fontStyle}`} style={{ fontSize: '26px' }}>{func}</span>}>
                                                 <div key={index} className="flex flex-col">
                                                     <div className="function-details ml-1">
                                                         <AntdTabs defaultActiveKey="1">
-                                                            <TabPane tab={<span className={`text-[24px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Input</span>} key="1">
+                                                            <TabPane tab={<span className={`text-[22px] cursor-pointer dark:text-white ${styles.fontStyle}`}>Input</span>} key="1">
                                                                 {schema && schema[func as keyof typeof schema]?.input && (
                                                                     <div className="flex flex-col">
                                                                         <ul className="flex flex-col justify-start">

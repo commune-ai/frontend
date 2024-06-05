@@ -124,7 +124,7 @@ export default function NavigationBar() {
 															className={classNames(classes.link, 'flex text-white dark:text-[#32CD32] dark:hover:text-[#6bcd32] p-0 lg:pl-4')}
 															aria-current={item.current ? 'page' : undefined}
 														>
-															<Image src={item.icon} alt='communityimage' width={37} height={30} className='ml-3 mr-1' />
+															<Image src={item.icon} alt='communityimage' width={40} height={30} className='ml-3 mr-1' />
 															<span className={`flex items-center justify-center ${styles.fontStyle}`}>
 																{item.name}
 															</span>

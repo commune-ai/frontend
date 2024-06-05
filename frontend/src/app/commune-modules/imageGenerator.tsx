@@ -52,7 +52,7 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module, savedDescription, sa
         debounce(async (module: ValidatorType, description: string) => {
             if (module && !module.image && description) {
                 try {
-                    const response = await fetch('/api/predictions', {
+                    const response = await fetch('/api/stable-diffusion', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -60,28 +60,33 @@ const ImageGeneratorComponent: React.FC<Props> = ({ module, savedDescription, sa
                         body: JSON.stringify({ prompt: description }),
                     });
 
-                    let prediction = await response.json();
+                    const prediction = await response.json();
                     if (response.status !== 201) {
                         setError(prediction.error ?? 'An error occurred');
                         return;
                     }
 
-                    while (prediction.status !== 'succeeded' && prediction.status !== 'failed') {
-                        await sleep(500);
-                        const response = await fetch('/api/predictions/' + prediction.id);
-                        prediction = await response.json();
-                        if (response.status !== 200) {
-                            setError(prediction.error ?? 'An error occurred');
-                            return;
-                        }
-                        setPrediction(prediction);
-                    }
+                    setImageUrl(prediction.output[prediction.output.length - 1]);
+                    console.log('------------This is the stable Image generation-----------', prediction.output[prediction.output.length - 1]);
 
-                    if (prediction.status === 'succeeded' && prediction.output) {
-                        setImageUrl(prediction.output[prediction.output.length - 1]);
-                        // Save to backend
-                        saveDataToBackend(module.name, imageUrl);
-                    }
+                    saveDataToBackend(module.name, prediction.output[prediction.output.length - 1]);
+
+                    // while (prediction.status !== 'succeeded' && prediction.status !== 'failed') {
+                    //     await sleep(500);
+                    //     const response = await fetch('/api/predictions/' + prediction.id);
+                    //     prediction = await response.json();
+                    //     if (response.status !== 200) {
+                    //         setError(prediction.error ?? 'An error occurred');
+                    //         return;
+                    //     }
+                    //     setPrediction(prediction);
+                    // }
+
+                    // if (prediction.status === 'succeeded' && prediction.output) {
+                    //     setImageUrl(prediction.output[prediction.output.length - 1]);
+                    //     // Save to backend
+                    //     saveDataToBackend(module.name, imageUrl);
+                    // }
 
                 } catch (error) {
                     console.error('Error generating prediction:', error);

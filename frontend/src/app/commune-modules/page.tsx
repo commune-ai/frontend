@@ -65,9 +65,6 @@ const CommuneModulePage = () => {
     const [searchString, setSearchString] = useState('');
     const [filteredData, setFilteredData] = useState<ValidatorType[]>(CommuneModules);
 
-    const handleShowModulePage = (subnet_id: number, key: string) => {
-        router.push(`/module-page/${subnet_id}/${key}`);
-    };
 
     const {
         data: subnetValidators,
@@ -183,6 +180,18 @@ const CommuneModulePage = () => {
         setIsShowRegisterModule(false)
     }
 
+    const handleShowModulePage = (module: any) => {
+
+        const Imageurl = allDataImage.find(data => data.moduleName === name)?.imageUrl ?? '';
+
+        const finalImageUrl = module?.image
+            ? `${process.env.NEXT_PUBLIC_ENDPOINT}/${module.image}`
+            : Imageurl;
+
+        router.push(`/module-page/${module.subnet_id}/${module.key}?imageurl=${finalImageUrl}`);
+    };
+
+
     return (
         <>
             <div className="bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)] min-h-[100vh]">
@@ -294,13 +303,13 @@ const CommuneModulePage = () => {
                                 <div className="border-[1px] border-[#f2f2f2] text-[#f2f2f2] rounded-[20px] w-[400px] bg-[#1f2330]
                                 cursor-pointer duration-300 transition-all hover:opacity-75 hover:border-primary"
                                     key={index}
-                                    onClick={() => handleShowModulePage(module.subnet_id, module.key)}>
+                                    onClick={() => handleShowModulePage(module)}>
                                     <div className="relative space-y-2 rounded-lg transition-all duration-150 ease-out overflow-hidden">
 
                                         <ImageGeneratorComponent
                                             module={module}
                                             savedDescription={allDescriptions.find(desc => desc.name === module.name)?.description ?? ''}
-                                            savedImageUrl={allDataImage.find(data => data.name === module.name)?.imageUrl ?? ''} />
+                                            savedImageUrl={allDataImage.find(data => data.moduleName === module.name)?.imageUrl ?? ''} />
 
                                         <div className="p-5">
                                             <div className="flex items-center justify-between">
@@ -350,7 +359,7 @@ const CommuneModulePage = () => {
 
                                         <div className={`absolute top-[12px] right-2 px-4 py-2 rounded-3xl text-xs text-white border flex`} style={{ backgroundColor: module.verified_type === "golden" ? "#13a115" : '#f59042' }}>
                                             <span className="flex items-center">
-                                                <a onClick={() => handleShowModulePage(module.subnet_id, module.key)}>
+                                                <a onClick={() => handleShowModulePage(module)}>
                                                     <LinkOutlined className="hover:animate-bounce" style={{ fontSize: '22px' }} />&nbsp;
                                                 </a>
                                                 <span style={{ fontSize: '14px' }} >
