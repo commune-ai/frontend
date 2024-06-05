@@ -190,11 +190,9 @@ We invite you to join our community of developers who are passionate about creat
 
 ## With CommuneAI 💻
 
-<a href="https://communeaiportal.tech">
-  <video controls autoplay>
-  <source src="./frontend/public/dashboard.mp4" type="video/mp4">
-  </video>
-</a>
+
+https://github.com/Tunki1201/commune-frontend/assets/135999216/1bb09a8b-9334-4e89-bc38-51dc13cab50e
+
 
 
 ## Flexibility 👋
