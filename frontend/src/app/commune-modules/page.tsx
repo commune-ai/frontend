@@ -13,7 +13,7 @@ import { CommuneModules } from '@/utils/validatorsData'
 import ImageGeneratorComponent from "./imageGenerator";
 import RegisterComponent from "./registerModule";
 import Verified from "./verified";
-import { statsApi, useGetValidatorsQuery } from "../api/staking/modulelist";
+import { statsApi } from "../api/staking/modulelist";
 import './custom-modal.module.css';
 
 enum ValidatorFilterType {
@@ -32,7 +32,6 @@ const CommuneModulePage = () => {
 
     const router = useRouter();
     const [subnetId, setSubnetId] = React.useState<string>("0")
-    const { data, isLoading: isLoadingGetSubnetsQuery } = statsApi.useGetSubnetsQuery()
     const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
     const [allDescriptions, setAllDescriptions] = useState<Description[]>([]);
     const [error, setError] = useState<string | null>(null);
@@ -43,16 +42,6 @@ const CommuneModulePage = () => {
     const [validatorFilter, setValidatorFilter] = useState<ValidatorFilterType>(
         ValidatorFilterType.ALL
     );
-
-    // const isLogged = useSelector((state: RootState) => state.authReducer);
-
-    // console.log('-------------this is the -----------', isLogged);
-
-    // useEffect(() => {
-    //     if (!isLogged) {
-    //         router.push('/signin')
-    //     }
-    // }, [isLogged])
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -211,7 +200,6 @@ const CommuneModulePage = () => {
                                 </button>
                             ))}{" "}
 
-                            {/* <Button onClick={handleShowRegisterModule} className="text-[22px] px-6 border rounded-3xl dark:bg-[#f9d7d2] dark:text-black">Register</Button> */}
                             <button
                                 onClick={handleShowRegisterModule}
                                 className={"py-1 text-[20px] px-4 flex items-center justify-center border border-[#f9d7d2] rounded-3xl dark:bg-[#f9d7d2] dark: text-black hover:dark:bg-[#faebe8]"}
@@ -219,37 +207,6 @@ const CommuneModulePage = () => {
                                 Register
                             </button>
                         </div>
-                        {/* {
-                            !isLoadingGetSubnetsQuery && (
-                                <div className="py-3 flex flex-wrap gap-2 items-center">
-                                    {data?.map((item) => (
-                                        <button
-                                            className={`border px-5 py-1 dark: text-white w-fit flex items-center justify-center rounded-3xl gap-x-2 ${item.subnet_id === Number(subnetId)
-                                                ? " bg-[#f9d7d2] text-dark"
-                                                : "border-gray-300"
-                                                }`}
-                                            key={item.subnet_id}
-                                            onClick={() => handleSubnetChange(String(item.subnet_id))}
-                                        >
-                                            {item.subnet_id === Number(subnetId) && <FaRegCircleCheck />}{" "}
-                                            {item.name || item.subnet_id}
-                                        </button>
-                                    ))}
-                                </div>
-                            )
-                        }
-                        {
-                            isLoadingGetSubnetsQuery && (
-                                <div className="flex flex-wrap gap-2 items-center w-full py-10">
-                                    {new Array(30).fill(0).map((_, index) => (
-                                        <Skeleton
-                                            key={index}
-                                            className=" !w-[100px] h-[30px] rounded-3xl"
-                                        />
-                                    ))}
-                                </div>
-                            )
-                        } */}
 
                         <div className="relative flex items-center flex-1 w-full mt-4 mb-2">
                             <input

@@ -17,9 +17,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ onChange }) => {
     };
 
     return (
-        <div>
-            <SketchPicker color={selectedColor} onChange={handleChange} />
-        </div>
+        <SketchPicker color={selectedColor} onChange={handleChange} />
     );
 };
 

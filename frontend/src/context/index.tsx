@@ -202,14 +202,12 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
         transferStake,
       }}
     >
-      {/* <ThemeProvider> */}
       <WalletModal
         open={openModal}
         setOpen={setOpenModal}
         wallets={accounts}
         handleWalletSelections={handleWalletSelections}
       />
-      {/* </ThemeProvider> */}
       {children}
     </PolkadotContext.Provider>
   )

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { Fade, Bounce } from 'react-awesome-reveal';
 import { InView } from "react-intersection-observer";
-import HomepageHeader from '@/components/templates/homepage-header';
+import HomepageHeader from '@/components/homepage-header';
 import WelcomeSection from '@/components/templates/welcome/welcome';
 import classes from "./home.module.css";
 
@@ -52,7 +52,6 @@ export default function Home() {
   return (
     <InView onChange={(inView) => setShow(inView)} className={classNames(classes.main, "flex flex-col relative bg-[url(/img/dots-bg.svg)] dark:bg-[url(/img/dot-bg-dark.svg)]")}>
       <HomepageHeader />
-      {/* <CarouselComponent /> */}
       <WelcomeSection />
       <SectionWrapper
         imageUrl="/gif/cubes/commune-single-block_blue.webp"

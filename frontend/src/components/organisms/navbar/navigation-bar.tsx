@@ -6,14 +6,13 @@ import { useRouter } from "next/navigation";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ApiPromise, WsProvider } from '@polkadot/api';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Modal, Popover } from 'antd';
 import { AiFillWallet } from 'react-icons/ai';
 import { FaSpinner } from 'react-icons/fa6';
 import DiscordIcon from "@/components/atoms/discord-icon";
 import GitHubIcon from "@/components/atoms/github-icon";
 import TwitterIcon from "@/components/atoms/twitter-icon";
-import ThemeToggler from "@/components/templates/theme-toggler";
+import ThemeToggler from '@/components/molecules/theme-toggler/theme-toggler';
 import { usePolkadot } from "@/context"
 import { useColorContext } from '@/context/color-widget-provider';
 import { truncateWalletAddress } from '@/utils';
@@ -44,13 +43,10 @@ const community = [
 export default function NavigationBar() {
 
 	const [isShowConnectWithSubstrateModalOpen, setIsShowConnectWithSubstrateModalOpen] = useState(false)
-	const router = useRouter();
 
 	//polkadot js login
 	const { isInitialized, handleConnect, selectedAccount } = usePolkadot()
 
-	// const [isMetamaskLogedin, setIsMetamaskLogedin] = useState(false)
-	// const [address, setAddress] = useState<string | undefined>('')
 	const handleConnectWithSubstrateModalCancel = () => {
 		setIsShowConnectWithSubstrateModalOpen(false)
 	}
@@ -263,109 +259,6 @@ export default function NavigationBar() {
 																	}
 																</Menu.Item>
 
-																<Menu.Item>
-																	<ConnectButton.Custom>
-																		{({
-																			account,
-																			chain,
-																			openAccountModal,
-																			openChainModal,
-																			openConnectModal,
-																			authenticationStatus,
-																			mounted,
-																		}) => {
-																			const ready = mounted && authenticationStatus !== 'loading';
-																			// setIsMetamaskLogedin(true);
-																			// setAddress(account?.displayName)
-																			const connected =
-																				ready &&
-																				account &&
-																				chain &&
-																				(!authenticationStatus ||
-																					authenticationStatus === 'authenticated');
-																			return (
-																				<div
-																					{...(!ready && {
-																						'aria-hidden': true,
-																						'style': {
-																							opacity: 0,
-																							pointerEvents: 'none',
-																							userSelect: 'none',
-																						},
-																					})}
-																				>
-																					{(() => {
-																						if (!connected) {
-																							return (
-
-																								<Button
-																									size="large"
-																									variant="primary"
-																									className='flex items-center justify-center mt-2 w-full'
-																									onClick={openConnectModal}
-																								>
-																									<AiFillWallet size={18} />
-																									Connect with Metamask
-																								</Button>
-																							);
-																						}
-
-																						if (chain.unsupported) {
-																							return (
-																								<button onClick={openChainModal} type="button" style={{ boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px' }}>
-																									Wrong network
-																								</button>
-																							);
-																						}
-
-																						return (
-																							<div style={{ display: 'flex', gap: 12 }} className='flex items-center flex-col justify-center'>
-																								<button
-																									onClick={openChainModal}
-																									style={{ display: 'flex', alignItems: 'center' }}
-																									type="button"
-																								>
-																									{chain.hasIcon && (
-																										<div
-																											style={{
-																												background: chain.iconBackground,
-																												width: 12,
-																												height: 12,
-																												borderRadius: 999,
-																												overflow: 'hidden',
-																												marginRight: 4,
-																											}}
-																										>
-																											{chain.iconUrl && (
-																												<Image
-																													alt={chain.name ?? 'Chain icon'}
-																													src={chain.iconUrl}
-																													style={{ width: 12, height: 12 }}
-																													width={12}
-																													height={12}
-																												/>
-																											)}
-																										</div>
-																									)}
-																									{chain.name}
-																								</button>
-																								<button type="button" style={{ color: 'darkcyan' }}>
-																									Connected
-																								</button>
-																								<button onClick={openAccountModal} type="button">
-																									{account.displayName}
-																									{account.displayBalance
-																										? ` (${account.displayBalance})`
-																										: ''}
-																								</button>
-																							</div>
-																						);
-																					})()}
-																				</div>
-																			);
-																		}}
-																	</ConnectButton.Custom>
-																</Menu.Item>
 															</Menu.Items>
 														</Transition>
 													</Menu>
