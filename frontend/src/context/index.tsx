@@ -1,14 +1,14 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState } from "react"
 import { ApiPromise, WsProvider } from "@polkadot/api"
-import { NET_ID, PLATFORM_FEE } from "@/constants"
-import { IAddStaking, ITransfer, ITransferStaking } from "@/types"
 import {
   InjectedAccountWithMeta,
   InjectedExtension,
 } from "@polkadot/extension-inject/types"
-import WalletModal from "@/components/atoms/Walletmodal"
 import { errorToast, successToast } from "@/components/atoms/toast"
+import { WalletModal } from "@/components/atoms/utils/walletModal/index"
+import { NET_ID } from "@/constants"
+import { IAddStaking, ITransfer, ITransferStaking } from "@/types"
 
 interface PolkadotApiState {
   web3Accounts: (() => Promise<InjectedAccountWithMeta[]>) | null
@@ -43,7 +43,7 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
   children,
   wsEndpoint,
 }) => {
-  const [api, setApi] = useState<ApiPromise | null>(null)
+  const [api, setApi] = useState<ApiPromise | null>(null);
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const [accounts, setAccounts] = useState<InjectedAccountWithMeta[]>([])
   const [isConnected, setIsConnected] = useState(false)
@@ -108,6 +108,7 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
         signer: injector.signer,
       })
       .then((response) => {
+        console.log('00000000000', response)
         successToast("Transaction Submitted")
         callback?.()
       })
@@ -125,6 +126,7 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
         signer: injector.signer,
       })
       .then((response) => {
+        console.log('00000000000', response)
         successToast("Transaction Submitted")
         callback?.()
       })
@@ -166,6 +168,7 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
         { signer: injector.signer },
         (status) => {
           if (status.isCompleted) {
+            console.log('------------', status.isCompleted)
           }
         },
       )
@@ -182,7 +185,6 @@ export const PolkadotProvider: React.FC<PolkadotProviderProps> = ({
     setIsConnected(true)
     setOpenModal(false)
   }
-  
 
   return (
     <PolkadotContext.Provider

@@ -1,4 +1,5 @@
 export type ValidatorType = {
+    subnet_id: number,
     name: string
     address: string
     emission: number
@@ -7,15 +8,15 @@ export type ValidatorType = {
     regblock: number
     last_update: number
     balance: number
+    weight: number
     stake: number
-    total_validators: number
     total_stakers: number
     delegation_fee: number
     type: string
     key: string
     apy: number
-    isVerified?: boolean
     wallet_staked?: number
+    isVerified?: boolean
 }
 
 export interface InterfacePagination<Data> {
